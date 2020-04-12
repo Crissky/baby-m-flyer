@@ -98,7 +98,7 @@ class GreenM {
         this.context.font = '8px Arial';
         this.context.textAlign = 'start';
         this.context.fillStyle = '#ffffff';
-        this.context.fillText( ("GreenM PosX:         " + this.currentFrame.toFixed(2)), 5 , 10 );
+        this.context.fillText( ("GreenM PosX:         " + this.posX.toFixed(2)), 5 , 10 );
         this.context.fillText( ("GreenM PosY:         " + this.posY.toFixed(2)), 5 , 25 );
         this.context.fillText( ("GreenM SpeedY:     " + this.speedY.toFixed(2)), 5 , 40 );
         this.context.fillText( ("GreenM Gravity:     " + this.gravity.toFixed(2)), 5 , 55 );

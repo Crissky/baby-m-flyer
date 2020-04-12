@@ -104,15 +104,16 @@ class Baby {
         this.context.fillRect(collisionRect.x1, collisionRect.y1, (collisionRect.x2 - collisionRect.x1), (collisionRect.y2 - collisionRect.y1));
         
         this.context.fillStyle = '#000000';
-        this.context.fillRect(0,0,100,50);
+        this.context.fillRect(0,0,110,65);
         this.context.globalAlpha = 1.0;
 
         this.context.font = '8px Arial';
         this.context.textAlign = 'start';
         this.context.fillStyle = '#ffffff';
-        this.context.fillText( ("Flappy PosX:         " + this.posX.toFixed(2)), 5 , 10 );
-        this.context.fillText( ("Flappy PosY:         " + this.posY.toFixed(2)), 5 , 25 );
-        this.context.fillText( ("Flappy SpeedY:     " + this.speedY.toFixed(2)), 5 , 40 );
+        this.context.fillText( ("Baby PosX:         " + this.posX.toFixed(2)), 5 , 10 );
+        this.context.fillText( ("Baby PosY:         " + this.posY.toFixed(2)), 5 , 25 );
+        this.context.fillText( ("Baby SpeedY:     " + this.speedY.toFixed(2)), 5 , 40 );
+        this.context.fillText( ("Baby Gravity:     " + this.gravity.toFixed(2)), 5 , 55 );
         
     }
     updateFrame(ScreenSpeed){

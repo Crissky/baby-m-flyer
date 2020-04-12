@@ -1,4 +1,4 @@
-console.log('[Cris] Flappy Bird');
+console.log('[Cris] Baby M. Flyer');
 
 // VARIABLES
 const sprites = new Image();
