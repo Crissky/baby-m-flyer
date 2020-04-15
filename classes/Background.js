@@ -7,7 +7,7 @@ export class Background {
         this.posX = 0;
         this.posY = (canvas.height - 518 - 70);
         this.time = 0;
-        this.delay = 50;
+        this.delay = 30;
         this.context = context;
         this.sprites = sprites;
         this.canvas = canvas;
@@ -20,8 +20,8 @@ export class Background {
         }
     }
     resetPosX() {
-        if(this.posX < (-this.width)) {
-            this.posX = this.posX + this.width;
+        if(this.posX < -(this.width/2)) {
+            this.posX = this.posX + this.width/2;
             console.log("Background - resetPosX() - PosX:", this.posX);
         }
     }
