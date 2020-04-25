@@ -69,7 +69,7 @@ class Baby {
         this.speedX = 0;
         this.gravity = 0;
     }
-    mDraw() {
+    render() {
         this.updateCurrentDegree();
         this.context.save();
         this.context.translate( (this.posX + (this.width / 2) ), ( this.posY + (this.height / 2) ) );
@@ -100,7 +100,7 @@ class Baby {
     debugRect() {
         this.context.globalAlpha = 0.5;
         this.context.fillStyle = '#0000ff';
-        let collisionRect = this.getArea();
+        let collisionRect = this.getCollisionRect();
         this.context.fillRect(collisionRect.x1, collisionRect.y1, (collisionRect.x2 - collisionRect.x1), (collisionRect.y2 - collisionRect.y1));
         
         this.context.fillStyle = '#000000';
@@ -130,7 +130,7 @@ class Baby {
             this.currentDegree = this.currentDegree + this.incrementDegree;
         }
     }
-    getArea() {
+    getCollisionRect() {
         return {
             x1: ( this.posX + this.collisionToleranceX1 ),
             x2: ( (this.posX + this.width) - this.collisionToleranceX2 ),

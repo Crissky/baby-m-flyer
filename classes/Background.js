@@ -25,7 +25,7 @@ export class Background {
             console.log("Background - resetPosX() - PosX:", this.posX);
         }
     }
-    mDraw() {
+    render() {
         let my_gradient = this.context.createLinearGradient(0, 0, 0, this.canvas.height);
         my_gradient.addColorStop(0, "#03001e");
         my_gradient.addColorStop(0.4, "#c471ed");
@@ -48,7 +48,7 @@ export class Background {
             
         }
     }
-    getArea() {
+    getCollisionRect() {
         return {
             x1: 0,
             x2: this.canvas.width,

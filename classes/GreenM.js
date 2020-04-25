@@ -72,7 +72,7 @@ class GreenM {
         this.speedX = 0;
         this.gravity = 0;
     }
-    mDraw() {
+    render() {
         this.context.drawImage(
             this.sprites,
             this.sourceX[this.currentFrame], this.sourceY[this.currentFrame], // Sprite X, Sprite Y
@@ -88,7 +88,7 @@ class GreenM {
     debugRect() {
         this.context.globalAlpha = 0.5;
         this.context.fillStyle = '#0000ff';
-        let collisionRect = this.getArea();
+        let collisionRect = this.getCollisionRect();
         this.context.fillRect(collisionRect.x1, collisionRect.y1, (collisionRect.x2 - collisionRect.x1), (collisionRect.y2 - collisionRect.y1));
         
         this.context.fillStyle = '#000000';
@@ -112,7 +112,7 @@ class GreenM {
             this.currentFrame = --this.currentFrame
         }
     }
-    getArea() {
+    getCollisionRect() {
         return {
             x1: ( this.posX + this.collisionToleranceX1),
             x2: ( (this.posX + this.collisionWidth[this.currentFrame]) ),

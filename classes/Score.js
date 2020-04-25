@@ -19,7 +19,7 @@ export class Score {
         this.score = 0;
         this.level = 1;
     }
-    mDraw() {
+    render() {
         this.context.font = '900 18px Arial';
         this.context.textAlign = 'end';
         this.context.fillStyle = '#ffffff';
@@ -60,7 +60,7 @@ export class Score {
         this.scoreSound.play();
         this.print();
     }
-    addLevel(xLevel) {
+    addLevel(xLevel, music) {
         xLevel = Math.floor(xLevel)
         if(xLevel > 0) {
             this.level = this.level + xLevel;
@@ -70,8 +70,10 @@ export class Score {
         this.levelSound.play();
         if(this.level % 10 === 0){
             this.greenMSound3.play();
+            music.speedUp(0.25);
         } else if(this.level % 5 === 0){
             this.greenMSound2.play();
+            music.speedUp(0.25);
         } else {
             this.greenMSound1.play();
         }

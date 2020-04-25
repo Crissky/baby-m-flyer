@@ -24,7 +24,7 @@ export class PipeUP {
         this.posX = -100;
         this.posY = 0;
     }
-    mDraw() {
+    render() {
             this.context.drawImage(
             this.sprites,
             this.sourceX, this.sourceY, // Sprite X, Sprite Y
@@ -39,11 +39,11 @@ export class PipeUP {
     debugRect() {
         this.context.globalAlpha = 0.5;
         this.context.fillStyle = '#ff0000';
-        let collisionRect = this.getArea();
+        let collisionRect = this.getCollisionRect();
         this.context.fillRect(collisionRect.x1, collisionRect.y1, (collisionRect.x2 - collisionRect.x1), (collisionRect.y2 - collisionRect.y1));
         this.context.globalAlpha = 1.0;
     }
-    getArea() {
+    getCollisionRect() {
         return {
             x1: (this.posX + this.collisionToleranceX1),
             x2: ((this.posX + this.width) - this.collisionToleranceX2),

@@ -84,10 +84,10 @@ export class DoublePipe {
         this.pipeUPList = new Array();
         this.pipeDOWNList = new Array();
     }
-    mDraw() {
+    render() {
         for (let index = 0; index < this.pipeUPList.length; index++) {
-            this.pipeUPList[index].mDraw();
-            this.pipeDOWNList[index].mDraw();
+            this.pipeUPList[index].render();
+            this.pipeDOWNList[index].render();
         }
     }
 }

@@ -19,7 +19,7 @@ export class Floor {
             this.posX = this.posX + this.width;
         }
     }
-    mDraw() {
+    render() {
         this.resetPosX();
         
         let maxLoop = Math.ceil( (this.canvas.width / this.width)) + 1;
@@ -39,11 +39,11 @@ export class Floor {
     debugRect() {
         this.context.globalAlpha = 0.5;
         this.context.fillStyle = '#ff0000';
-        let collisionRect = this.getArea();
+        let collisionRect = this.getCollisionRect();
         this.context.fillRect(collisionRect.x1, collisionRect.y1, (collisionRect.x2 - collisionRect.x1), (collisionRect.y2 - collisionRect.y1));
         this.context.globalAlpha = 1.0;
     }
-    getArea() {
+    getCollisionRect() {
         return {
             x1: 0,
             x2: this.canvas.width,
