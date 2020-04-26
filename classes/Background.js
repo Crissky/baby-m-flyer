@@ -49,11 +49,11 @@ export class Background {
         }
     }
     getCollisionRect() {
-        return {
+        return [{
             x1: 0,
             x2: this.canvas.width,
             y1: 0,
             y2: this.canvas.height
-        }
+        }]
     }
 }

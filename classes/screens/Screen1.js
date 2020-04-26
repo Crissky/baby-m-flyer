@@ -3,7 +3,7 @@ import { sound } from "../../utils/Sound.js";
 
 import { Background } from "../Background.js";
 import { Floor } from "../Floor.js";
-import { GreenM } from "../GreenM.js";
+import { GreenM } from "../chars/GreenM.js";
 import { DoublePipe } from "../DoublePipe.js";
 import { Score } from "../Score.js";
 import { MessageGetReady } from "../MessageGetReady.js";
@@ -43,7 +43,7 @@ export class Screen1 {
     this.music = new sound(musicPath[Math.floor(Math.random() * musicPath.length)], true);
     this.background = new Background(context, sprites, canvas);
     this.floor = new Floor(context, sprites, canvas, debug);
-    this.char = new GreenM(context, green_m_sprites, canvas, debug);
+    this.char = new GreenM(green_m_sprites, canvas, debug);
     this.pipes = new DoublePipe(context, sprites, canvas, this.floor, debug);
     this.score = new Score(context, sprites, canvas);
     this.messageGetReady = new MessageGetReady(context, sprites, canvas);

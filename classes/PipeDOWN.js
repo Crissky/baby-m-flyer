@@ -40,15 +40,17 @@ export class PipeDOWN {
         this.context.globalAlpha = 0.5;
         this.context.fillStyle = '#ff0000';
         let collisionRect = this.getCollisionRect();
-        this.context.fillRect(collisionRect.x1, collisionRect.y1, (collisionRect.x2 - collisionRect.x1), (collisionRect.y2 - collisionRect.y1));
+        collisionRect.forEach(rect => {
+            this.context.fillRect(rect.x1, rect.y1, (rect.x2 - rect.x1), (rect.y2 - rect.y1));
+        });
         this.context.globalAlpha = 1.0;
     }
     getCollisionRect() {
-        return {
+        return [{
             x1: (this.posX + this.collisionToleranceX1),
             x2: ((this.posX + this.width) - this.collisionToleranceX2),
             y1: (this.posY + this.collisionToleranceY1),
             y2: ((this.posY + this.height) - this.collisionToleranceY2)
-        }   
+        }]
     }
 }

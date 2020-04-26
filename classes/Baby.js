@@ -131,12 +131,12 @@ class Baby {
         }
     }
     getCollisionRect() {
-        return {
+        return [{
             x1: ( this.posX + this.collisionToleranceX1 ),
             x2: ( (this.posX + this.width) - this.collisionToleranceX2 ),
             y1: ( this.posY + this.collisionToleranceY1 ),
             y2: ( (this.posY + this.height) - this.collisionToleranceY2 )
-        }
+        }]
     }
 }
 
