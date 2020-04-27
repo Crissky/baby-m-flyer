@@ -1,7 +1,8 @@
-import { PipeUP } from "./PipeUP.js";
-import { PipeDOWN } from "./PipeDOWN.js";
+import { PipeUP } from "../enemies/PipeUP.js";
+import { PipeDOWN } from "../enemies/PipeDOWN.js";
+import { ShyguyRed } from "../enemies/Shyguys.js";
 
-export class DoublePipe {
+export class DoublePipeHandler {
     constructor(context, sprites, canvas, floor, debug) {
         this.debugMode = debug;
         this.headSize = 25;
@@ -14,6 +15,7 @@ export class DoublePipe {
         this.pipeUPList = new Array();
         this.pipeDOWNList = new Array();
         this.floor = floor;
+        this.shyguy;
     }
     getMinPosY() { // Menor Posição do Cano Superior
         return this.headSize;
@@ -28,45 +30,60 @@ export class DoublePipe {
         max = Math.floor(max);
         let result = Math.floor(Math.random() * (max - min)) + min;
         result = result - pipeUP.height;
-      
+        
         return result;
     }
+    
     spawn() {
         this.appendPipes();
     }
-    appendPipes(){
-        let pipeUP = new PipeUP(this.context, this.sprites, this.canvas, this.debugMode);
-        let pipeDOWN = new PipeDOWN(this.context, this.sprites, this.canvas, this.debugMode);
+    
+    appendPipes() {
+        let pipeUP = new PipeUP(this.sprites, this.canvas, this.debugMode);
+        let pipeDOWN = new PipeDOWN(this.sprites, this.canvas, this.debugMode);
         pipeUP.posX = this.canvas.width;
         pipeDOWN.posX = this.canvas.width;
         pipeUP.posY = this.getRandomPosY(pipeUP);
-        pipeDOWN.posY = pipeUP.posY + pipeUP.height + this.distanceBetweenY;
-
+        pipeDOWN.posY = (pipeUP.posY + pipeUP.height + this.distanceBetweenY);
         this.pipeUPList.push(pipeUP);
-        this.pipeDOWNList.push(pipeDOWN);        
+        this.pipeDOWNList.push(pipeDOWN);
+
+        this.shyguy = new ShyguyRed(this.sprites, this.canvas, this.debugMode);
+        this.shyguy.posX = pipeDOWN.posX + 12;
+        this.shyguy.posY = pipeDOWN.posY - this.shyguy.height + 10;
     }
+    
     removeFirstPipe(){
         this.pipeUPList.shift();
         this.pipeDOWNList.shift();
     }
+    
     movePosX(ScreenSpeed){
         for (let index = 0; index < this.pipeUPList.length; index++) {
-            this.pipeUPList[index].posX =  this.pipeUPList[index].posX - ScreenSpeed;
+            this.pipeUPList[index].posX -= ScreenSpeed;
             this.pipeDOWNList[index].posX =  this.pipeUPList[index].posX;
         }
+        if(this.shyguy) {
+            this.shyguy.posX = this.pipeDOWNList[0].posX  + 12;
+        }
     }
+    
     movePosY(ScreenSpeed){
         ScreenSpeed = Math.floor(ScreenSpeed / 4);
         for (let index = 0; index < this.pipeUPList.length; index++) {
-            if((this.pipeUPList[index].posY + this.pipeUPList[index].height) <= this.getMinPosY()){
+            if((this.pipeUPList[index].posY + this.pipeUPList[index].height) <= this.getMinPosY()) {
                 this.pipeUPList[index].directionY = -1;
-            } else if ((this.pipeUPList[index].posY + this.pipeUPList[index].height) >= this.getMaxPosY()){
+            } else if ((this.pipeUPList[index].posY + this.pipeUPList[index].height) >= this.getMaxPosY()) {
                 this.pipeUPList[index].directionY = 1;
             }
-            this.pipeUPList[index].posY =  this.pipeUPList[index].posY - (ScreenSpeed * this.pipeUPList[index].directionY);
-            this.pipeDOWNList[index].posY =  this.pipeUPList[index].posY + this.pipeUPList[index].height + this.distanceBetweenY;
+            this.pipeUPList[index].posY -= (ScreenSpeed * this.pipeUPList[index].directionY);
+            this.pipeDOWNList[index].posY =  (this.pipeUPList[index].posY + this.pipeUPList[index].height + this.distanceBetweenY);
+        }
+        if(this.shyguy){
+            this.shyguy.posY = this.pipeDOWNList[0].posY - this.shyguy.height + 10;
         }
     }
+    
     update(ScreenSpeed) {
         if(this.pipeUPList.length < 1) {
             this.spawn();
@@ -80,11 +97,16 @@ export class DoublePipe {
         this.movePosX(ScreenSpeed);
         this.movePosY(ScreenSpeed);
     }
+
     reset() {
         this.pipeUPList = new Array();
         this.pipeDOWNList = new Array();
     }
+
     render() {
+        if(this.shyguy){
+            this.shyguy.render();
+        }
         for (let index = 0; index < this.pipeUPList.length; index++) {
             this.pipeUPList[index].render();
             this.pipeDOWNList[index].render();

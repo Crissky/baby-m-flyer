@@ -24,15 +24,16 @@ export class BasicObject {
     }
 
     update(speedScreen) {
-        this.renderImage();
+        this.render();
     }
 
-    renderImage(facingX=1, facingY=1) {
+    render(facingX=1, facingY=1) {
+        //this.context.scale(facingX, facingY);
         this.context.drawImage(this.sprites, 
             this.sourceX, this.sourceY, 
             this.width, this.height, 
             this.posX, this.posY,
-            this.getTrueWidth()*facingX, this.getTrueHeight()*facingY
+            this.getTrueWidth(), this.getTrueHeight()
         );
         if(this.debugMode === true){
             this.debugRect();

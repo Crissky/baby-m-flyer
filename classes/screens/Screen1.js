@@ -4,7 +4,7 @@ import { sound } from "../../utils/Sound.js";
 import { Background } from "../Background.js";
 import { Floor } from "../Floor.js";
 import { GreenM } from "../chars/GreenM.js";
-import { DoublePipe } from "../DoublePipe.js";
+import { DoublePipeHandler } from "../handler/DoublePipeHandler.js";
 import { Score } from "../Score.js";
 import { MessageGetReady } from "../MessageGetReady.js";
 import { MessageGameOver } from "../MessageGameOver.js";
@@ -44,7 +44,7 @@ export class Screen1 {
     this.background = new Background(context, sprites, canvas);
     this.floor = new Floor(context, sprites, canvas, debug);
     this.char = new GreenM(green_m_sprites, canvas, debug);
-    this.pipes = new DoublePipe(context, sprites, canvas, this.floor, debug);
+    this.pipesHandler = new DoublePipeHandler(context, sprites, canvas, this.floor, debug);
     this.score = new Score(context, sprites, canvas);
     this.messageGetReady = new MessageGetReady(context, sprites, canvas);
     this.messageGameOver = new MessageGameOver(context, sprites, canvas);
@@ -118,13 +118,13 @@ class Game {
 
   update() {
     this.classFather.background.update(this.speed);
-    this.classFather.pipes.update(this.speed);
+    this.classFather.pipesHandler.update(this.speed);
     this.classFather.floor.update(this.speed);
     this.classFather.char.update(this.speed);
     this.iscollided();
 
-    if((this.classFather.pipes.pipeUPList[0].posX + this.classFather.pipes.pipeUPList[0].width) < 0) {
-      this.classFather.pipes.removeFirstPipe();
+    if((this.classFather.pipesHandler.pipeUPList[0].posX + this.classFather.pipesHandler.pipeUPList[0].width) < 0) {
+      this.classFather.pipesHandler.removeFirstPipe();
       this.classFather.score.addScore(1);
       if(this.classFather.score.getScore() % 5 === 0) {
         this.speed += 0.5;
@@ -148,15 +148,15 @@ class Game {
     
     this.classFather.score.print();
     
-    console.log("PipeUP posX", this.classFather.pipes.pipeUPList[0].posX, "PipeDOWN posX", this.classFather.pipes.pipeDOWNList[0].posX);
-    console.log("PipeUP posY", this.classFather.pipes.pipeUPList[0].posY, "pipeDOWN posY", this.classFather.pipes.pipeDOWNList[0].posY);
+    console.log("PipeUP posX", this.classFather.pipesHandler.pipeUPList[0].posX, "PipeDOWN posX", this.classFather.pipesHandler.pipeDOWNList[0].posX);
+    console.log("PipeUP posY", this.classFather.pipesHandler.pipeUPList[0].posY, "pipeDOWN posY", this.classFather.pipesHandler.pipeDOWNList[0].posY);
     this.classFather.activateGameoverScreen();
   }
 
   render() {
     this.classFather.background.render();
     this.classFather.char.render();
-    this.classFather.pipes.render();
+    this.classFather.pipesHandler.render();
     this.classFather.floor.render();
     this.classFather.score.render();
   }
@@ -175,10 +175,10 @@ class Game {
       this.classFather.char.posY = (this.classFather.floor.posY - this.classFather.char.collisionHeight[this.classFather.char.currentFrame]);
       this.stopGame();
       console.log("Collision - Collided with the ground");
-    } else if ( isCollision(this.classFather.char, this.classFather.pipes.pipeUPList[0]) ) {
+    } else if ( isCollision(this.classFather.char, this.classFather.pipesHandler.pipeUPList[0]) ) {
         this.stopGame();
         console.log("Collision - Collided with the upper pipe");
-    } else if( isCollision(this.classFather.char, this.classFather.pipes.pipeDOWNList[0]) ) {
+    } else if( isCollision(this.classFather.char, this.classFather.pipesHandler.pipeDOWNList[0]) ) {
         this.stopGame();
         console.log("Collision - Collided with the bottom pipe");
     }
@@ -199,7 +199,7 @@ class Gameover {
       return;
     }
     this.classFather.char.reset();
-    this.classFather.pipes.reset();
+    this.classFather.pipesHandler.reset();
     this.classFather.score.reset();
     this.classFather.gameScreen.reset()
     
@@ -213,7 +213,7 @@ class Gameover {
   render() {
     this.classFather.background.render();
     this.classFather.char.render();
-    this.classFather.pipes.render();
+    this.classFather.pipesHandler.render();
     this.classFather.floor.render();
     this.classFather.messageGameOver.render();
     this.classFather.score.render();
