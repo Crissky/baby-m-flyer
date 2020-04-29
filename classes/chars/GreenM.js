@@ -1,8 +1,11 @@
 import { sound } from "../../utils/Sound.js";
 import { BasicChar } from "../basic/basicChar.js";
 
+const sprites = new Image();
+sprites.src = '../../sprites/green_M.png';
+
 class GreenM extends BasicChar {
-    constructor(sprites, canvas, debug=false) {
+    constructor(canvas, debug=false) {
         super(sprites, canvas,
             30, 0, 30, 37, 20, 70,
             0, 1,

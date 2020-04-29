@@ -14,7 +14,8 @@ const width = (window.innerWidth-paddingX) < 320 ? 320 : (window.innerWidth+padd
 //const width = (window.innerWidth-paddingX) < 320 ? 320 : (window.innerWidth-paddingX);
 context.canvas.width =  width;
 context.canvas.height = height
-  
+
+console.log(`Screen size ${height}x${width}`)
 // OBJECTS 
 import { Screen1 } from "./classes/screens/Screen1.js";
 

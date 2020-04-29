@@ -12,8 +12,6 @@ import { MessageGameOver } from "../MessageGameOver.js";
 // VARIABLES
 const sprites = new Image();
 sprites.src = '../../sprites/sprites.png';
-const green_m_sprites = new Image();
-green_m_sprites.src = '../../sprites/green_M.png';
 
 //[Music]
 const musicPath = ["https://vgmdownloads.com/soundtracks/super-mario-galaxy-2/vvkhxkzc/1-05%20Sky%20Station%20Galaxy.mp3",
@@ -36,18 +34,19 @@ const musicPath = ["https://vgmdownloads.com/soundtracks/super-mario-galaxy-2/vv
 
 export class Screen1 {
   constructor(canvas, context, debug=false) {
+    this.music = new sound(musicPath[Math.floor(Math.random() * musicPath.length)], true);
+    this.background = new Background(context, sprites, canvas);
+    this.floor = new Floor(context, sprites, canvas, debug);
+    this.char = new GreenM(canvas, debug);
+    this.pipesHandler = new DoublePipeHandler(context, sprites, canvas, this.floor, this.char, 100,debug);
+    this.score = new Score(context, sprites, canvas);
+    this.messageGetReady = new MessageGetReady(context, sprites, canvas);
+    this.messageGameOver = new MessageGameOver(context, sprites, canvas);
     this.startScreen = new Start(this);
     this.gameScreen = new Game(this);
     this.gameoverScreen = new Gameover(this);
     this.activeScreen = this.startScreen;
-    this.music = new sound(musicPath[Math.floor(Math.random() * musicPath.length)], true);
-    this.background = new Background(context, sprites, canvas);
-    this.floor = new Floor(context, sprites, canvas, debug);
-    this.char = new GreenM(green_m_sprites, canvas, debug);
-    this.pipesHandler = new DoublePipeHandler(context, sprites, canvas, this.floor, debug);
-    this.score = new Score(context, sprites, canvas);
-    this.messageGetReady = new MessageGetReady(context, sprites, canvas);
-    this.messageGameOver = new MessageGameOver(context, sprites, canvas);
+    
   }
 
   update(){
@@ -102,9 +101,10 @@ class Start {
 }
 
 class Game {
-  constructor(father){
+  constructor(father) {
     this.speed = 2;
     this.stoped = false;
+    this.reset();
     this.impactSound = new sound("../sounds/SFX_Impact.wav");
     this.topImpactSound = new sound("../sounds/SFX_Top_Impact.wav");
     this.classFather = father;
@@ -122,6 +122,12 @@ class Game {
     this.classFather.floor.update(this.speed);
     this.classFather.char.update(this.speed);
     this.iscollided();
+
+    if( this.classFather.pipesHandler.pipeUPList.length < 1 ) {
+      this.classFather.char.speedX = this.speed;
+      this.classFather.char.gravity = -(this.speed*0.1);
+      return;
+    }
 
     if((this.classFather.pipesHandler.pipeUPList[0].posX + this.classFather.pipesHandler.pipeUPList[0].width) < 0) {
       this.classFather.pipesHandler.removeFirstPipe();
@@ -150,6 +156,7 @@ class Game {
     
     console.log("PipeUP posX", this.classFather.pipesHandler.pipeUPList[0].posX, "PipeDOWN posX", this.classFather.pipesHandler.pipeDOWNList[0].posX);
     console.log("PipeUP posY", this.classFather.pipesHandler.pipeUPList[0].posY, "pipeDOWN posY", this.classFather.pipesHandler.pipeDOWNList[0].posY);
+    console.log("Pipe Total:", this.classFather.pipesHandler.pipeTotalSpawned);
     this.classFather.activateGameoverScreen();
   }
 
@@ -175,6 +182,8 @@ class Game {
       this.classFather.char.posY = (this.classFather.floor.posY - this.classFather.char.collisionHeight[this.classFather.char.currentFrame]);
       this.stopGame();
       console.log("Collision - Collided with the ground");
+    } else if( this.classFather.pipesHandler.pipeUPList.length < 1 ) {
+      return;
     } else if ( isCollision(this.classFather.char, this.classFather.pipesHandler.pipeUPList[0]) ) {
         this.stopGame();
         console.log("Collision - Collided with the upper pipe");
@@ -221,4 +230,24 @@ class Gameover {
   }
 
   update() {}
+}
+
+class Win {
+  constructor() {
+    this.winSonund;
+    this.classFather = father;
+    this.sleepTime = 100;
+  }
+
+  click() {
+
+  }
+
+  render() {
+
+  }
+
+  update() {
+
+  }
 }

@@ -1,7 +1,10 @@
 import { BasicObject } from "../basic/basicObject.js";
 
+const sprites = new Image();
+sprites.src = '../../sprites/sprites.png';
+
 export class PipeDOWN extends BasicObject {
-    constructor(sprites, canvas, debug=false) {
+    constructor(canvas, debug=false) {
         super(sprites, canvas,
             0, 169, 52, 400, -100, 0,
             0, 0,

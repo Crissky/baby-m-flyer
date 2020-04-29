@@ -27,14 +27,24 @@ export class BasicObject {
         this.render();
     }
 
-    render(facingX=1, facingY=1) {
-        //this.context.scale(facingX, facingY);
+    render(facingX=1) {
+        this.context.save();
+        let posX = this.posX;
+        
+        if(facingX === -1) {
+            this.context.scale(-1,1);
+            posX = (-this.posX-this.width);
+        }
+        
         this.context.drawImage(this.sprites, 
             this.sourceX, this.sourceY, 
             this.width, this.height, 
-            this.posX, this.posY,
+            posX, this.posY,
             this.getTrueWidth(), this.getTrueHeight()
         );
+        
+        this.context.restore();
+        
         if(this.debugMode === true){
             this.debugRect();
         }

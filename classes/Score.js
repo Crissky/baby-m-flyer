@@ -5,7 +5,7 @@ export class Score {
         this.posY = 20;
         this.score = 0;
         this.bestScore = 0;
-        this.level = 1;
+        this.level = 0;
         this.context = context;
         this.sprites = sprites;
         this.canvas = canvas;
@@ -17,7 +17,7 @@ export class Score {
     }
     reset() {
         this.score = 0;
-        this.level = 1;
+        this.level = 0;
     }
     render() {
         this.context.font = '900 18px Arial';

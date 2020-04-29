@@ -1,9 +1,10 @@
 import { PipeUP } from "../enemies/PipeUP.js";
 import { PipeDOWN } from "../enemies/PipeDOWN.js";
-import { ShyguyRed } from "../enemies/Shyguys.js";
+import { ShyguyRed, ShyguyGreen } from "../enemies/Shyguys.js";
+import { randomIntFromInterval } from "../../utils/Random.js";
 
 export class DoublePipeHandler {
-    constructor(context, sprites, canvas, floor, debug) {
+    constructor(context, sprites, canvas, floor, player, pipeMaxSpawn=50, debug=false) {
         this.debugMode = debug;
         this.headSize = 25;
         this.distanceBetweenX = 500;
@@ -12,35 +13,44 @@ export class DoublePipeHandler {
         this.context = context;
         this.sprites = sprites;
         this.canvas = canvas;
+        this.pipeTotalSpawned = 0;
+        this.pipeMaxSpawn = pipeMaxSpawn;
         this.pipeUPList = new Array();
         this.pipeDOWNList = new Array();
         this.floor = floor;
+        this.player = player;
+        
         this.shyguy;
+        this.shyguyWaitTime = 100;
+        this.shyguyCurrentTime = 0;
+        this.shyguyDirectionY = 0;
+        this.shyguyFacingX = -1;
     }
-    getMinPosY() { // Menor Posição do Cano Superior
+    // PIPES FUNCTIONS
+    getMinPosY() { // upper pipe min position
         return this.headSize;
     }
-    getMaxPosY() { // Maior Posição do Cano Superior
+    getMaxPosY() { // upper pipe max position
         return (this.canvas.height - this.floor.height - this.headSize - this.distanceBetweenY);
     }
-    getRandomPosY(pipeUP) {
+    getRandomPosY(pipeUP) { //
         let min = this.getMinPosY();
         let max = this.getMaxPosY();
         min = Math.ceil(min);
         max = Math.floor(max);
-        let result = Math.floor(Math.random() * (max - min)) + min;
+        let result = randomIntFromInterval(min, max);
         result = result - pipeUP.height;
         
         return result;
     }
     
-    spawn() {
-        this.appendPipes();
-    }
-    
     appendPipes() {
-        let pipeUP = new PipeUP(this.sprites, this.canvas, this.debugMode);
-        let pipeDOWN = new PipeDOWN(this.sprites, this.canvas, this.debugMode);
+        if(this.pipeTotalSpawned >= this.pipeMaxSpawn){
+           return 
+        }
+        this.pipeTotalSpawned++
+        var pipeUP = new PipeUP(this.canvas, this.debugMode);
+        var pipeDOWN = new PipeDOWN(this.canvas, this.debugMode);
         pipeUP.posX = this.canvas.width;
         pipeDOWN.posX = this.canvas.width;
         pipeUP.posY = this.getRandomPosY(pipeUP);
@@ -48,28 +58,33 @@ export class DoublePipeHandler {
         this.pipeUPList.push(pipeUP);
         this.pipeDOWNList.push(pipeDOWN);
 
-        this.shyguy = new ShyguyRed(this.sprites, this.canvas, this.debugMode);
-        this.shyguy.posX = pipeDOWN.posX + 12;
-        this.shyguy.posY = pipeDOWN.posY - this.shyguy.height + 10;
+        if(!this.shyguy) {
+            this.changeShyguy();
+            if(this.shyguy) {
+                this.shyguy.pipe = pipeDOWN;
+                this.shyguyMovePosX();
+                this.shyguy.posY = this.getShyguyMinPosY();
+            }
+        }
     }
     
-    removeFirstPipe(){
+    removeFirstPipe() {
         this.pipeUPList.shift();
         this.pipeDOWNList.shift();
+        if(this.shyguy && this.shyguy.posX < -this.shyguy.width) {
+            this.shyguy = null;
+        }
     }
     
-    movePosX(ScreenSpeed){
+    movePosX(ScreenSpeed) {
         for (let index = 0; index < this.pipeUPList.length; index++) {
             this.pipeUPList[index].posX -= ScreenSpeed;
             this.pipeDOWNList[index].posX =  this.pipeUPList[index].posX;
         }
-        if(this.shyguy) {
-            this.shyguy.posX = this.pipeDOWNList[0].posX  + 12;
-        }
     }
     
-    movePosY(ScreenSpeed){
-        ScreenSpeed = Math.floor(ScreenSpeed / 4);
+    movePosY(ScreenSpeed) {
+        ScreenSpeed = Math.floor(ScreenSpeed / 4.5);
         for (let index = 0; index < this.pipeUPList.length; index++) {
             if((this.pipeUPList[index].posY + this.pipeUPList[index].height) <= this.getMinPosY()) {
                 this.pipeUPList[index].directionY = -1;
@@ -79,33 +94,88 @@ export class DoublePipeHandler {
             this.pipeUPList[index].posY -= (ScreenSpeed * this.pipeUPList[index].directionY);
             this.pipeDOWNList[index].posY =  (this.pipeUPList[index].posY + this.pipeUPList[index].height + this.distanceBetweenY);
         }
-        if(this.shyguy){
-            this.shyguy.posY = this.pipeDOWNList[0].posY - this.shyguy.height + 10;
+    }
+    // SHYGUY FUNCTIONS
+    getShyguyMaxPosY() {
+        return (this.shyguy.pipe.posY - this.shyguy.height + 5);
+    }
+    getShyguyMinPosY() {
+        return (this.shyguy.pipe.posY + 10);
+    }
+    changeShyguy() {
+        // choose the shyguy
+        let choice = randomIntFromInterval(1, 5);
+        switch (choice) {
+            case 1:
+                this.shyguy = new ShyguyRed(this.canvas, this.debugMode);
+                break;
+            case 2:
+                this.shyguy = new ShyguyGreen(this.canvas, this.debugMode);
+                break;
+            default:
+                this.shyguy = null;
+                break;
         }
     }
-    
+        
+    shyguyMovePosX() {
+        this.shyguy.posX = this.shyguy.pipe.posX + Math.floor(this.shyguy.width/2);
+    }
+    shyguyMovePosY(ScreenSpeed) {
+        // Keep or move up, shyguy
+        if(this.shyguyDirectionY === 0) {
+            this.shyguy.posY  = this.getShyguyMaxPosY();
+        }else if(this.shyguy.posY <= this.getShyguyMaxPosY()) {
+            this.shyguyDirectionY = 0;
+        } else if (this.shyguy.posX < this.canvas.width-100) {
+            this.shyguyDirectionY = -1;
+        }
+        // move down, shyguy
+        if (this.shyguy.posX < this.player.posX+150) {
+            this.shyguyDirectionY = 1;
+        }
+        
+        this.shyguy.posY += ScreenSpeed*this.shyguyDirectionY;
+    }
+    changeShyguyFacingX() { // change shyguy face direction
+        this.shyguyCurrentTime++
+        if(this.shyguyCurrentTime >= this.shyguyWaitTime) {
+            this.shyguyCurrentTime = 0;
+            this.shyguyWaitTime = randomIntFromInterval(30, 100);
+            this.shyguyFacingX = -this.shyguyFacingX
+        }
+    }
+    // GENERAL FUNCTIONS
     update(ScreenSpeed) {
         if(this.pipeUPList.length < 1) {
-            this.spawn();
+            this.appendPipes();
         }
-        if(this.pipeUPList.slice(-1)[0].posX < (this.canvas.width - this.distanceBetweenX) ){
-            this.spawn();
+        if(this.pipeUPList.length > 0 && this.pipeUPList.slice(-1)[0].posX < (this.canvas.width - this.distanceBetweenX) ){
+            this.appendPipes();
         }
-        if((this.pipeUPList[0].posX + this.pipeUPList[0].width) < 0) {
+        if(this.pipeUPList.length > 0 && (this.pipeUPList[0].posX + this.pipeUPList[0].width) < 0) {
             this.removeFirstPipe();
         }
         this.movePosX(ScreenSpeed);
         this.movePosY(ScreenSpeed);
+        
+        if(this.shyguy) {
+            this.shyguyMovePosY(ScreenSpeed);
+            this.shyguyMovePosX();
+            this.changeShyguyFacingX();
+        }
     }
 
     reset() {
         this.pipeUPList = new Array();
         this.pipeDOWNList = new Array();
+        this.shyguy = null;
+        this.pipeTotalSpawned = 0;
     }
 
     render() {
-        if(this.shyguy){
-            this.shyguy.render();
+        if(this.shyguy) {
+            this.shyguy.render(this.shyguyFacingX);
         }
         for (let index = 0; index < this.pipeUPList.length; index++) {
             this.pipeUPList[index].render();
