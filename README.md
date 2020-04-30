@@ -1,2 +1,2 @@
-# flappyBird-WEB
-Flappy Bird game in javascript.
+# Javascript Game
+One-Button javascript game.
