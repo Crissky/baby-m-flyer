@@ -1,9 +1,10 @@
-import { BasicObject } from "../../basicObject.js";
+import { BasicObject } from "../../basic/basicObject.js";
+
 
 const scenario = new Image();
 scenario.src = '../sprites/scenario.png';
 
-export class Floor1 extends BasicObject{
+export class Floor1 extends BasicObject {
     constructor(canvas, sizeMultiplier) {
         super(scenario,
             3, 299,

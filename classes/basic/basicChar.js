@@ -15,6 +15,7 @@ export class BasicChar extends BasicObject{
             sizeMultiplier=1);
             
         this.gravity = 0.1;
+        this.defaultGravity = 0.1;
     }
 
     update(speedScreen){
@@ -29,6 +30,11 @@ export class BasicChar extends BasicObject{
         this.posX += this.speedX;
         this.posY += this.speedY;
         super.update(speedScreen);
+    }
+
+    reset() {
+        super.reset();
+        this.gravity = this.defaultGravity;
     }
 
     click(ScreenSpeed) {}

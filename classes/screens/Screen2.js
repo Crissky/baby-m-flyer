@@ -3,11 +3,10 @@ import { sound } from "../../utils/Sound.js";
 
 import { Background } from "../Background.js";
 import { Floor } from "../Floor.js";
-import { GreenM } from "../chars/GreenM.js";
-import { DoublePipeHandler } from "../handler/DoublePipeHandler.js";
 import { Score } from "../Score.js";
 import { MessageGetReady } from "../MessageGetReady.js";
 import { MessageGameOver } from "../MessageGameOver.js";
+import { redBlockHandler } from "../handler/redBlockHandler.js";
 
 // VARIABLES
 const sprites = new Image();
@@ -32,14 +31,13 @@ const musicPath = ["https://vgmdownloads.com/soundtracks/super-mario-galaxy-2/vv
 "https://vgmdownloads.com/soundtracks/super-mario-galaxy-2/tzhhamdk/2-32%20Theme%20of%20SMG2.mp3",
 "https://vgmdownloads.com/soundtracks/super-mario-odyssey-ost/cptrlfzv/1-02%20Opening%20%28In%20the%20Skies%20Above%20Peach%27s%20Castle%E2%80%A6%29.mp3"];
 
-export class Screen1 {
+export class Screen2 {
   constructor(canvas, context, debug=false) {
     this.music = new sound(musicPath[Math.floor(Math.random() * musicPath.length)], true);
     this.background = new Background(context, sprites, canvas);
     this.floor = new Floor(context, sprites, canvas, debug);
-    this.char = new GreenM(canvas, debug);
-    this.pipesHandler = new DoublePipeHandler(context, sprites, canvas, this.floor, this.char, 100, debug);
     this.score = new Score(context, sprites, canvas);
+    this.redBlockHandler = new redBlockHandler(canvas);
     this.messageGetReady = new MessageGetReady(context, sprites, canvas);
     this.messageGameOver = new MessageGameOver(context, sprites, canvas);
     this.startScreen = new Start(this);
@@ -93,11 +91,13 @@ class Start {
   render() {
     this.classFather.background.render();
     this.classFather.floor.render();
-    this.classFather.char.render();
+    this.classFather.redBlockHandler.render();
     this.classFather.messageGetReady.render();
   }
 
-  update() {}
+  update() {
+    this.classFather.redBlockHandler.update(this.speed);
+  }
 }
 
 class Game {
@@ -108,35 +108,27 @@ class Game {
     this.impactSound = new sound("../sounds/SFX_Impact.wav");
     this.topImpactSound = new sound("../sounds/SFX_Top_Impact.wav");
     this.classFather = father;
+    this.speedUpTime = 0;
+    this.speedUpWait = 200;
+    
   }
 
   click() {
-    if(!this.stoped) {
-      this.classFather.char.click(this.speed);
-    }
+    if(!this.stoped) { }
   }
 
   update() {
+    this.speedUpTime = ++this.speedUpTime % this.speedUpWait;
+    if(this.speedUpTime === 0) {
+      this.speed += 0.5;
+      console.log("SpeedUP", this.speed);
+    }
     this.classFather.background.update(this.speed);
-    this.classFather.pipesHandler.update(this.speed);
     this.classFather.floor.update(this.speed);
-    this.classFather.char.update(this.speed);
-    this.iscollided();
-
-    if( this.classFather.pipesHandler.pipeUPList.length < 1 ) {
-      this.classFather.char.speedX = this.speed;
-      this.classFather.char.gravity = -(this.speed*0.1);
-      return;
-    }
-
-    if((this.classFather.pipesHandler.pipeUPList[0].posX + this.classFather.pipesHandler.pipeUPList[0].width) < 0) {
-      this.classFather.pipesHandler.removeFirstPipe();
-      this.classFather.score.addScore(1);
-      if(this.classFather.score.getScore() % 5 === 0) {
-        this.speed += 0.5;
-        this.classFather.score.addLevel(1, this.classFather.music);
-      }
-    }
+    this.classFather.redBlockHandler.update(this.speed);
+    
+    //this.iscollided();
+    
   }
 
   reset() {
@@ -149,49 +141,21 @@ class Game {
     this.classFather.music.stop();
     console.log("Speed:", this.speed);
     this.speed = 0;
-    this.classFather.char.stop();
     this.stoped = true;
     
     this.classFather.score.print();
     
-    console.log("PipeUP posX", this.classFather.pipesHandler.pipeUPList[0].posX, "PipeDOWN posX", this.classFather.pipesHandler.pipeDOWNList[0].posX);
-    console.log("PipeUP posY", this.classFather.pipesHandler.pipeUPList[0].posY, "pipeDOWN posY", this.classFather.pipesHandler.pipeDOWNList[0].posY);
-    console.log("Pipe Total:", this.classFather.pipesHandler.pipeTotalSpawned);
     this.classFather.activateGameoverScreen();
   }
 
   render() {
     this.classFather.background.render();
-    this.classFather.char.render();
-    this.classFather.pipesHandler.render();
     this.classFather.floor.render();
+    this.classFather.redBlockHandler.render();
     this.classFather.score.render();
   }
 
-  iscollided() {
-    if(this.classFather.char.posY < 0) {
-      this.classFather.char.posY = 0;
-      if( this.classFather.char.speedY < 0) {
-        this.classFather.char.speedY = 0;
-      }
-      this.topImpactSound.play();
-      console.log("Collision - Collided with the top");
-    }
-    
-    if ( isCollision(this.classFather.char, this.classFather.floor) ) {
-      this.classFather.char.posY = (this.classFather.floor.posY - this.classFather.char.collisionHeight[this.classFather.char.currentFrame]);
-      this.stopGame();
-      console.log("Collision - Collided with the ground");
-    } else if( this.classFather.pipesHandler.pipeUPList.length < 1 ) {
-      return;
-    } else if ( isCollision(this.classFather.char, this.classFather.pipesHandler.pipeUPList[0]) ) {
-        this.stopGame();
-        console.log("Collision - Collided with the upper pipe");
-    } else if( isCollision(this.classFather.char, this.classFather.pipesHandler.pipeDOWNList[0]) ) {
-        this.stopGame();
-        console.log("Collision - Collided with the bottom pipe");
-    }
-  }
+  iscollided() {}
 }
 
 
@@ -207,8 +171,6 @@ class Gameover {
     if(this.sleepTime > 0){
       return;
     }
-    this.classFather.char.reset();
-    this.classFather.pipesHandler.reset();
     this.classFather.score.reset();
     this.classFather.gameScreen.reset()
     
@@ -221,9 +183,8 @@ class Gameover {
 
   render() {
     this.classFather.background.render();
-    this.classFather.char.render();
-    this.classFather.pipesHandler.render();
     this.classFather.floor.render();
+    this.classFather.redBlockHandler.render();
     this.classFather.messageGameOver.render();
     this.classFather.score.render();
     this.sleepTime -= 1;

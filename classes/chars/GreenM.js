@@ -21,8 +21,8 @@ class GreenM extends BasicChar {
         this.limitForStartIncrementSpeedY = 7;
         this.maxFrames = 6;
         this.currentFrame = 0;
-        this.waitTimeFrame = 6;
-        this.currentTimeFrame = 0;
+        this.waitFrameTime = 6;
+        this.currentFrameTime = 0;
         this.superFlySound = new sound("../sounds/smw_cape_rise.wav");
         this.flySound = new sound("../sounds/SFX_Jump.wav");
         
@@ -50,15 +50,6 @@ class GreenM extends BasicChar {
             this.updateFrame(ScreenSpeed);
             this.updateFrame(ScreenSpeed);
         }
-    }
-
-    reset() {
-        this.posX = 20;
-        this.posY = 50;
-        this.speedX = 0;
-        this.speedY = 1;
-        this.gravity = 0.10;
-        this.currentFrame = 0;
     }
 
     stop() {
@@ -100,12 +91,12 @@ class GreenM extends BasicChar {
         this.context.restore();
     }
 
-    updateFrame(ScreenSpeed){
-        this.currentTimeFrame = ++this.currentTimeFrame % this.waitTimeFrame;
-        if((this.currentTimeFrame === 0 && this.speedY > 0 && this.currentFrame < this.maxFrames-1) || (this.speedY > this.limitForStartIncrementSpeedY && this.currentFrame < this.maxFrames-1) ){
-            this.currentFrame = ++this.currentFrame
-        } else if (this.currentTimeFrame === 0 && this.speedY < 0 && this.currentFrame > 0) {
-            this.currentFrame = --this.currentFrame
+    updateFrame(ScreenSpeed) {
+        this.currentFrameTime = ++this.currentFrameTime % this.waitFrameTime;
+        if((this.currentFrameTime === 0 && this.speedY > 0 && this.currentFrame < this.maxFrames-1) || (this.speedY > this.limitForStartIncrementSpeedY && this.currentFrame < this.maxFrames-1) ){
+            this.currentFrame = ++this.currentFrame;
+        } else if (this.currentFrameTime === 0 && this.speedY < 0 && this.currentFrame > 0) {
+            this.currentFrame = --this.currentFrame;
         }
     }
 

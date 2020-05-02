@@ -21,6 +21,16 @@ export class BasicObject {
         this.collisionToleranceY1 = collisionToleranceY1;
         this.collisionToleranceY2 = collisionToleranceY2;
         this.sizeMultiplier = sizeMultiplier;
+
+        //Default
+        this.defaultSourceX = sourceX;
+        this.defaultSourceY = sourceY;
+        this.defaultWidth = width;
+        this.defaultHeight = height;
+        this.defaultPosX = posX;
+        this.defaultPosY = posY;
+        this.defaultSpeedX = speedX;
+        this.defaultSpeedY = speedY;
     }
 
     update(speedScreen) {
@@ -63,6 +73,17 @@ export class BasicObject {
         this.context.restore();
     }
     
+    reset() {
+        this.sourceX = this.defaultSourceX;
+        this.sourceY = this.defaultSourceY;
+        this.width = this.defaultWidth;
+        this.height = this.defaultHeight;
+        this.posX =this.defaultPosX;
+        this.posY = this.defaultPosY;
+        this.speedX = this.defaultSpeedX;
+        this.speedY = this.defaultSpeedY;
+    }
+
     getCollisionRect() {
         return [{
             x1: ( this.posX + this.collisionToleranceX1),
