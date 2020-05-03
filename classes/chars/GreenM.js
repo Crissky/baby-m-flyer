@@ -1,5 +1,5 @@
 import { sound } from "../../utils/Sound.js";
-import { BasicChar } from "../basic/basicChar.js";
+import { BasicChar } from "../basic/BasicChar.js";
 
 const sprites = new Image();
 sprites.src = '../../sprites/green_M.png';

@@ -1,4 +1,4 @@
-import { BasicObject } from "./basicObject.js"
+import { BasicObject } from "./BasicObject.js"
 
 
 export class BasicAnimated extends BasicObject{

@@ -5,7 +5,7 @@ export class Background {
         this.width = 512;
         this.height = 518;
         this.posX = 0;
-        this.posY = (canvas.height - 518 - 70);
+        this.posY = (canvas.height - this.height - 70);
         this.time = 0;
         this.delay = 30;
         this.context = context;

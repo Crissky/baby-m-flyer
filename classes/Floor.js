@@ -6,7 +6,7 @@ export class Floor {
         this.width = 145;
         this.height = 79;
         this.posX = 0;
-        this.posY = (canvas.height - 79);
+        this.posY = (canvas.height - this.height);
         this.context = context;
         this.sprites = sprites;
         this.canvas = canvas;

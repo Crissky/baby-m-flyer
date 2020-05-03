@@ -1,4 +1,4 @@
-import { BasicAnimated } from "../../basic/basicAnimated.js";
+import { BasicAnimated } from "../../basic/BasicAnimated.js";
 
 const sprites = new Image();
 sprites.src = '../sprites/redBlock.png';

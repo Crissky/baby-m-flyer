@@ -1,13 +1,14 @@
 import { isCollision } from "../../utils/Collision.js";
 import { sound } from "../../utils/Sound.js";
 
-import { Background } from "../Background.js";
 import { Floor } from "../Floor.js";
 import { GreenM } from "../chars/GreenM.js";
 import { DoublePipeHandler } from "../handler/DoublePipeHandler.js";
 import { Score } from "../Score.js";
 import { MessageGetReady } from "../MessageGetReady.js";
 import { MessageGameOver } from "../MessageGameOver.js";
+import { Background1 } from "../Backgrounds.js";
+import { Floor1 } from "../Floors.js";
 
 // VARIABLES
 const sprites = new Image();
@@ -35,8 +36,9 @@ const musicPath = ["https://vgmdownloads.com/soundtracks/super-mario-galaxy-2/vv
 export class Screen1 {
   constructor(canvas, context, debug=false) {
     this.music = new sound(musicPath[Math.floor(Math.random() * musicPath.length)], true);
-    this.background = new Background(context, sprites, canvas);
-    this.floor = new Floor(context, sprites, canvas, debug);
+    this.background = new Background1(canvas);
+    //this.floor = new Floor(context, sprites, canvas, debug);
+    this.floor = new Floor1(canvas, 1, debug);
     this.char = new GreenM(canvas, debug);
     this.pipesHandler = new DoublePipeHandler(context, sprites, canvas, this.floor, this.char, 100, debug);
     this.score = new Score(context, sprites, canvas);
@@ -49,7 +51,7 @@ export class Screen1 {
     
   }
 
-  update(){
+  update() {
     this.activeScreen.update();
   }
 

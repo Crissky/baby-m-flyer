@@ -1,4 +1,4 @@
-import { BasicObject } from "../basic/basicObject.js";
+import { BasicObject } from "../basic/BasicObject.js";
 
 const sprites = new Image();
 sprites.src = '../../sprites/sprites.png';

@@ -1,12 +1,11 @@
 import { isCollision } from "../../utils/Collision.js";
 import { sound } from "../../utils/Sound.js";
-
-import { Background } from "../Background.js";
 import { Floor } from "../Floor.js";
 import { Score } from "../Score.js";
 import { MessageGetReady } from "../MessageGetReady.js";
 import { MessageGameOver } from "../MessageGameOver.js";
-import { redBlockHandler } from "../handler/redBlockHandler.js";
+import { redBlockHandler } from "../handler/RedBlockHandler.js";
+import { Background2 } from "../Backgrounds.js";
 
 // VARIABLES
 const sprites = new Image();
@@ -34,7 +33,7 @@ const musicPath = ["https://vgmdownloads.com/soundtracks/super-mario-galaxy-2/vv
 export class Screen2 {
   constructor(canvas, context, debug=false) {
     this.music = new sound(musicPath[Math.floor(Math.random() * musicPath.length)], true);
-    this.background = new Background(context, sprites, canvas);
+    this.background = new Background2(canvas);
     this.floor = new Floor(context, sprites, canvas, debug);
     this.score = new Score(context, sprites, canvas);
     this.redBlockHandler = new redBlockHandler(canvas);
@@ -97,6 +96,7 @@ class Start {
 
   update() {
     this.classFather.redBlockHandler.update(this.speed);
+    this.classFather.background.update(this.speed);
   }
 }
 

@@ -1,6 +1,6 @@
 import { PipeUP } from "../enemies/PipeUP.js";
 import { PipeDOWN } from "../enemies/PipeDOWN.js";
-import { ShyguyRed, ShyguyGreen } from "../enemies/Shyguys.js";
+import { ShyguyRed, ShyguyGreen, ShyguyBlue, ShyguyBrown, ShyguyPurple, ShyguyLink } from "../enemies/Shyguys.js";
 import { randomIntFromInterval } from "../../utils/Random.js";
 
 export class DoublePipeHandler {
@@ -104,13 +104,25 @@ export class DoublePipeHandler {
     }
     changeShyguy() {
         // choose the shyguy
-        let choice = randomIntFromInterval(1, 5);
+        let choice = randomIntFromInterval(1, 18);
         switch (choice) {
             case 1:
                 this.shyguy = new ShyguyRed(this.canvas, this.debugMode);
                 break;
             case 2:
                 this.shyguy = new ShyguyGreen(this.canvas, this.debugMode);
+                break;
+            case 3:
+                this.shyguy = new ShyguyBlue(this.canvas, this.debugMode);
+                break;
+            case 4:
+                this.shyguy = new ShyguyBrown(this.canvas, this.debugMode);
+                break;
+            case 5:
+                this.shyguy = new ShyguyPurple(this.canvas, this.debugMode);
+                break;
+            case 6:
+                this.shyguy = new ShyguyLink(this.canvas, this.debugMode);
                 break;
             default:
                 this.shyguy = null;
@@ -119,7 +131,7 @@ export class DoublePipeHandler {
     }
         
     shyguyMovePosX() {
-        this.shyguy.posX = this.shyguy.pipe.posX + Math.floor(this.shyguy.width/2);
+        this.shyguy.posX = this.shyguy.pipe.posX + (this.shyguy.pipe.width/2) - (this.shyguy.width/2);//+ Math.floor(this.shyguy.width/2);
     }
     shyguyMovePosY(ScreenSpeed) {
         // Keep or move up, shyguy
