@@ -3,7 +3,7 @@ import { BasicBackgroundLite } from "./basic/BasicBackgroundLite.js";
 export class Background1 extends BasicBackgroundLite {
     constructor(canvas, delay=30) {
         const sprites = new Image();
-        sprites.src = "../sprites/sprites.png";
+        sprites.src = "./sprites/sprites.png";
         super(sprites, canvas,
             388, 190,
             512, 518,
@@ -25,7 +25,7 @@ export class Background1 extends BasicBackgroundLite {
 export class Background2 extends BasicBackgroundLite {
     constructor(canvas, delay=30) {
         const sprites = new Image();
-        sprites.src = "../sprites/mine-bg.png";
+        sprites.src = "./sprites/mine-bg.png";
         super(sprites, canvas,
             0, 0,
             512, 385,

@@ -11,7 +11,7 @@ import { Floor1 } from "../scenarios/Floors.js";
 
 // VARIABLES
 const sprites = new Image();
-sprites.src = '../../sprites/sprites.png';
+sprites.src = './sprites/sprites.png';
 
 //[Music]
 const musicPath = ["https://vgmdownloads.com/soundtracks/super-mario-galaxy-2/vvkhxkzc/1-05%20Sky%20Station%20Galaxy.mp3",
@@ -81,7 +81,7 @@ export class Screen1 {
 class Start {
   constructor(father){
     this.speed = 0;
-    this.startSound = new sound("../sounds/smw2_flower_get.wav");
+    this.startSound = new sound("./sounds/smw2_flower_get.wav");
     this.classFather = father;
   }
 
@@ -106,8 +106,8 @@ class Game {
     this.speed = 2;
     this.stoped = false;
     this.reset();
-    this.impactSound = new sound("../sounds/SFX_Impact.wav");
-    this.topImpactSound = new sound("../sounds/SFX_Top_Impact.wav");
+    this.impactSound = new sound("./sounds/SFX_Impact.wav");
+    this.topImpactSound = new sound("./sounds/SFX_Top_Impact.wav");
     this.classFather = father;
   }
 
@@ -200,7 +200,7 @@ class Gameover {
   constructor(father){
     this.speed = 0;
     this.sleepTime = 30;
-    this.startSound = new sound("../sounds/smw2_flower_get.wav");
+    this.startSound = new sound("./sounds/smw2_flower_get.wav");
     this.classFather = father;
   }
 

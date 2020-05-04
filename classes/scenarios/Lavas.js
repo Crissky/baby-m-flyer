@@ -5,7 +5,7 @@ import { randomIntFromInterval } from "../../utils/Random.js";
 export class Lava1 extends BasicFloorLite {
     constructor(canvas, sizeMultiplier=1, debug=false) {
         const sprites = new Image();
-        sprites.src = "../sprites/lava.png";
+        sprites.src = "./sprites/lava.png";
         super(sprites, canvas,
             32, 8,
             32, 46,
@@ -91,7 +91,7 @@ export class Lava1 extends BasicFloorLite {
 class LavaBubble extends BasicAnimated {
     constructor(canvas) {
         const sprites = new Image();
-        sprites.src = '../sprites/lava.png';
+        sprites.src = './sprites/lava.png';
         super(sprites, canvas, 32, 0, 32, 8, 0, 0, 0, 0, 0, 0, 0, 0, 1, 5, 20);
     }
 

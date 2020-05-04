@@ -26,7 +26,7 @@ class Baby {
         this.delayFrame = 20;
         this.currentTimeFrame = 0;
         this.defaultSourceY = 26;
-        this.flySound = new sound("../sounds/SFX_Jump.wav");
+        this.flySound = new sound("./sounds/SFX_Jump.wav");
         this.cape_sourceX = [0, 15, 31, 47, 63].reverse();
         this.cape_sourceY = [23, 23, 23, 23, 23].reverse();
         this.cape_width = [14, 15, 15, 15, 15].reverse();

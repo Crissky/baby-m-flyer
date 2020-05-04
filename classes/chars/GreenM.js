@@ -2,7 +2,7 @@ import { sound } from "../../utils/Sound.js";
 import { BasicChar } from "../basic/BasicChar.js";
 
 const sprites = new Image();
-sprites.src = '../../sprites/green_M.png';
+sprites.src = './sprites/green_M.png';
 
 class GreenM extends BasicChar {
     constructor(canvas, debug=false) {
@@ -23,8 +23,8 @@ class GreenM extends BasicChar {
         this.currentFrame = 0;
         this.waitFrameTime = 6;
         this.currentFrameTime = 0;
-        this.superFlySound = new sound("../sounds/smw_cape_rise.wav");
-        this.flySound = new sound("../sounds/SFX_Jump.wav");
+        this.superFlySound = new sound("./sounds/smw_cape_rise.wav");
+        this.flySound = new sound("./sounds/SFX_Jump.wav");
         
     }
 

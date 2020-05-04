@@ -1,7 +1,7 @@
 import { BasicAnimated } from "../../basic/BasicAnimated.js";
 
 const sprites = new Image();
-sprites.src = '../sprites/redBlock.png';
+sprites.src = './sprites/redBlock.png';
 
 export class RedBlock extends BasicAnimated {
     constructor(canvas, debug=false) {

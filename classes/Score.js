@@ -9,11 +9,11 @@ export class Score {
         this.context = context;
         this.sprites = sprites;
         this.canvas = canvas;
-        this.scoreSound = new sound("../sounds/smw2_red_coin.wav");
-        this.levelSound = new sound("../sounds/smw2_red_coin_20.wav");
-        this.greenMSound1 = new sound("../sounds/m&lss_yahoh.wav");
-        this.greenMSound2 = new sound("../sounds/m&lss_l-thunder.wav");
-        this.greenMSound3 = new sound("../sounds/mlpit_luigi_gibberish_2.wav");
+        this.scoreSound = new sound("./sounds/smw2_red_coin.wav");
+        this.levelSound = new sound("./sounds/smw2_red_coin_20.wav");
+        this.greenMSound1 = new sound("./sounds/m&lss_yahoh.wav");
+        this.greenMSound2 = new sound("./sounds/m&lss_l-thunder.wav");
+        this.greenMSound3 = new sound("./sounds/mlpit_luigi_gibberish_2.wav");
     }
     reset() {
         this.score = 0;

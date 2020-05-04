@@ -1,7 +1,7 @@
 import { BasicObject } from "../basic/BasicObject.js";
 
 const sprites = new Image();
-sprites.src = '../../sprites/sprites.png';
+sprites.src = './sprites/sprites.png';
 
 export class ShyguyRed extends BasicObject {
     constructor(canvas, debug=false) {
