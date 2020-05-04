@@ -1,11 +1,11 @@
 import { BasicObject } from "./BasicObject.js";
 
 export class BasicFloorLite extends BasicObject {
-    constructor (sprites, canvas, sourceX, sourceY, width, height, posX, posY, sizeMultiplier=1, debug=false) {
+    constructor (sprites, canvas, sourceX, sourceY, width, height, sizeMultiplier=1, debug=false) {
         super(sprites, canvas,
             sourceX, sourceY,
             width, height,
-            posX, posY,
+            0, (canvas.height - height),
             0, 0,
             0,0,0,0,
             sizeMultiplier, debug);

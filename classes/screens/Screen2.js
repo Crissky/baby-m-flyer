@@ -1,11 +1,11 @@
 import { isCollision } from "../../utils/Collision.js";
 import { sound } from "../../utils/Sound.js";
-import { Floor } from "../Floor.js";
 import { Score } from "../Score.js";
 import { MessageGetReady } from "../MessageGetReady.js";
 import { MessageGameOver } from "../MessageGameOver.js";
-import { redBlockHandler } from "../handler/RedBlockHandler.js";
+import { RedBlockHandler } from "../handler/RedBlockHandler.js";
 import { Background2 } from "../Backgrounds.js";
+import { Lava1 } from "../scenarios/Lavas.js";
 
 // VARIABLES
 const sprites = new Image();
@@ -34,9 +34,10 @@ export class Screen2 {
   constructor(canvas, context, debug=false) {
     this.music = new sound(musicPath[Math.floor(Math.random() * musicPath.length)], true);
     this.background = new Background2(canvas);
-    this.floor = new Floor(context, sprites, canvas, debug);
+    //this.floor = new LavaHandler(canvas, 10, 20, debug);
+    this.floor = new Lava1(canvas, 1, debug);
     this.score = new Score(context, sprites, canvas);
-    this.redBlockHandler = new redBlockHandler(canvas);
+    this.redBlockHandler = new RedBlockHandler(canvas, debug);
     this.messageGetReady = new MessageGetReady(context, sprites, canvas);
     this.messageGameOver = new MessageGameOver(context, sprites, canvas);
     this.startScreen = new Start(this);
@@ -95,8 +96,9 @@ class Start {
   }
 
   update() {
-    this.classFather.redBlockHandler.update(this.speed);
     this.classFather.background.update(this.speed);
+    //this.classFather.floor.update(this.speed);
+    this.classFather.redBlockHandler.update(this.speed);
   }
 }
 
@@ -109,7 +111,7 @@ class Game {
     this.topImpactSound = new sound("../sounds/SFX_Top_Impact.wav");
     this.classFather = father;
     this.speedUpTime = 0;
-    this.speedUpWait = 200;
+    this.speedUpWait = 20000;
     
   }
 

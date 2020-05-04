@@ -33,9 +33,7 @@ export class BasicObject {
         this.defaultSpeedY = speedY;
     }
 
-    update(speedScreen) {
-        this.render();
-    }
+    update(speedScreen) { }
 
     render(facingX=1) {
         this.context.save();

@@ -1,14 +1,13 @@
 import { isCollision } from "../../utils/Collision.js";
 import { sound } from "../../utils/Sound.js";
 
-import { Floor } from "../Floor.js";
 import { GreenM } from "../chars/GreenM.js";
 import { DoublePipeHandler } from "../handler/DoublePipeHandler.js";
 import { Score } from "../Score.js";
 import { MessageGetReady } from "../MessageGetReady.js";
 import { MessageGameOver } from "../MessageGameOver.js";
 import { Background1 } from "../Backgrounds.js";
-import { Floor1 } from "../Floors.js";
+import { Floor1 } from "../scenarios/Floors.js";
 
 // VARIABLES
 const sprites = new Image();

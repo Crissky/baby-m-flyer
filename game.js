@@ -22,7 +22,7 @@ import { Screen1 } from "./classes/screens/Screen1.js";
 import { Screen2 } from "./classes/screens/Screen2.js";
 
 const screen1 = new Screen1(canvas, context, debug);
-//const screen1 = new Screen2(canvas, context, debug);
+// const screen1 = new Screen2(canvas, context, debug);
 
 function loop() {
   screen1.update();

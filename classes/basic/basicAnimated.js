@@ -1,18 +1,18 @@
 import { BasicObject } from "./BasicObject.js"
 
 
-export class BasicAnimated extends BasicObject{
+export class BasicAnimated extends BasicObject {
     constructor(sprites, canvas,
         sourceX, sourceY, width, height, posX, posY,
         speedX=0, speedY=0,
         collisionToleranceX1=0, collisionToleranceX2=0, collisionToleranceY1=0, collisionToleranceY2=0,
-        sizeMultiplier=1, maxFrame=1, waitFrameTime=10){
+        sizeMultiplier=1, maxFrame=1, waitFrameTime=10, debug=false){
         
         super(sprites, canvas,
             sourceX, sourceY, width, height, posX, posY,
             speedX, speedY,
             collisionToleranceX1, collisionToleranceX2, collisionToleranceY1, collisionToleranceY2,
-            sizeMultiplier);
+            sizeMultiplier, debug);
 
         this.currentFrame = 0;
         this.maxFrame = maxFrame;
@@ -51,7 +51,7 @@ export class BasicAnimated extends BasicObject{
         
         this.context.restore();
         
-        if(this.debugMode === true){
+        if(this.debugMode === true) {
             this.debugRect();
         }
     }

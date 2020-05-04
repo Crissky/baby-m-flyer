@@ -1,11 +1,11 @@
 import { RedBlock } from "../scenarios/scenarios-elements/RedBlock.js";
 
-export class redBlockHandler {
-    constructor(canvas) {
+export class RedBlockHandler {
+    constructor(canvas, debug=false) {
+        this.debugMode = debug;
         this.canvas = canvas;
         this.redblockList = [];
         this.defaultPosY = -1;
-        this.multiplierPosY = 1;
         this.speedY = 1;
         this.waitTimeMovePosY = 20;
         this.currentTimeMovePosY = 0;
@@ -49,7 +49,7 @@ export class redBlockHandler {
     }
 
     appendRedBlock() {
-        let redblock = new RedBlock(this.canvas);
+        let redblock = new RedBlock(this.canvas, this.debugMode);
         if(this.redblockList.length > 0) {
             let lastRedBlock = this.getLastRedBlock();
             redblock.posX = lastRedBlock.posX + lastRedBlock.getTrueWidth();
@@ -58,7 +58,6 @@ export class redBlockHandler {
         redblock.speedY = this.speedY;
         redblock.memorySpeedY = this.speedY;
         this.redblockList.push(redblock);
-        //console.log("this.redblockList", this.redblockList.length);
     }
 
     removeFirstRedBlock() {
