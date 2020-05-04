@@ -1,7 +1,7 @@
 import { BasicObject } from "./BasicObject.js"
 
 
-export class BasicChar extends BasicObject{
+export class BasicChar extends BasicObject {
     constructor(sprites, canvas,
         sourceX, sourceY, width, height, posX, posY,
         speedX=0, speedY=0,
@@ -18,7 +18,7 @@ export class BasicChar extends BasicObject{
         this.defaultGravity = 0.1;
     }
 
-    update(speedScreen){
+    update(speedScreen) {
         if (this.posX <= 0 && this.speedX < 0) {
             this.speedX = 0;
             this.posX = 0;
