@@ -85,11 +85,7 @@ class Start {
     this.classFather = father;
   }
 
-  click() {
-    this.startSound.play();
-    this.classFather.music.play();
-    this.classFather.activateGameScreen();
-  }
+  update() {}
 
   render() {
     this.classFather.background.render();
@@ -98,7 +94,12 @@ class Start {
     this.classFather.messageGetReady.render();
   }
 
-  update() {}
+  click() {
+    this.startSound.play();
+    this.classFather.music.play();
+    this.classFather.activateGameScreen();
+  }
+  
 }
 
 class Game {
@@ -109,12 +110,6 @@ class Game {
     this.impactSound = new sound("./sounds/SFX_Impact.wav");
     this.topImpactSound = new sound("./sounds/SFX_Top_Impact.wav");
     this.classFather = father;
-  }
-
-  click() {
-    if(!this.stoped) {
-      this.classFather.char.click(this.speed);
-    }
   }
 
   update() {
@@ -140,6 +135,20 @@ class Game {
     }
   }
 
+  render() {
+    this.classFather.background.render();
+    this.classFather.char.render();
+    this.classFather.pipesHandler.render();
+    this.classFather.floor.render();
+    this.classFather.score.render();
+  }
+
+  click() {
+    if(!this.stoped) {
+      this.classFather.char.click(this.speed);
+    }
+  }
+
   reset() {
     this.speed = 2;
     this.stoped = false;
@@ -159,14 +168,6 @@ class Game {
     console.log("PipeUP posY", this.classFather.pipesHandler.pipeUPList[0].posY, "pipeDOWN posY", this.classFather.pipesHandler.pipeDOWNList[0].posY);
     console.log("Pipe Total:", this.classFather.pipesHandler.pipeTotalSpawned);
     this.classFather.activateGameoverScreen();
-  }
-
-  render() {
-    this.classFather.background.render();
-    this.classFather.char.render();
-    this.classFather.pipesHandler.render();
-    this.classFather.floor.render();
-    this.classFather.score.render();
   }
 
   iscollided() {
@@ -203,22 +204,8 @@ class Gameover {
     this.startSound = new sound("./sounds/smw2_flower_get.wav");
     this.classFather = father;
   }
-
-  click() {
-    if(this.sleepTime > 0){
-      return;
-    }
-    this.classFather.char.reset();
-    this.classFather.pipesHandler.reset();
-    this.classFather.score.reset();
-    this.classFather.gameScreen.reset()
-    
-    this.startSound.play();
-    this.classFather.music.resetSpeed();
-    this.classFather.music.play();
-    this.sleepTime = 30;
-    this.classFather.activateGameScreen()
-  }
+  
+  update() {}
 
   render() {
     this.classFather.background.render();
@@ -229,8 +216,24 @@ class Gameover {
     this.classFather.score.render();
     this.sleepTime -= 1;
   }
+  
+  click() {
+    if(this.sleepTime > 0){
+      return;
+    }
+    this.classFather.char.reset();
+    this.classFather.pipesHandler.reset();
+    this.classFather.score.reset();
+    this.classFather.gameScreen.reset();
+    
+    this.startSound.play();
+    this.classFather.music.resetSpeed();
+    this.classFather.music.play();
+    this.sleepTime = 30;
+    this.classFather.activateGameScreen();
+  }
 
-  update() {}
+
 }
 
 class Win {

@@ -177,14 +177,7 @@ export class DoublePipeHandler {
             this.changeShyguyFacingX();
         }
     }
-
-    reset() {
-        this.pipeUPList = new Array();
-        this.pipeDOWNList = new Array();
-        this.shyguy = null;
-        this.pipeTotalSpawned = 0;
-    }
-
+    
     render() {
         if(this.shyguy) {
             this.shyguy.render(this.shyguyFacingX);
@@ -193,5 +186,12 @@ export class DoublePipeHandler {
             this.pipeUPList[index].render();
             this.pipeDOWNList[index].render();
         }
+    }
+
+    reset() {
+        this.pipeUPList = new Array();
+        this.pipeDOWNList = new Array();
+        this.shyguy = null;
+        this.pipeTotalSpawned = 0;
     }
 }

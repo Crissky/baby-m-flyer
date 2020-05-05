@@ -20,12 +20,6 @@ export class BasicBackgroundLite extends BasicObject {
         }
     }
 
-    resetPosX() {
-        if(this.posX < -(this.getTrueWidth()) ) {
-            this.posX = this.posX + this.getTrueWidth();
-        }
-    }
-
     render() {
         this.renderGradient();
         this.resetPosX();
@@ -39,6 +33,12 @@ export class BasicBackgroundLite extends BasicObject {
                 this.getTrueWidth(), this.getTrueHeight() // Tamanho da imagem na tela
             );
             
+        }
+    }
+
+    resetPosX() {
+        if(this.posX < -(this.getTrueWidth()) ) {
+            this.posX = this.posX + this.getTrueWidth();
         }
     }
 

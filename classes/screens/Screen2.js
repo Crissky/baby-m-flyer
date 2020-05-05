@@ -1,4 +1,4 @@
-import { isCollision } from "../../utils/Collision.js";
+import { isCollision, isMagnetCollision } from "../../utils/Collision.js";
 import { sound } from "../../utils/Sound.js";
 import { Score } from "../Score.js";
 import { MessageGetReady } from "../MessageGetReady.js";
@@ -6,6 +6,7 @@ import { MessageGameOver } from "../MessageGameOver.js";
 import { RedBlockHandler } from "../handler/RedBlockHandler.js";
 import { Background2 } from "../Backgrounds.js";
 import { Lava1 } from "../scenarios/Lavas.js";
+import { YellowM } from "../chars/YellowM.js";
 
 // VARIABLES
 const sprites = new Image();
@@ -34,8 +35,8 @@ export class Screen2 {
   constructor(canvas, context, debug=false) {
     this.music = new sound(musicPath[Math.floor(Math.random() * musicPath.length)], true);
     this.background = new Background2(canvas);
-    //this.floor = new LavaHandler(canvas, 10, 20, debug);
     this.floor = new Lava1(canvas, 1, debug);
+    this.char = new YellowM(canvas, debug);
     this.score = new Score(context, sprites, canvas);
     this.redBlockHandler = new RedBlockHandler(canvas, debug);
     this.messageGetReady = new MessageGetReady(context, sprites, canvas);
@@ -82,23 +83,24 @@ class Start {
     this.classFather = father;
   }
 
+  update() {
+    this.classFather.background.update(this.speed);
+    // this.classFather.floor.update(this.speed);
+    this.classFather.redBlockHandler.update(this.speed);
+  }
+  
+  render() {
+    this.classFather.background.render();
+    this.classFather.floor.render();
+    this.classFather.char.render();
+    this.classFather.redBlockHandler.render();
+    this.classFather.messageGetReady.render();
+  }
+  
   click() {
     this.startSound.play();
     this.classFather.music.play();
     this.classFather.activateGameScreen();
-  }
-
-  render() {
-    this.classFather.background.render();
-    this.classFather.floor.render();
-    this.classFather.redBlockHandler.render();
-    this.classFather.messageGetReady.render();
-  }
-
-  update() {
-    this.classFather.background.update(this.speed);
-    //this.classFather.floor.update(this.speed);
-    this.classFather.redBlockHandler.update(this.speed);
   }
 }
 
@@ -110,27 +112,29 @@ class Game {
     this.impactSound = new sound("./sounds/SFX_Impact.wav");
     this.topImpactSound = new sound("./sounds/SFX_Top_Impact.wav");
     this.classFather = father;
-    this.speedUpTime = 0;
-    this.speedUpWait = 20000;
-    
   }
-
-  click() {
-    if(!this.stoped) { }
-  }
-
+  
   update() {
-    this.speedUpTime = ++this.speedUpTime % this.speedUpWait;
-    if(this.speedUpTime === 0) {
-      this.speed += 0.5;
-      console.log("SpeedUP", this.speed);
-    }
     this.classFather.background.update(this.speed);
+    this.classFather.char.update(this.speed);
     this.classFather.floor.update(this.speed);
     this.classFather.redBlockHandler.update(this.speed);
     
-    //this.iscollided();
-    
+    this.iscollided();
+  }
+  
+  render() {
+    this.classFather.background.render();
+    this.classFather.char.render();
+    this.classFather.floor.render();
+    this.classFather.redBlockHandler.render();
+    this.classFather.score.render();
+  }
+  
+  click() {
+    if(!this.stoped) {
+      this.classFather.char.click();
+     }
   }
 
   reset() {
@@ -150,14 +154,47 @@ class Game {
     this.classFather.activateGameoverScreen();
   }
 
-  render() {
-    this.classFather.background.render();
-    this.classFather.floor.render();
-    this.classFather.redBlockHandler.render();
-    this.classFather.score.render();
+  iscollided() {
+    if(this.classFather.char.posY < 0) {
+      this.classFather.char.posY = 0;
+      this.classFather.char.setFall();
+      if( this.classFather.char.speedY < 0) {
+        this.classFather.char.speedY = 0;
+      }
+      this.topImpactSound.play();
+      console.log("Collision - Collided with the top");
+    }
+
+    for (let index = 0; index < this.classFather.redBlockHandler.redblockList.length; index++) {
+      const element = this.classFather.redBlockHandler.redblockList[index];
+      
+      if(element.posX > (this.classFather.char.posX + this.classFather.char.getTrueWidth())) {
+        break;
+      }
+
+      if(isCollision(this.classFather.char, element) && this.classFather.char.status === this.classFather.char.enumStatus.FALL) {
+        this.classFather.char.posY = (element.posY + element.getTrueHeight() - 14);
+        if( this.classFather.char.speedY < 0) {
+          this.classFather.char.speedY = 0;
+        }
+        this.topImpactSound.play();
+        console.log("Collision - Collided with redblock");
+        break;
+      }
+      
+      if(isMagnetCollision(this.classFather.char, element)  && this.classFather.char.status != this.classFather.char.enumStatus.FALL) {
+        this.classFather.char.setFixed();
+        this.classFather.char.posY = (element.posY + element.getTrueHeight() - 3);
+        break;
+      }
+    }
+
+    if ( isCollision(this.classFather.char, this.classFather.floor) ) {
+      this.stopGame();
+      console.log("Collision - Collided with the lava");
+    }
   }
 
-  iscollided() {}
 }
 
 
@@ -168,11 +205,24 @@ class Gameover {
     this.startSound = new sound("./sounds/smw2_flower_get.wav");
     this.classFather = father;
   }
-
+  
+  update() {}
+  
+  render() {
+    this.classFather.background.render();
+    this.classFather.char.render();
+    this.classFather.floor.render();
+    this.classFather.redBlockHandler.render();
+    this.classFather.messageGameOver.render();
+    this.classFather.score.render();
+    this.sleepTime -= 1;
+  }
+  
   click() {
     if(this.sleepTime > 0){
       return;
     }
+    this.classFather.char.reset();
     this.classFather.score.reset();
     this.classFather.gameScreen.reset()
     
@@ -182,17 +232,6 @@ class Gameover {
     this.sleepTime = 30;
     this.classFather.activateGameScreen()
   }
-
-  render() {
-    this.classFather.background.render();
-    this.classFather.floor.render();
-    this.classFather.redBlockHandler.render();
-    this.classFather.messageGameOver.render();
-    this.classFather.score.render();
-    this.sleepTime -= 1;
-  }
-
-  update() {}
 }
 
 class Win {
@@ -201,16 +240,7 @@ class Win {
     this.classFather = father;
     this.sleepTime = 100;
   }
-
-  click() {
-
-  }
-
-  render() {
-
-  }
-
-  update() {
-
-  }
+  update() {}
+  render() {}
+  click() {}
 }

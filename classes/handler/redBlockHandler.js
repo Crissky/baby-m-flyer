@@ -5,7 +5,7 @@ export class RedBlockHandler {
         this.debugMode = debug;
         this.canvas = canvas;
         this.redblockList = [];
-        this.defaultPosY = -1;
+        this.defaultPosY = -5;
         this.speedY = 1;
         this.waitTimeMovePosY = 20;
         this.currentTimeMovePosY = 0;
@@ -32,10 +32,9 @@ export class RedBlockHandler {
             redblock.update(speedScreen);
         });
 
-        if((this.redblockList[0].posX+this.redblockList[0].width) < 0){
+        if((this.redblockList[0].posX+this.redblockList[0].getTrueWidth()) < 0){
             this.removeFirstRedBlock();
         }
-        
     }
 
     render() {
@@ -66,5 +65,14 @@ export class RedBlockHandler {
 
     getLastRedBlock() {
         return this.redblockList.slice(-1)[0];
+    }
+
+    getCollisionRect() {
+        return [{
+            x1: 0,
+            x2: this.canvas.width,
+            y1: 0,
+            y2: this.redblockList[0].getTrueHeight()
+        }]
     }
 }

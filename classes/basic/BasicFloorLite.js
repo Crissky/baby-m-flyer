@@ -15,15 +15,8 @@ export class BasicFloorLite extends BasicObject {
         this.posX = this.posX - ScreenSpeed;
     }
     
-    resetPosX() {
-        if(this.posX < -(this.getTrueWidth()) ) {
-            this.posX = this.posX + this.getTrueWidth();
-        }
-    }
-
     render() {
         this.resetPosX();
-
         let maxLoop = Math.ceil( (this.canvas.width / this.getTrueWidth() )) + 1;
         for (let index = 0; index < maxLoop; index++) {
             this.context.drawImage(
@@ -39,8 +32,14 @@ export class BasicFloorLite extends BasicObject {
         }
     }
 
-    debugRect() {
-        super.debugRect('#ff0000');
+    resetPosX() {
+        if(this.posX < -(this.getTrueWidth()) ) {
+            this.posX = this.posX + this.getTrueWidth();
+        }
+    }
+
+    debugRect(color='#ff0000') {
+        super.debugRect(color);
     }
 
     getCollisionRect() {

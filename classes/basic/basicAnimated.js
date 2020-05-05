@@ -18,7 +18,6 @@ export class BasicAnimated extends BasicObject {
         this.maxFrame = maxFrame;
         this.currentFrameTime = 0;
         this.waitFrameTime = waitFrameTime;
-            
     }
 
     update(speedScreen){
@@ -28,7 +27,7 @@ export class BasicAnimated extends BasicObject {
         super.update(speedScreen);
     }
 
-    render(facingX=1, facingY=1) {
+    render(facingX=1, facingY=1, color='#0000ff') {
         this.context.save();
         let posX = this.posX;
         let posY = this.posY;
@@ -52,10 +51,11 @@ export class BasicAnimated extends BasicObject {
         this.context.restore();
         
         if(this.debugMode === true) {
-            this.debugRect();
+            this.debugRect(color);
         }
     }
 
+    click(ScreenSpeed) {}
 
     updateFrame(ScreenSpeed=1) {
         this.currentFrameTime = ++this.currentFrameTime % Math.ceil(this.waitFrameTime/ScreenSpeed);
@@ -63,7 +63,4 @@ export class BasicAnimated extends BasicObject {
             this.currentFrame = ++this.currentFrame % this.maxFrame;
         }
     }
-
-    click(ScreenSpeed) {}
-
 }

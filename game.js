@@ -6,7 +6,7 @@ const context = canvas.getContext('2d');
 const paddingX = window.innerWidth > 800 ? 100 : 4;
 const paddingY = 4;
 
-const debug = false;
+const debug = true;
 
 // Screen Size
 const height = (window.innerHeight+paddingY) > 600 ? 600 : (window.innerHeight-paddingY) < (480+paddingY) ? 480 : (window.innerHeight-paddingY);
@@ -21,8 +21,8 @@ console.log(`Screen size ${height}x${width}`)
 import { Screen1 } from "./classes/screens/Screen1.js";
 import { Screen2 } from "./classes/screens/Screen2.js";
 
-const screen1 = new Screen1(canvas, context, debug);
-// const screen1 = new Screen2(canvas, context, debug);
+// const screen1 = new Screen1(canvas, context, debug);
+const screen1 = new Screen2(canvas, context, debug);
 
 function loop() {
   screen1.update();

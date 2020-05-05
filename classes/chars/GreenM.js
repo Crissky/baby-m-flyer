@@ -9,12 +9,10 @@ class GreenM extends BasicChar {
         super(sprites, canvas,
             30, 0, 30, 37, 20, 70,
             0, 1,
-            6, 5, 5, 5);
-        this.debugMode = debug;
+            6, 5, 5, 5,
+            1, debug);
         this.collisionWidth = [28, 28, 26, 26, 21, 17];
         this.collisionHeight = [27, 26, 26, 27, 29, 31];
-        this.speedX = 0;
-        this.speedY = 1;
         this.gravity = 0.10;
         this.clickSpeedY = -4
         this.maxIncrementSpeedY = -3;
@@ -25,19 +23,6 @@ class GreenM extends BasicChar {
         this.currentFrameTime = 0;
         this.superFlySound = new sound("./sounds/smw_cape_rise.wav");
         this.flySound = new sound("./sounds/SFX_Jump.wav");
-        
-    }
-
-    click(ScreenSpeed) {
-        if( (this.speedY > this.limitForStartIncrementSpeedY) && (this.currentFrame === this.maxFrames-1) ) {
-            this.speedY = this.maxIncrementSpeedY;
-            this.superFlySound.play();
-        } else {
-            this.speedY = 0;
-            this.flySound.play();
-        }
-
-        this.speedY += this.clickSpeedY - (ScreenSpeed * 0.2)
     }
 
     update(ScreenSpeed) {
@@ -52,12 +37,6 @@ class GreenM extends BasicChar {
         }
     }
 
-    stop() {
-        this.speedY = 0;
-        this.speedX = 0;
-        this.gravity = 0;
-    }
-
     render() {
         this.context.drawImage(this.sprites, 
             (this.sourceX * this.currentFrame), this.sourceY, 
@@ -66,8 +45,35 @@ class GreenM extends BasicChar {
             this.getTrueWidth(), this.getTrueHeight()
         );
         
-        if(this.debugMode === true){
+        if(this.debugMode === true) {
             this.debugRect();
+        }
+    }
+
+    click(ScreenSpeed) {
+        if( (this.speedY > this.limitForStartIncrementSpeedY) && (this.currentFrame === this.maxFrames-1) ) {
+            this.speedY = this.maxIncrementSpeedY;
+            this.superFlySound.play();
+        } else {
+            this.speedY = 0;
+            this.flySound.play();
+        }
+
+        this.speedY += this.clickSpeedY - (ScreenSpeed * 0.2)
+    }
+
+    stop() {
+        this.speedY = 0;
+        this.speedX = 0;
+        this.gravity = 0;
+    }
+
+    updateFrame(ScreenSpeed) {
+        this.currentFrameTime = ++this.currentFrameTime % this.waitFrameTime;
+        if((this.currentFrameTime === 0 && this.speedY > 0 && this.currentFrame < this.maxFrames-1) || (this.speedY > this.limitForStartIncrementSpeedY && this.currentFrame < this.maxFrames-1) ){
+            this.currentFrame = ++this.currentFrame;
+        } else if (this.currentFrameTime === 0 && this.speedY < 0 && this.currentFrame > 0) {
+            this.currentFrame = --this.currentFrame;
         }
     }
 
@@ -89,15 +95,6 @@ class GreenM extends BasicChar {
         this.context.fillText( ("GreenM Gravity:     " + this.gravity.toFixed(2)), 5 , 55 );
         
         this.context.restore();
-    }
-
-    updateFrame(ScreenSpeed) {
-        this.currentFrameTime = ++this.currentFrameTime % this.waitFrameTime;
-        if((this.currentFrameTime === 0 && this.speedY > 0 && this.currentFrame < this.maxFrames-1) || (this.speedY > this.limitForStartIncrementSpeedY && this.currentFrame < this.maxFrames-1) ){
-            this.currentFrame = ++this.currentFrame;
-        } else if (this.currentFrameTime === 0 && this.speedY < 0 && this.currentFrame > 0) {
-            this.currentFrame = --this.currentFrame;
-        }
     }
 
     getCollisionRect() {
