@@ -7,6 +7,7 @@ import { RedBlockHandler } from "../handler/RedBlockHandler.js";
 import { Background2 } from "../Backgrounds.js";
 import { Lava1 } from "../scenarios/Lavas.js";
 import { YellowM } from "../chars/YellowM.js";
+import { LargeEgg1 } from "../enemies/Eggs.js";
 
 // VARIABLES
 const sprites = new Image();
@@ -38,6 +39,7 @@ export class Screen2 {
     this.floor = new Lava1(canvas, 1, debug);
     this.char = new YellowM(canvas, debug);
     this.score = new Score(context, sprites, canvas);
+    this.egg = new LargeEgg1(canvas, this.char, debug);
     this.redBlockHandler = new RedBlockHandler(canvas, debug);
     this.messageGetReady = new MessageGetReady(context, sprites, canvas);
     this.messageGameOver = new MessageGameOver(context, sprites, canvas);
@@ -80,12 +82,13 @@ class Start {
   constructor(father){
     this.speed = 0;
     this.startSound = new sound("./sounds/smw2_flower_get.wav");
-    this.classFather = father;
+    this.classFather = father; 
   }
 
   update() {
     this.classFather.background.update(this.speed);
-    // this.classFather.floor.update(this.speed);
+    this.classFather.floor.update(this.speed);
+    this.classFather.egg.update();
     this.classFather.redBlockHandler.update(this.speed);
   }
   
@@ -93,6 +96,7 @@ class Start {
     this.classFather.background.render();
     this.classFather.floor.render();
     this.classFather.char.render();
+    this.classFather.egg.render();
     this.classFather.redBlockHandler.render();
     this.classFather.messageGetReady.render();
   }
@@ -117,6 +121,7 @@ class Game {
   update() {
     this.classFather.background.update(this.speed);
     this.classFather.char.update(this.speed);
+    this.classFather.egg.update();
     this.classFather.floor.update(this.speed);
     this.classFather.redBlockHandler.update(this.speed);
     
@@ -126,6 +131,7 @@ class Game {
   render() {
     this.classFather.background.render();
     this.classFather.char.render();
+    this.classFather.egg.render();
     this.classFather.floor.render();
     this.classFather.redBlockHandler.render();
     this.classFather.score.render();
@@ -134,6 +140,7 @@ class Game {
   click() {
     if(!this.stoped) {
       this.classFather.char.click();
+      this.classFather.egg.shootInTargetPlayer();   
      }
   }
 
@@ -223,6 +230,7 @@ class Gameover {
       return;
     }
     this.classFather.char.reset();
+    this.classFather.egg.reset();
     this.classFather.score.reset();
     this.classFather.gameScreen.reset()
     

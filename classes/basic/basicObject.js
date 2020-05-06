@@ -97,4 +97,10 @@ export class BasicObject {
     getTrueHeight() {
         return Math.floor(this.height * this.sizeMultiplier);
     }
+    getCenterPos() {
+        let mPosX = this.posX + (this.getTrueWidth() / 2);
+        let mPosY = this.posY + (this.getTrueHeight() / 2);
+
+        return {posX: mPosX, posY: mPosY};
+    }
 }

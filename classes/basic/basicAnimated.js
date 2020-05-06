@@ -6,7 +6,7 @@ export class BasicAnimated extends BasicObject {
         sourceX, sourceY, width, height, posX, posY,
         speedX=0, speedY=0,
         collisionToleranceX1=0, collisionToleranceX2=0, collisionToleranceY1=0, collisionToleranceY2=0,
-        sizeMultiplier=1, maxFrame=1, waitFrameTime=10, debug=false){
+        sizeMultiplier=1, maxFrame=1, waitFrameTime=10, debug=false) {
         
         super(sprites, canvas,
             sourceX, sourceY, width, height, posX, posY,
@@ -20,14 +20,14 @@ export class BasicAnimated extends BasicObject {
         this.waitFrameTime = waitFrameTime;
     }
 
-    update(speedScreen){
+    update(speedScreen=1) {
         this.posX -= speedScreen;
         this.posY += this.speedY;
         this.updateFrame(speedScreen);
         super.update(speedScreen);
     }
 
-    render(facingX=1, facingY=1, color='#0000ff') {
+    render(facingX=1, facingY=1) {
         this.context.save();
         let posX = this.posX;
         let posY = this.posY;
@@ -51,8 +51,12 @@ export class BasicAnimated extends BasicObject {
         this.context.restore();
         
         if(this.debugMode === true) {
-            this.debugRect(color);
+            this.debugRect();
         }
+    }
+
+    debugRect(color='#0000ff') {
+        super.debugRect(color);
     }
 
     click(ScreenSpeed) {}
