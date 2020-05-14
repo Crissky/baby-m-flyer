@@ -1,4 +1,5 @@
 import { BasicChar } from "../basic/BasicChar.js";
+import { Sound } from "../../utils/Sound.js";
 
 const sprites = new Image();
 sprites.src = './sprites/baby_W.png';
@@ -15,7 +16,7 @@ export class YellowM extends BasicChar {
 
         this.defaultGravity = 0.1;
         this.gravity = this.defaultGravity;
-        this.collisionX1 = [8,  8,  8,  8,  10, 8, 8];
+        this.collisionX1 = [8, 8, 8, 8, 10, 8, 8];
         this.collisionX2 = [10, 10, 10, 10, 12, 10, 10];
         this.collisionY1 = [10, 10, 10, 10, 15, 10, 10];
         this.collisionY2 = [10, 10, 10, 10, 12, 10, 10];
@@ -27,6 +28,10 @@ export class YellowM extends BasicChar {
         this.waitFrameTime = 15;
         this.currentFrameTime = 0;
         this.status = this.enumStatus.FALL;
+        this.magnetFixingSound = new Sound("./sounds/chocking.mp3", true);
+        this.magnetFixedSound = new Sound("./sounds/magnet-fixed.wav");
+        this.magnetOnSound = new Sound("./sounds/magnet-on.wav");
+        this.magnetOffSound = new Sound("./sounds/magnet-off.wav");
     }
 
     enumStatus = {
@@ -36,15 +41,26 @@ export class YellowM extends BasicChar {
     }
 
     setFixed() {
+        if (this.status != this.enumStatus.FIXED) {
+            this.magnetFixedSound.play();
+            this.magnetFixingSound.play();
+        }
         this.status = this.enumStatus.FIXED;
+
     }
 
     setFall() {
         this.status = this.enumStatus.FALL;
+        this.magnetFixingSound.stop();
+    }
+
+    setMagnet() {
+        this.status = this.enumStatus.MAGNET;
+        this.magnetFixingSound.stop();
     }
 
     update(screenSpeed) {
-        if(this.status === this.enumStatus.FALL) {
+        if (this.status === this.enumStatus.FALL) {
             this.gravity = this.defaultGravity;
         } else if (this.status === this.enumStatus.MAGNET) {
             this.gravity = -(this.defaultGravity);
@@ -53,34 +69,34 @@ export class YellowM extends BasicChar {
             this.speedY = 0;
         }
         this.speedY += this.gravity;
-        this.posY +=this.speedY;
+        this.posY += this.speedY;
         this.updateFrame();
     }
-    
+
     render() {
-        this.context.drawImage(this.sprites, 
-            (this.sourceX * this.currentFrame), this.sourceY, 
-            this.width, this.height, 
-            this.posX , (this.posY - (this.height * (this.sizeMultiplier-1))),
+        this.context.drawImage(this.sprites,
+            (this.sourceX * this.currentFrame), this.sourceY,
+            this.width, this.height,
+            this.posX, (this.posY - (this.height * (this.sizeMultiplier - 1))),
             this.getTrueWidth(), this.getTrueHeight()
         );
-            
-        if(this.debugMode === true) {
+
+        if (this.debugMode === true) {
             this.debugRect();
         }
     }
 
-    debugRect(color='#0000ff') {
+    debugRect(color = '#0000ff') {
         this.context.save();
-        
+
         this.context.globalAlpha = 0.5;
         this.context.fillStyle = color;
         let collisionRect = this.getCollisionRect();
         collisionRect.forEach(rect => {
             this.context.fillRect(rect.x1, rect.y1, (rect.x2 - rect.x1), (rect.y2 - rect.y1));
         });
-        
-        if(this.status != this.enumStatus.FALL) {
+
+        if (this.status != this.enumStatus.FALL) {
             this.context.fillStyle = '#00ff00';
             let magnetCollisionRect = this.getMagnetCollisionRect();
             magnetCollisionRect.forEach(rect => {
@@ -89,12 +105,16 @@ export class YellowM extends BasicChar {
         }
         this.context.restore();
     }
-    
+
     click() {
-        if(this.status != this.enumStatus.FALL) {
-            this.status = this.enumStatus.FALL;            
+        if (this.status != this.enumStatus.FALL) {
+            this.setFall();
+            this.magnetOnSound.stop();
+            this.magnetOffSound.play();
         } else {
             this.status = this.enumStatus.MAGNET;
+            this.magnetOffSound.stop();
+            this.magnetOnSound.play();
         }
     }
 
@@ -107,7 +127,7 @@ export class YellowM extends BasicChar {
     }
 
     changeFrames() {
-        if(this.status === this.enumStatus.FALL) {
+        if (this.status === this.enumStatus.FALL) {
             this.maxFrames = this.fallFrames;
         } else if (this.status === this.enumStatus.MAGNET) {
             this.maxFrames = this.magnetFrames;
@@ -118,10 +138,10 @@ export class YellowM extends BasicChar {
 
     getCollisionRect() {
         return [{
-            x1: ( this.posX + this.collisionX1[this.currentFrame] ),
-            x2: ( (this.posX + this.width - this.collisionX2[this.currentFrame] ) ),
-            y1: ( this.posY + this.collisionY1[this.currentFrame] ),
-            y2: ( (this.posY + this.height - this.collisionY2[this.currentFrame] ) )
+            x1: (this.posX + this.collisionX1[this.currentFrame]),
+            x2: ((this.posX + this.width - this.collisionX2[this.currentFrame])),
+            y1: (this.posY + this.collisionY1[this.currentFrame]),
+            y2: ((this.posY + this.height - this.collisionY2[this.currentFrame]))
         }]
     }
 

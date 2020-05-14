@@ -1,7 +1,7 @@
 import { RedBlock } from "../scenarios/scenarios-elements/RedBlock.js";
 
 export class RedBlockHandler {
-    constructor(canvas, debug=false) {
+    constructor(canvas, debug = false) {
         this.debugMode = debug;
         this.canvas = canvas;
         this.redblockList = [];
@@ -12,27 +12,27 @@ export class RedBlockHandler {
     }
 
     update(speedScreen) {
-        this.currentTimeMovePosY = ++this.currentTimeMovePosY % Math.ceil(this.waitTimeMovePosY/speedScreen);
-        if(this.redblockList.length === 0 || this.getLastRedBlock().posX < this.canvas.width) {
+        this.currentTimeMovePosY = ++this.currentTimeMovePosY % Math.ceil(this.waitTimeMovePosY / speedScreen);
+        if (this.redblockList.length === 0 || this.getLastRedBlock().posX < this.canvas.width) {
             this.appendRedBlock();
         }
-        if(speedScreen === 0) {
+        if (speedScreen === 0) {
             return
         }
         this.redblockList.forEach(redblock => {
             redblock.speedY = 0;
-            if(this.currentTimeMovePosY === 0) {
+            if (this.currentTimeMovePosY === 0) {
                 redblock.speedY = redblock.memorySpeedY;
             }
-            if(redblock.posY < (this.defaultPosY) && redblock.memorySpeedY < 0) {
+            if (redblock.posY < (this.defaultPosY) && redblock.memorySpeedY < 0) {
                 redblock.memorySpeedY = redblock.memorySpeedY * (-1);
-            } else if(redblock.posY > -(this.defaultPosY) && redblock.memorySpeedY > 0) {
+            } else if (redblock.posY > -(this.defaultPosY) && redblock.memorySpeedY > 0) {
                 redblock.memorySpeedY = redblock.memorySpeedY * (-1);
             }
             redblock.update(speedScreen);
         });
 
-        if((this.redblockList[0].posX+this.redblockList[0].getTrueWidth()) < 0){
+        if ((this.redblockList[0].posX + this.redblockList[0].getTrueWidth()) < 0) {
             this.removeFirstRedBlock();
         }
     }
@@ -49,7 +49,7 @@ export class RedBlockHandler {
 
     appendRedBlock() {
         let redblock = new RedBlock(this.canvas, this.debugMode);
-        if(this.redblockList.length > 0) {
+        if (this.redblockList.length > 0) {
             let lastRedBlock = this.getLastRedBlock();
             redblock.posX = lastRedBlock.posX + lastRedBlock.getTrueWidth();
         }

@@ -3,7 +3,7 @@ import { BasicAnimated } from "../basic/BasicAnimated.js";
 import { randomIntFromInterval } from "../../utils/Random.js";
 
 export class Lava1 extends BasicFloorLite {
-    constructor(canvas, sizeMultiplier=1, debug=false) {
+    constructor(canvas, sizeMultiplier = 1, debug = false) {
         const sprites = new Image();
         sprites.src = "./sprites/lava.png";
         super(sprites, canvas,
@@ -19,42 +19,42 @@ export class Lava1 extends BasicFloorLite {
         console.log("Lava Bubbles randomFrequency:", this.randomFrequency);
     }
 
-    update(screenSpeed){
+    update(screenSpeed) {
         this.updateFrame();
 
-        if(this.isRandomStart()) {
+        if (this.isRandomStart()) {
             this.addLavaBubble();
         }
         this.lavaBubbleList.forEach(lavaBubble => {
             lavaBubble.update(screenSpeed);
         });
-        this.lavaBubbleList = this.lavaBubbleList.filter(function(value, index, arr) {
+        this.lavaBubbleList = this.lavaBubbleList.filter(function (value, index, arr) {
             return value.currentFrame < 4;
         });
-        
+
         super.update(screenSpeed)
     }
 
-    updateFrame(ScreenSpeed=1) {
-        this.currentFrameTime = ++this.currentFrameTime % Math.ceil(this.waitFrameTime/ScreenSpeed);
-        if(this.currentFrameTime === 0) {
+    updateFrame(ScreenSpeed = 1) {
+        this.currentFrameTime = ++this.currentFrameTime % Math.ceil(this.waitFrameTime / ScreenSpeed);
+        if (this.currentFrameTime === 0) {
             this.currentFrame = ++this.currentFrame % this.maxFrame;
         }
     }
 
     resetPosX() {
-        if(this.posX < -(this.getTrueWidth()) ) {
+        if (this.posX < -(this.getTrueWidth())) {
             this.posX = this.posX + this.getTrueWidth();
         }
     }
 
     render() {
         this.resetPosX();
-        let maxLoop = Math.ceil( (this.canvas.width / this.getTrueWidth() )) + 1;
+        let maxLoop = Math.ceil((this.canvas.width / this.getTrueWidth())) + 1;
         for (let index = 0; index < maxLoop; index++) {
             this.context.drawImage(
                 this.sprites,
-                (this.sourceX*this.currentFrame), this.sourceY, // Sprite X, Sprite Y
+                (this.sourceX * this.currentFrame), this.sourceY, // Sprite X, Sprite Y
                 this.width, this.height, // Tamanho de recorte na Sprite
                 (this.posX + (this.getTrueWidth() * index)), this.posY, // Posição na tela
                 this.getTrueWidth(), this.getTrueHeight() // Tamanho da imagem na tela
@@ -63,17 +63,17 @@ export class Lava1 extends BasicFloorLite {
                 lavaBubble.render();
             });
         }
-        
+
         this.lavaBubbleList.forEach(lavaBubble => {
             lavaBubble.render();
         });
 
-        if(this.debugMode === true){
+        if (this.debugMode === true) {
             this.debugRect();
         }
     }
 
-    addLavaBubble(){
+    addLavaBubble() {
         let lavaBubble = new LavaBubble(this.canvas);
         lavaBubble.posX = randomIntFromInterval(0, this.canvas.width);
         lavaBubble.posY = this.posY - lavaBubble.height;
@@ -95,7 +95,7 @@ class LavaBubble extends BasicAnimated {
         super(sprites, canvas, 32, 0, 32, 8, 0, 0, 0, 0, 0, 0, 0, 0, 1, 5, 20);
     }
 
-    update(speedScreen){
+    update(speedScreen) {
         this.posX -= speedScreen;
         this.updateFrame(1);
     }

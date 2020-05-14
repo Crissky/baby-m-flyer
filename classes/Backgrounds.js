@@ -1,7 +1,7 @@
 import { BasicBackgroundLite } from "./basic/BasicBackgroundLite.js";
 
 export class Background1 extends BasicBackgroundLite {
-    constructor(canvas, delay=30) {
+    constructor(canvas, delay = 30) {
         const sprites = new Image();
         sprites.src = "./sprites/sprites.png";
         super(sprites, canvas,
@@ -19,18 +19,18 @@ export class Background1 extends BasicBackgroundLite {
         my_gradient.addColorStop(1, "#fdeff9");
         this.context.fillStyle = my_gradient;
         this.context.fillRect(0, 0, this.canvas.width, this.canvas.height);
-    }   
+    }
 }
 
 export class Background2 extends BasicBackgroundLite {
-    constructor(canvas, delay=30) {
+    constructor(canvas, delay = 30) {
         const sprites = new Image();
         sprites.src = "./sprites/mine-bg.png";
         super(sprites, canvas,
             0, 0,
             512, 385,
             0, 0,
-            delay, (canvas.height/385));
+            delay, (canvas.height / 385));
     }
 
     renderGradient() {
@@ -39,5 +39,5 @@ export class Background2 extends BasicBackgroundLite {
         my_gradient.addColorStop(1, "#dd1818");
         this.context.fillStyle = my_gradient;
         this.context.fillRect(0, 0, this.canvas.width, this.canvas.height);
-    }   
+    }
 }

@@ -12,11 +12,11 @@ export class MessageGetReady {
     }
     render() {
         this.context.drawImage(
-          this.sprites,
-          this.sourceX, this.sourceY, // Sprite X, Sprite Y
-          this.width, this.height, // Tamanho de recorte na Sprite
-          this.posX, this.posY, // Posição na tela
-          this.width, this.height // Tamanho da imagem na tela
+            this.sprites,
+            this.sourceX, this.sourceY, // Sprite X, Sprite Y
+            this.width, this.height, // Tamanho de recorte na Sprite
+            this.posX, this.posY, // Posição na tela
+            this.width, this.height // Tamanho da imagem na tela
         );
     }
 }

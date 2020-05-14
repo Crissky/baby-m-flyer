@@ -1,13 +1,13 @@
 import { BasicObject } from "./BasicObject.js";
 
 export class BasicBackgroundLite extends BasicObject {
-    constructor (sprites, canvas, sourceX, sourceY, width, height, posX, posY, delay=30, sizeMultiplier=1, debug=false) {
+    constructor(sprites, canvas, sourceX, sourceY, width, height, posX, posY, delay = 30, sizeMultiplier = 1, debug = false) {
         super(sprites, canvas,
             sourceX, sourceY,
             width, height,
             posX, posY,
             0, 0,
-            0,0,0,0,
+            0, 0, 0, 0,
             sizeMultiplier, debug);
         this.time = 0;
         this.delay = delay;
@@ -15,7 +15,7 @@ export class BasicBackgroundLite extends BasicObject {
 
     update(ScreenSpeed) {
         this.time = ++this.time % Math.ceil(this.delay / ScreenSpeed);
-        if(this.time === 0 ) {
+        if (this.time === 0) {
             this.posX -= 1;
         }
     }
@@ -23,7 +23,7 @@ export class BasicBackgroundLite extends BasicObject {
     render() {
         this.renderGradient();
         this.resetPosX();
-        let maxLoop = Math.ceil( (this.canvas.width / this.getTrueWidth() )) + 1;
+        let maxLoop = Math.ceil((this.canvas.width / this.getTrueWidth())) + 1;
         for (let index = 0; index < maxLoop; index++) {
             this.context.drawImage(
                 this.sprites,
@@ -32,12 +32,12 @@ export class BasicBackgroundLite extends BasicObject {
                 (this.posX + (this.getTrueWidth() * index)), this.posY, // Posição na tela
                 this.getTrueWidth(), this.getTrueHeight() // Tamanho da imagem na tela
             );
-            
+
         }
     }
 
     resetPosX() {
-        if(this.posX < -(this.getTrueWidth()) ) {
+        if (this.posX < -(this.getTrueWidth())) {
             this.posX = this.posX + this.getTrueWidth();
         }
     }
