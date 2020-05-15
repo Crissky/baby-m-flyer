@@ -10,6 +10,7 @@ import { YellowM } from "../chars/YellowM.js";
 import { Thrower } from "../enemies/Thrower.js";
 import { RockBlock } from "../scenarios/RockBlock.js";
 import { ThrowerHandler } from "../handler/ThrowerHandler.js";
+import { BillHandler } from "../handler/BillHandler.js";
 
 // VARIABLES
 const sprites = new Image();
@@ -44,6 +45,7 @@ export class Screen2 {
     this.enemy = new RockBlock(canvas, debug);
     this.redBlockHandler = new RedBlockHandler(canvas, debug);
     this.throwerHandler = new ThrowerHandler(canvas, this.char, this.floor, debug);
+    this.billHandler = new BillHandler(canvas, debug);
     this.messageGetReady = new MessageGetReady(context, sprites, canvas);
     this.messageGameOver = new MessageGameOver(context, sprites, canvas);
     this.startScreen = new Start(this);
@@ -123,9 +125,10 @@ class Game {
 
   update() {
     this.classFather.background.update(this.speed);
-    this.classFather.char.update(this.speed);
-    this.classFather.enemy.update();
+    this.classFather.enemy.update(this.speed);
+    this.classFather.billHandler.update(this.speed);
     this.classFather.throwerHandler.update(this.speed);
+    this.classFather.char.update(this.speed);
     this.classFather.redBlockHandler.update(this.speed);
     this.classFather.floor.update(this.speed);
 
@@ -134,8 +137,9 @@ class Game {
 
   render() {
     this.classFather.background.render();
-    this.classFather.char.render();
     this.classFather.enemy.render();
+    this.classFather.char.render();
+    this.classFather.billHandler.render();
     this.classFather.throwerHandler.render();
     this.classFather.redBlockHandler.render();
     this.classFather.floor.render();
@@ -236,6 +240,7 @@ class Gameover {
     this.classFather.char.reset();
     this.classFather.enemy.reset();
     this.classFather.score.reset();
+    this.classFather.billHandler.reset();
     this.classFather.throwerHandler.reset();
     this.classFather.gameScreen.reset()
 

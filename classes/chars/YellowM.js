@@ -1,5 +1,7 @@
 import { BasicChar } from "../basic/BasicChar.js";
 import { Sound } from "../../utils/Sound.js";
+import { Spark } from "../scenarios/scenarios-elements/spark.js";
+import { randomIntFromInterval } from "../../utils/Random.js";
 
 const sprites = new Image();
 sprites.src = './sprites/baby_W.png';
@@ -28,6 +30,7 @@ export class YellowM extends BasicChar {
         this.waitFrameTime = 15;
         this.currentFrameTime = 0;
         this.status = this.enumStatus.FALL;
+        this.sparkList = [];
         this.magnetFixingSound = new Sound("./sounds/chocking.mp3", true);
         this.magnetFixedSound = new Sound("./sounds/magnet-fixed.wav");
         this.magnetOnSound = new Sound("./sounds/magnet-on.wav");
@@ -59,7 +62,7 @@ export class YellowM extends BasicChar {
         this.magnetFixingSound.stop();
     }
 
-    update(screenSpeed) {
+    update(speedScreen) {
         if (this.status === this.enumStatus.FALL) {
             this.gravity = this.defaultGravity;
         } else if (this.status === this.enumStatus.MAGNET) {
@@ -70,6 +73,17 @@ export class YellowM extends BasicChar {
         }
         this.speedY += this.gravity;
         this.posY += this.speedY;
+
+        this.sparkList.forEach(spark => {
+            spark.update(speedScreen);
+        });
+
+        this.sparkList = this.sparkList.filter(function(spark, index, arr) {
+            // return (spark.posY < (spark.player.getEndPosY() + randomIntFromInterval(1, 100) ) );
+
+            return (spark.posY < spark.canvas.height)
+        });
+
         this.updateFrame();
     }
 
@@ -80,6 +94,11 @@ export class YellowM extends BasicChar {
             this.posX, (this.posY - (this.height * (this.sizeMultiplier - 1))),
             this.getTrueWidth(), this.getTrueHeight()
         );
+
+        this.sparkList.forEach(spark => {
+            spark.render();
+        });
+
 
         if (this.debugMode === true) {
             this.debugRect();
@@ -123,6 +142,10 @@ export class YellowM extends BasicChar {
         this.currentFrameTime = ++this.currentFrameTime % this.waitFrameTime;
         if (this.currentFrameTime === 0) {
             this.currentFrame = this.maxFrames[Math.floor(Math.random() * this.maxFrames.length)];
+            
+            if(this.status === this.enumStatus.FIXED) {
+                this.appendSpark();
+            }
         }
     }
 
@@ -152,5 +175,12 @@ export class YellowM extends BasicChar {
             y1: this.posY,
             y2: (this.posY + 15)
         }]
+    }
+
+    appendSpark() {
+        let spark = new Spark(this.canvas, this, false);
+        spark.posX = this.posX + 23;
+        spark.posY = this.posY + 3;
+        this.sparkList.push(spark);
     }
 }

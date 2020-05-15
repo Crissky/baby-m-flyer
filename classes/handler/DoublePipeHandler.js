@@ -165,9 +165,9 @@ export class DoublePipeHandler {
         if (this.pipeUPList.length > 0 && this.pipeUPList.slice(-1)[0].posX < (this.canvas.width - this.distanceBetweenX)) {
             this.appendPipes();
         }
-        if (this.pipeUPList.length > 0 && (this.pipeUPList[0].posX + this.pipeUPList[0].width) < 0) {
-            this.removeFirstPipe();
-        }
+        // if (this.pipeUPList.length > 0 && (this.pipeUPList[0].posX + this.pipeUPList[0].width) < 0) {
+        //     this.removeFirstPipe();
+        // }
         this.movePosX(screenSpeed);
         this.movePosY(screenSpeed);
 
