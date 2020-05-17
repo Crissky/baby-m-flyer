@@ -10,7 +10,7 @@ export class Thrower extends BasicAnimated {
             canvas.width, canvas.height,
             0, 0,
             5, 5, 5, 5,
-            1, 7, 30, debug);
+            1.5, 7, 30, debug);
         this.projectile = projectile;
         this.collisionX1 = [8, 12, 8, 8, 11, 13, 15];
         this.collisionX2 = [13, 11, 11, 11, 11, 8, 8];
@@ -72,30 +72,30 @@ export class Thrower extends BasicAnimated {
 
     getCollisionRect() {
         return [{
-            x1: (this.posX + this.collisionX1[this.currentFrame]),
-            x2: ((this.posX + this.width - this.collisionX2[this.currentFrame])),
-            y1: (this.posY + this.collisionY1[this.currentFrame]),
-            y2: ((this.posY + this.height - this.collisionY2[this.currentFrame]))
+            x1: (this.posX + (this.sizeMultiplier * this.collisionX1[this.currentFrame])),
+            x2: ((this.posX + this.getTrueWidth() - (this.sizeMultiplier * this.collisionX2[this.currentFrame]))),
+            y1: (this.posY + (this.sizeMultiplier * this.collisionY1[this.currentFrame])),
+            y2: ((this.posY + this.getTrueHeight() - (this.sizeMultiplier * this.collisionY2[this.currentFrame])))
         }]
     }
 
     setProjectilePos() {
         switch (this.currentFrame) {
             case 0:
-                this.projectile.setCenterPosX(this.posX + 16);
-                this.projectile.setCenterPosY(this.posY + 10);
+                this.projectile.setCenterPosX(this.posX + (this.sizeMultiplier * 16));
+                this.projectile.setCenterPosY(this.posY + (this.sizeMultiplier * 10));
                 break;
             case 1:
-                this.projectile.setCenterPosX(this.posX + 17);
-                this.projectile.setCenterPosY(this.posY + 7);
+                this.projectile.setCenterPosX(this.posX + (this.sizeMultiplier * 17));
+                this.projectile.setCenterPosY(this.posY + (this.sizeMultiplier * 7));
                 break;
             case 2:
-                this.projectile.setCenterPosX(this.posX + 3);
-                this.projectile.setCenterPosY(this.posY + 11);
+                this.projectile.setCenterPosX(this.posX + (this.sizeMultiplier * 3));
+                this.projectile.setCenterPosY(this.posY + (this.sizeMultiplier * 11));
                 break;
             case 6:
-                this.projectile.setCenterPosX(this.posX + 23);
-                this.projectile.setCenterPosY(this.posY + 15);
+                this.projectile.setCenterPosX(this.posX + (this.sizeMultiplier * 23));
+                this.projectile.setCenterPosY(this.posY + (this.sizeMultiplier * 15));
                 break;
             default:
                 break;

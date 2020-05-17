@@ -12,10 +12,14 @@ export class ThrowerHandler {
         this.throwerList = [];
         this.rockBlockList = [];
         this.largeEggList = [];
+        this.distanceBetweenX = (canvas.width * 0.7);
     }
 
     update(speedScreen) {
         if (this.rockBlockList.length < 1) {
+            this.appendThrower();
+        }
+        if (this.rockBlockList.length > 0 && this.rockBlockList.slice(-1)[0].posX < (this.canvas.width - this.distanceBetweenX)) {
             this.appendThrower();
         }
 
@@ -58,6 +62,10 @@ export class ThrowerHandler {
         this.largeEggList = [];
     }
 
+    updateLevel(level=1) {
+        this.distanceBetweenX = (this.canvas.width * (1 - level/10));
+    }
+
     appendThrower() {
         let largeEgg = this.getLargeEgg();
         let rockBlock = new RockBlock(this.canvas, this.debugMode);
@@ -94,17 +102,17 @@ export class ThrowerHandler {
         let minPosY = Math.floor(this.floor.posY - rockBlock.getTrueHeight() + 10);
         let maxPosY = Math.ceil(this.floor.posY - 10);
 
+        rockBlock.posX = this.canvas.width + randomIntFromInterval(100, 200);
         rockBlock.posY = randomIntFromInterval(minPosY, maxPosY);
     }
 
     setThrowerPos(thrower, rockBlock) {
-        thrower.posX = rockBlock.getCenterPosX() - (thrower.getTrueWidth() / 2) - 5;
-        thrower.posY = rockBlock.posY - thrower.getTrueHeight() + 4;
+        thrower.posX = rockBlock.getCenterPosX() - (thrower.getTrueWidth() / 2) - (thrower.sizeMultiplier * 5);
+        thrower.posY = rockBlock.posY - thrower.getTrueHeight() + (thrower.sizeMultiplier * 4);
     }
 
     getLargeEgg() {
         let choice = randomIntFromInterval(1, 32);
-        console.log("getLargeEgg() choice", choice);
         var largeEgg = new LargeEggGreen(this.canvas, this.targetPlayer, this.debugMode);
         switch (true) {
             case (choice === 1):

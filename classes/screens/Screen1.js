@@ -3,11 +3,11 @@ import { Sound } from "../../utils/Sound.js";
 
 import { GreenM } from "../chars/GreenM.js";
 import { DoublePipeHandler } from "../handler/DoublePipeHandler.js";
-import { Score } from "../Score.js";
 import { MessageGetReady } from "../MessageGetReady.js";
 import { MessageGameOver } from "../MessageGameOver.js";
 import { Background1 } from "../Backgrounds.js";
 import { Floor1 } from "../scenarios/Floors.js";
+import { Score1 } from "../hud/Score1.js";
 
 // VARIABLES
 const sprites = new Image();
@@ -40,7 +40,7 @@ export class Screen1 {
     this.floor = new Floor1(canvas, 1, debug);
     this.char = new GreenM(canvas, debug);
     this.pipesHandler = new DoublePipeHandler(context, sprites, canvas, this.floor, this.char, 100, debug);
-    this.score = new Score(context, sprites, canvas);
+    this.score = new Score1(canvas);
     this.messageGetReady = new MessageGetReady(context, sprites, canvas);
     this.messageGameOver = new MessageGameOver(context, sprites, canvas);
     this.startScreen = new Start(this);

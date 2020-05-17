@@ -1,13 +1,12 @@
 import { isCollision, isMagnetCollision } from "../../utils/Collision.js";
 import { Sound } from "../../utils/Sound.js";
-import { Score } from "../Score.js";
+import { Score1 } from "../hud/Score1.js";
 import { MessageGetReady } from "../MessageGetReady.js";
 import { MessageGameOver } from "../MessageGameOver.js";
 import { RedBlockHandler } from "../handler/RedBlockHandler.js";
 import { Background2 } from "../Backgrounds.js";
 import { Lava1 } from "../scenarios/Lavas.js";
 import { YellowM } from "../chars/YellowM.js";
-import { Thrower } from "../enemies/Thrower.js";
 import { RockBlock } from "../scenarios/RockBlock.js";
 import { ThrowerHandler } from "../handler/ThrowerHandler.js";
 import { BillHandler } from "../handler/BillHandler.js";
@@ -41,11 +40,11 @@ export class Screen2 {
     this.background = new Background2(canvas);
     this.floor = new Lava1(canvas, 1, debug);
     this.char = new YellowM(canvas, debug);
-    this.score = new Score(context, sprites, canvas);
-    this.enemy = new RockBlock(canvas, debug);
+    this.score = new Score1(canvas);
+    this.enemy = new RockBlock(canvas, debug)
     this.redBlockHandler = new RedBlockHandler(canvas, debug);
     this.throwerHandler = new ThrowerHandler(canvas, this.char, this.floor, debug);
-    this.billHandler = new BillHandler(canvas, debug);
+    this.billHandler = new BillHandler(canvas, this.char, debug);
     this.messageGetReady = new MessageGetReady(context, sprites, canvas);
     this.messageGameOver = new MessageGameOver(context, sprites, canvas);
     this.startScreen = new Start(this);

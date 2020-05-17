@@ -1,12 +1,14 @@
 import { Bill } from "../enemies/Bill.js";
 import { randomIntFromInterval } from "../../utils/Random.js";
+import { RocketShyguy } from "../enemies/RocketShyguy.js";
 
 export class BillHandler {
-    constructor(canvas, debug) {
+    constructor(canvas, player, debug) {
         this.canvas = canvas;
+        this.player = player;
         this.debugMode = debug;
         this.billList = [];
-        this.distanceBetweenX = (canvas.width * 0.7);
+        this.distanceBetweenX = canvas.width;
     }
 
     update(speedScreen) {
@@ -36,11 +38,24 @@ export class BillHandler {
         this.billList = [];
     }
     
+    updateLevel(level=1) {
+        this.distanceBetweenX = (this.canvas.width * (1 - level/10));
+    }
+
     appendBill() {
         let bill = new Bill(this.canvas, this.debugMode);
+
+        let choice = randomIntFromInterval(1, 16);
+        switch (choice) {
+            case 1:
+                bill = new RocketShyguy(this.canvas, this.player, this.debugMode);
+                break;
+            default:
+                break;
+        }
+
         bill.posX = this.canvas.width + randomIntFromInterval(100, 200);
         bill.posY = randomIntFromInterval(30, (this.canvas.height - 200));
-
         this.billList.push(bill);
     }
 
