@@ -12,7 +12,7 @@ export class LargeEggGreen extends BasicProjectileStartAimPlayer {
             0, 0,
             6, 6, 6, 6,
             1, 2,
-            30, debug);
+            30, 90, debug);
         this.shootSound = new Sound("./sounds/eggBounce1.wav");
     }
 
@@ -33,7 +33,7 @@ export class LargeEggBlue extends BasicProjectileStartAimPlayer {
             0, 0,
             6, 6, 6, 6,
             1, 2,
-            25, debug);
+            25, 90, debug);
         this.shootSound = new Sound("./sounds/eggBounce1.wav");
     }
 
@@ -54,7 +54,7 @@ export class LargeEggRed extends BasicProjectileStartAimPlayer {
             0, 0,
             6, 6, 6, 6,
             1, 2,
-            20, debug);
+            20, 90, debug);
         this.shootSound = new Sound("./sounds/eggBounce2.wav");
     }
 
@@ -75,7 +75,7 @@ export class LargeEggYellow extends BasicProjectileStartAimPlayer {
             0, 0,
             6, 6, 6, 6,
             1, 2,
-            15, debug);
+            15, 90, debug);
         this.shootSound = new Sound("./sounds/eggBounce2.wav");
     }
 
@@ -96,7 +96,7 @@ export class LargeEggPurple extends BasicProjectileStartAimPlayer {
             0, 0,
             6, 6, 6, 6,
             1, 2,
-            10, debug);
+            10, 90, debug);
         this.shootSound = new Sound("./sounds/eggBounce3.wav");
     }
 

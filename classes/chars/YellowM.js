@@ -9,8 +9,8 @@ sprites.src = './sprites/baby_W.png';
 export class YellowM extends BasicChar {
     constructor(canvas, debug) {
         super(sprites, canvas,
-            33, 0,
-            33, 42,
+            35, 0,
+            35, 42,
             20, 50,
             0, 0,
             0, 0, 0, 0,
@@ -19,8 +19,8 @@ export class YellowM extends BasicChar {
         this.defaultGravity = 0.1;
         this.gravity = this.defaultGravity;
         this.collisionX1 = [8, 8, 8, 8, 10, 8, 8];
-        this.collisionX2 = [10, 10, 10, 10, 12, 10, 10];
-        this.collisionY1 = [10, 10, 10, 10, 15, 10, 10];
+        this.collisionX2 = [14, 14, 14, 14, 14, 14, 14];
+        this.collisionY1 = [12, 12, 12, 12, 15, 12, 12];
         this.collisionY2 = [10, 10, 10, 10, 12, 10, 10];
         this.magnetFrames = [5, 6];
         this.fallFrames = [4];
@@ -44,7 +44,7 @@ export class YellowM extends BasicChar {
     }
 
     setFixed() {
-        if (this.status != this.enumStatus.FIXED) {
+        if (!this.isFixed()) {
             this.magnetFixedSound.play();
             this.magnetFixingSound.play();
         }
@@ -62,12 +62,24 @@ export class YellowM extends BasicChar {
         this.magnetFixingSound.stop();
     }
 
+    isFixed() {
+        return (this.status === this.enumStatus.FIXED);
+    }
+
+    isFall() {
+        return (this.status === this.enumStatus.FALL);
+    }
+
+    isMagnet() {
+        return (this.status === this.enumStatus.MAGNET);
+    }
+
     update(speedScreen) {
-        if (this.status === this.enumStatus.FALL) {
+        if (this.isFall()) {
             this.gravity = this.defaultGravity;
-        } else if (this.status === this.enumStatus.MAGNET) {
+        } else if (this.isMagnet()) {
             this.gravity = -(this.defaultGravity);
-        } else if (this.status === this.enumStatus.FIXED) {
+        } else if (this.isFixed()) {
             this.gravity = 0;
             this.speedY = 0;
         }
@@ -78,7 +90,7 @@ export class YellowM extends BasicChar {
             spark.update(speedScreen);
         });
 
-        this.sparkList = this.sparkList.filter(function(spark, index, arr) {
+        this.sparkList = this.sparkList.filter(function (spark, index, arr) {
             // return (spark.posY < (spark.player.getEndPosY() + randomIntFromInterval(1, 100) ) );
 
             return (spark.posY < spark.canvas.height)
@@ -91,7 +103,7 @@ export class YellowM extends BasicChar {
         this.context.drawImage(this.sprites,
             (this.sourceX * this.currentFrame), this.sourceY,
             this.width, this.height,
-            this.posX, (this.posY - (this.height * (this.sizeMultiplier - 1))),
+            this.posX, this.posY,
             this.getTrueWidth(), this.getTrueHeight()
         );
 
@@ -115,7 +127,7 @@ export class YellowM extends BasicChar {
             this.context.fillRect(rect.x1, rect.y1, (rect.x2 - rect.x1), (rect.y2 - rect.y1));
         });
 
-        if (this.status != this.enumStatus.FALL) {
+        if (!this.isFall()) {
             this.context.fillStyle = '#00ff00';
             let magnetCollisionRect = this.getMagnetCollisionRect();
             magnetCollisionRect.forEach(rect => {
@@ -125,8 +137,14 @@ export class YellowM extends BasicChar {
         this.context.restore();
     }
 
+    reset() {
+        this.status = this.enumStatus.FALL;
+        this.sparkList = [];
+        super.reset();
+    }
+
     click() {
-        if (this.status != this.enumStatus.FALL) {
+        if (!this.isFall()) {
             this.setFall();
             this.magnetOnSound.stop();
             this.magnetOffSound.play();
@@ -137,43 +155,43 @@ export class YellowM extends BasicChar {
         }
     }
 
-    updateFrame(screenSpeed) {
+    updateFrame(speedScreen) {
         this.changeFrames();
         this.currentFrameTime = ++this.currentFrameTime % this.waitFrameTime;
         if (this.currentFrameTime === 0) {
             this.currentFrame = this.maxFrames[Math.floor(Math.random() * this.maxFrames.length)];
-            
-            if(this.status === this.enumStatus.FIXED) {
+
+            if (this.isFixed()) {
                 this.appendSpark();
             }
         }
     }
 
     changeFrames() {
-        if (this.status === this.enumStatus.FALL) {
+        if (this.isFall()) {
             this.maxFrames = this.fallFrames;
-        } else if (this.status === this.enumStatus.MAGNET) {
+        } else if (this.isMagnet()) {
             this.maxFrames = this.magnetFrames;
-        } else if (this.status === this.enumStatus.FIXED) {
+        } else if (this.isFixed()) {
             this.maxFrames = this.fixedFrames;
         }
     }
 
     getCollisionRect() {
         return [{
-            x1: (this.posX + this.collisionX1[this.currentFrame]),
-            x2: ((this.posX + this.width - this.collisionX2[this.currentFrame])),
-            y1: (this.posY + this.collisionY1[this.currentFrame]),
-            y2: ((this.posY + this.height - this.collisionY2[this.currentFrame]))
+            x1: (this.posX + (this.collisionX1[this.currentFrame] * this.sizeMultiplier)),
+            x2: ((this.posX + this.getTrueWidth() - (this.collisionX2[this.currentFrame] * this.sizeMultiplier))),
+            y1: (this.posY + (this.collisionY1[this.currentFrame] * this.sizeMultiplier)),
+            y2: ((this.posY + this.getTrueHeight() - (this.collisionY2[this.currentFrame] * this.sizeMultiplier)))
         }]
     }
 
     getMagnetCollisionRect() {
         return [{
-            x1: this.posX + 15,
-            x2: (this.posX + this.getTrueWidth()),
+            x1: this.posX + (15 * this.sizeMultiplier),
+            x2: (this.posX + this.getTrueWidth() - (2 * this.sizeMultiplier)),
             y1: this.posY,
-            y2: (this.posY + 15)
+            y2: (this.posY + (15 * this.sizeMultiplier))
         }]
     }
 

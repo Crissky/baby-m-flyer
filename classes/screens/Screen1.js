@@ -39,7 +39,7 @@ export class Screen1 {
     //this.floor = new Floor(context, sprites, canvas, debug);
     this.floor = new Floor1(canvas, 1, debug);
     this.char = new GreenM(canvas, debug);
-    this.pipesHandler = new DoublePipeHandler(context, sprites, canvas, this.floor, this.char, 100, debug);
+    this.pipesHandler = new DoublePipeHandler(context, sprites, canvas, this.floor, this.char, 50, debug);
     this.score = new Score1(canvas);
     this.messageGetReady = new MessageGetReady(context, sprites, canvas);
     this.messageGameOver = new MessageGameOver(context, sprites, canvas);
@@ -47,7 +47,8 @@ export class Screen1 {
     this.gameScreen = new Game(this);
     this.gameoverScreen = new Gameover(this);
     this.activeScreen = this.startScreen;
-
+    this.startGameTime = 0;
+    this.endGameTime = 0;
   }
 
   update() {
@@ -66,10 +67,13 @@ export class Screen1 {
     this.activateScreen(this.startScreen);
   }
   activateGameScreen() {
+    this.startGameTime = new Date().getTime();
     this.activateScreen(this.gameScreen);
   }
 
   activateGameoverScreen() {
+    this.endGameTime = new Date().getTime();
+    console.log("GAMEPLAY DURATION", (this.endGameTime - this.startGameTime) / 1000, "seconds");
     this.activateScreen(this.gameoverScreen);
   }
 
@@ -110,6 +114,7 @@ class Game {
     this.impactSound = new Sound("./sounds/SFX_Impact.wav");
     this.topImpactSound = new Sound("./sounds/SFX_Top_Impact.wav");
     this.classFather = father;
+    this.clearFase = false;
   }
 
   update() {
@@ -119,8 +124,12 @@ class Game {
     this.classFather.char.update(this.speed);
     this.iscollided();
 
-    if (this.classFather.pipesHandler.pipeUPList.length < 1) {
-      this.classFather.char.speedX = this.speed;
+    if (this.classFather.pipesHandler.pipeUPList.length < 1) { // FINISH FASE
+      this.clearFase = true;
+      if (this.classFather.char.getEndPosY() + 100 > this.classFather.floor.posY && this.classFather.char.speedY > 0) {
+        this.classFather.char.speedY = 0;
+      }
+      this.classFather.char.speedX = this.speed*2;
       this.classFather.char.gravity = -(this.speed * 0.1);
       return;
     }
@@ -144,7 +153,7 @@ class Game {
   }
 
   click() {
-    if (!this.stoped) {
+    if (!this.stoped && !this.clearFase) {
       this.classFather.char.click(this.speed);
     }
   }
@@ -152,6 +161,7 @@ class Game {
   reset() {
     this.speed = 2;
     this.stoped = false;
+    this.clearFase = false;
   }
 
   stopGame() {
@@ -171,6 +181,9 @@ class Game {
   }
 
   iscollided() {
+    if (this.clearFase) {
+      return;
+    }
     if (this.classFather.char.posY < 0) {
       this.classFather.char.posY = 0;
       if (this.classFather.char.speedY < 0) {
@@ -182,16 +195,16 @@ class Game {
 
     if (isCollision(this.classFather.char, this.classFather.floor)) {
       this.classFather.char.posY = (this.classFather.floor.posY - this.classFather.char.collisionHeight[this.classFather.char.currentFrame]);
-      this.stopGame();
       console.log("Collision - Collided with the ground");
+      this.stopGame();
     } else if (this.classFather.pipesHandler.pipeUPList.length < 1) {
       return;
     } else if (isCollision(this.classFather.char, this.classFather.pipesHandler.pipeUPList[0])) {
-      this.stopGame();
       console.log("Collision - Collided with the upper pipe");
-    } else if (isCollision(this.classFather.char, this.classFather.pipesHandler.pipeDOWNList[0])) {
       this.stopGame();
+    } else if (isCollision(this.classFather.char, this.classFather.pipesHandler.pipeDOWNList[0])) {
       console.log("Collision - Collided with the bottom pipe");
+      this.stopGame();
     }
   }
 }

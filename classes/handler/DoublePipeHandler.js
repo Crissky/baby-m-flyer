@@ -76,22 +76,22 @@ export class DoublePipeHandler {
         }
     }
 
-    movePosX(ScreenSpeed) {
+    movePosX(speedScreen) {
         for (let index = 0; index < this.pipeUPList.length; index++) {
-            this.pipeUPList[index].posX -= ScreenSpeed;
+            this.pipeUPList[index].posX -= speedScreen;
             this.pipeDOWNList[index].posX = this.pipeUPList[index].posX;
         }
     }
 
-    movePosY(ScreenSpeed) {
-        ScreenSpeed = Math.floor(ScreenSpeed / 4.5);
+    movePosY(speedScreen) {
+        speedScreen = Math.floor(speedScreen / 4.5);
         for (let index = 0; index < this.pipeUPList.length; index++) {
             if ((this.pipeUPList[index].posY + this.pipeUPList[index].height) <= this.getMinPosY()) {
                 this.pipeUPList[index].directionY = -1;
             } else if ((this.pipeUPList[index].posY + this.pipeUPList[index].height) >= this.getMaxPosY()) {
                 this.pipeUPList[index].directionY = 1;
             }
-            this.pipeUPList[index].posY -= (ScreenSpeed * this.pipeUPList[index].directionY);
+            this.pipeUPList[index].posY -= (speedScreen * this.pipeUPList[index].directionY);
             this.pipeDOWNList[index].posY = (this.pipeUPList[index].posY + this.pipeUPList[index].height + this.distanceBetweenY);
         }
     }
@@ -133,7 +133,7 @@ export class DoublePipeHandler {
     shyguyMovePosX() {
         this.shyguy.posX = this.shyguy.pipe.posX + (this.shyguy.pipe.width / 2) - (this.shyguy.width / 2);//+ Math.floor(this.shyguy.width/2);
     }
-    shyguyMovePosY(ScreenSpeed) {
+    shyguyMovePosY(speedScreen) {
         // Keep or move up, shyguy
         if (this.shyguyDirectionY === 0) {
             this.shyguy.posY = this.getShyguyMaxPosY();
@@ -147,7 +147,7 @@ export class DoublePipeHandler {
             this.shyguyDirectionY = 1;
         }
 
-        this.shyguy.posY += ScreenSpeed * this.shyguyDirectionY;
+        this.shyguy.posY += speedScreen * this.shyguyDirectionY;
     }
     changeShyguyFacingX() { // change shyguy face direction
         this.shyguyCurrentTime++
@@ -158,7 +158,7 @@ export class DoublePipeHandler {
         }
     }
     // GENERAL FUNCTIONS
-    update(screenSpeed) {
+    update(speedScreen) {
         if (this.pipeUPList.length < 1) {
             this.appendPipes();
         }
@@ -168,11 +168,11 @@ export class DoublePipeHandler {
         // if (this.pipeUPList.length > 0 && (this.pipeUPList[0].posX + this.pipeUPList[0].width) < 0) {
         //     this.removeFirstPipe();
         // }
-        this.movePosX(screenSpeed);
-        this.movePosY(screenSpeed);
+        this.movePosX(speedScreen);
+        this.movePosY(speedScreen);
 
         if (this.shyguy) {
-            this.shyguyMovePosY(screenSpeed);
+            this.shyguyMovePosY(speedScreen);
             this.shyguyMovePosX();
             this.changeShyguyFacingX();
         }

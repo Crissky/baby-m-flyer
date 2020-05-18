@@ -11,8 +11,8 @@ export class BasicFloorLite extends BasicObject {
             sizeMultiplier, debug);
     }
 
-    update(ScreenSpeed) {
-        this.posX = this.posX - ScreenSpeed;
+    update(speedScreen) {
+        this.posX -= speedScreen;
     }
 
     render() {

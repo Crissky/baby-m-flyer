@@ -16,7 +16,7 @@ export function getProportionalVector(origin, target, targetMagnitude) {
     let mSpeedX = deltaX / multiplier;
     let mSpeedY = deltaY / multiplier;
 
-    console.log("getProportionalVector()", "mSpeedX", mSpeedX, "mSpeedY", mSpeedY)
+    // console.log("getProportionalVector()", "mSpeedX", mSpeedX, "mSpeedY", mSpeedY)
     return { speedX: mSpeedX, speedY: -mSpeedY };
 }
 

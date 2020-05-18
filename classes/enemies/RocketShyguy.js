@@ -11,7 +11,7 @@ export class RocketShyguy extends BasicRotatedObject {
             800, 500,
             0, 0,
             15, 20, 10, 5,
-            1, 2, 10, debug);
+            1, 2, 10, 0, debug);
 
         this.player = player;
         this.accelY = 0.08;
@@ -23,6 +23,10 @@ export class RocketShyguy extends BasicRotatedObject {
     update(speedScreen) {
         this.aimPlayer();
         super.update(speedScreen);
+    }
+
+    debugRect() {
+        super.debugRect('#ff0000');
     }
 
     aimPlayer() {

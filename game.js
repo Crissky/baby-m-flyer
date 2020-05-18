@@ -37,11 +37,19 @@ window.addEventListener('click', function () {
   }
 });
 
-document.body.onkeypress = function (e) {
-  if (e.keyCode == 32) {
+var spaceKeyFireUp = false;
+document.body.onkeydown = function (e) {
+  if (e.keyCode == 32 && !spaceKeyFireUp) {
     if (screen1.click) {
+      spaceKeyFireUp = true;
       screen1.click();
     }
+  }
+}
+
+document.body.onkeyup = function (e) {
+  if (e.keyCode == 32) {
+    spaceKeyFireUp = false;
   }
 }
 

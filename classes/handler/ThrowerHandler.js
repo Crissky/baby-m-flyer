@@ -12,7 +12,9 @@ export class ThrowerHandler {
         this.throwerList = [];
         this.rockBlockList = [];
         this.largeEggList = [];
-        this.distanceBetweenX = (canvas.width * 0.7);
+        this.distanceBetweenX = canvas.width;
+        this.rateSpecialSpawn = 1;
+        this.baseSpecialSpawn = 100;
     }
 
     update(speedScreen) {
@@ -60,10 +62,8 @@ export class ThrowerHandler {
         this.throwerList = [];
         this.rockBlockList = [];
         this.largeEggList = [];
-    }
-
-    updateLevel(level=1) {
-        this.distanceBetweenX = (this.canvas.width * (1 - level/10));
+        this.rateSpecialSpawn = 1;
+        this.distanceBetweenX = this.canvas.width;
     }
 
     appendThrower() {
@@ -111,20 +111,28 @@ export class ThrowerHandler {
         thrower.posY = rockBlock.posY - thrower.getTrueHeight() + (thrower.sizeMultiplier * 4);
     }
 
+    updateRateSpawn(level=1) {
+        let newDBX = (this.canvas.width * (1 - level/20))
+        this.distanceBetweenX = newDBX < 0 ? 1 : newDBX;
+        this.rateSpecialSpawn = level;
+    }
+
     getLargeEgg() {
-        let choice = randomIntFromInterval(1, 32);
+        let eggChance = (this.baseSpecialSpawn / this.rateSpecialSpawn);
+        eggChance = eggChance < 16 ? 16 : eggChance;
+        let choice = randomIntFromInterval(1, eggChance);
         var largeEgg = new LargeEggGreen(this.canvas, this.targetPlayer, this.debugMode);
         switch (true) {
             case (choice === 1):
                 largeEgg = new LargeEggPurple(this.canvas, this.targetPlayer, this.debugMode);
                 break;
-            case (choice < 4):
+            case (choice < (eggChance / 8)):
                 largeEgg = new LargeEggYellow(this.canvas, this.targetPlayer, this.debugMode);
                 break;
-            case (choice < 8):
+            case (choice < (eggChance / 4)):
                 largeEgg = new LargeEggRed(this.canvas, this.targetPlayer, this.debugMode);
                 break;
-            case (choice < 16):
+            case (choice < (eggChance / 2)):
                 largeEgg = new LargeEggBlue(this.canvas, this.targetPlayer, this.debugMode);
                 break;
             default:

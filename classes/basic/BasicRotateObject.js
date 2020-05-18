@@ -6,7 +6,7 @@ export class BasicRotatedObject extends BasicAnimated {
         sourceX, sourceY, width, height, posX, posY,
         speedX = 0, speedY = 0,
         collisionToleranceX1 = 0, collisionToleranceX2 = 0, collisionToleranceY1 = 0, collisionToleranceY2 = 0,
-        sizeMultiplier = 1, maxFrame = 1, waitFrameTime = 10, debug = false) {
+        sizeMultiplier = 1, maxFrame = 1, waitFrameTime = 10, defaultDegreePosition=0,debug = false) {
 
         super(sprites, canvas,
             sourceX, sourceY, width, height, posX, posY,
@@ -15,12 +15,12 @@ export class BasicRotatedObject extends BasicAnimated {
             sizeMultiplier, maxFrame, waitFrameTime, debug);
 
         this.currentDegree = 0;
+        this.defaultDegreePosition = defaultDegreePosition;
 
     }
 
     update(speedScreen = 0) {
-        this.posX += this.speedX - speedScreen;
-        this.posY += this.speedY;
+        super.update(speedScreen);
         this.updateFrame(speedScreen);
         this.updateCurrentDegree(speedScreen);
         // console.log("Angle", (this.speedX - speedScreen), this.speedY, this.currentDegree);
@@ -59,5 +59,7 @@ export class BasicRotatedObject extends BasicAnimated {
 
     updateCurrentDegree(speedScreen) {
         this.currentDegree = getAngle((this.speedX - speedScreen), this.speedY, 0, 0);
+
+        this.currentDegree -= this.defaultDegreePosition;
     }
 }

@@ -12,7 +12,7 @@ export class BasicChar extends BasicObject {
             sourceX, sourceY, width, height, posX, posY,
             speedX, speedY,
             collisionToleranceX1, collisionToleranceX2, collisionToleranceY1, collisionToleranceY2,
-            sizeMultiplier = 1, debug);
+            sizeMultiplier, debug);
 
         this.gravity = 0.1;
         this.defaultGravity = this.gravity;
@@ -29,10 +29,10 @@ export class BasicChar extends BasicObject {
         }
         this.posX += this.speedX;
         this.posY += this.speedY;
-        super.update(speedScreen);
+        // super.update(speedScreen);
     }
 
-    click(ScreenSpeed) { }
+    click(speedScreen) { }
 
     reset() {
         super.reset();

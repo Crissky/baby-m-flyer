@@ -33,19 +33,19 @@ class Baby {
         this.cape_height = [23, 23, 23, 23, 23].reverse();
 
     }
-    click(ScreenSpeed) {
-        this.speedY = -5 - (ScreenSpeed * 0.40);
+    click(speedScreen) {
+        this.speedY = -5 - (speedScreen * 0.40);
         this.flySound.play();
     }
-    update(ScreenSpeed) {
-        this.speedY = this.speedY + this.gravity + (ScreenSpeed * 0.05);
+    update(speedScreen) {
+        this.speedY = this.speedY + this.gravity + (speedScreen * 0.05);
         this.posY = this.posY + this.speedY;
         this.posX = this.posX + this.speedX;
 
-        this.updateFrame(ScreenSpeed);
+        this.updateFrame(speedScreen);
         if (this.speedY < 0) {
-            this.updateFrame(ScreenSpeed);
-            this.updateFrame(ScreenSpeed);
+            this.updateFrame(speedScreen);
+            this.updateFrame(speedScreen);
         }
     }
     reset() {
@@ -116,8 +116,8 @@ class Baby {
         this.context.fillText(("Baby Gravity:     " + this.gravity.toFixed(2)), 5, 55);
 
     }
-    updateFrame(ScreenSpeed) {
-        this.currentTimeFrame = ++this.currentTimeFrame % Math.ceil(this.delayFrame / ScreenSpeed);
+    updateFrame(speedScreen) {
+        this.currentTimeFrame = ++this.currentTimeFrame % Math.ceil(this.delayFrame / speedScreen);
         if (this.currentTimeFrame === 0) {
             this.currentFrame = ++this.currentFrame % this.maxFrames;
             //this.sourceY = this.currentFrame * this.defaultSourceY;

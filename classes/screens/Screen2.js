@@ -1,6 +1,5 @@
 import { isCollision, isMagnetCollision } from "../../utils/Collision.js";
 import { Sound } from "../../utils/Sound.js";
-import { Score1 } from "../hud/Score1.js";
 import { MessageGetReady } from "../MessageGetReady.js";
 import { MessageGameOver } from "../MessageGameOver.js";
 import { RedBlockHandler } from "../handler/RedBlockHandler.js";
@@ -10,6 +9,7 @@ import { YellowM } from "../chars/YellowM.js";
 import { RockBlock } from "../scenarios/RockBlock.js";
 import { ThrowerHandler } from "../handler/ThrowerHandler.js";
 import { BillHandler } from "../handler/BillHandler.js";
+import { Score2 } from "../hud/Score2.js";
 
 // VARIABLES
 const sprites = new Image();
@@ -40,7 +40,8 @@ export class Screen2 {
     this.background = new Background2(canvas);
     this.floor = new Lava1(canvas, 1, debug);
     this.char = new YellowM(canvas, debug);
-    this.score = new Score1(canvas);
+    this.score = new Score2(canvas);
+    // this.score.addLevel(9);
     this.enemy = new RockBlock(canvas, debug)
     this.redBlockHandler = new RedBlockHandler(canvas, debug);
     this.throwerHandler = new ThrowerHandler(canvas, this.char, this.floor, debug);
@@ -51,7 +52,8 @@ export class Screen2 {
     this.gameScreen = new Game(this);
     this.gameoverScreen = new Gameover(this);
     this.activeScreen = this.startScreen;
-
+    this.startGameTime = 0;
+    this.endGameTime = 0;
   }
 
   update() {
@@ -70,10 +72,13 @@ export class Screen2 {
     this.activateScreen(this.startScreen);
   }
   activateGameScreen() {
+    this.startGameTime = new Date().getTime();
     this.activateScreen(this.gameScreen);
   }
 
   activateGameoverScreen() {
+    this.endGameTime = new Date().getTime();
+    console.log("GAMEPLAY DURATION", (this.endGameTime - this.startGameTime) / 1000, "seconds");
     this.activateScreen(this.gameoverScreen);
   }
 
@@ -120,6 +125,9 @@ class Game {
     this.impactSound = new Sound("./sounds/SFX_Impact.wav");
     this.topImpactSound = new Sound("./sounds/SFX_Top_Impact.wav");
     this.classFather = father;
+    this.clearFase = false;
+    this.currentTimeScore = 0;
+    this.waitTimeScore = 10;
   }
 
   update() {
@@ -132,6 +140,17 @@ class Game {
     this.classFather.floor.update(this.speed);
 
     this.iscollided();
+
+    this.currentTimeScore = ++this.currentTimeScore % this.waitTimeScore;
+    if (this.currentTimeScore === 0) {
+      this.classFather.score.addScore(1);
+      if (this.classFather.score.getScore() % 100 === 0) {
+        this.speed += 0.25;
+        this.classFather.billHandler.updateRateSpawn(this.classFather.score.getLevel());
+        this.classFather.throwerHandler.updateRateSpawn(this.classFather.score.getLevel());
+        this.classFather.score.addLevel(1);
+      }
+    }
   }
 
   render() {
@@ -154,11 +173,13 @@ class Game {
   reset() {
     this.speed = 2;
     this.stoped = false;
+    this.clearFase = false;
   }
 
   stopGame() {
     this.impactSound.play();
     this.classFather.music.stop();
+    this.classFather.char.magnetFixingSound.stop();
     console.log("Speed:", this.speed);
     this.speed = 0;
     this.stoped = true;
@@ -182,12 +203,12 @@ class Game {
     for (let index = 0; index < this.classFather.redBlockHandler.redblockList.length; index++) {
       const element = this.classFather.redBlockHandler.redblockList[index];
 
-      if (element.posX > (this.classFather.char.posX + this.classFather.char.getTrueWidth())) {
+      if (element.posX > this.classFather.char.getEndPosX()) {
         break;
       }
 
-      if (isCollision(this.classFather.char, element) && this.classFather.char.status === this.classFather.char.enumStatus.FALL) {
-        this.classFather.char.posY = (element.posY + element.getTrueHeight() - 14);
+      if (isCollision(this.classFather.char, element) && this.classFather.char.isFall()) {
+        this.classFather.char.posY = (element.getEndPosY() - 14);
         if (this.classFather.char.speedY < 0) {
           this.classFather.char.speedY = 0;
         }
@@ -196,17 +217,45 @@ class Game {
         break;
       }
 
-      if (isMagnetCollision(this.classFather.char, element) && this.classFather.char.status != this.classFather.char.enumStatus.FALL) {
+      if (isMagnetCollision(this.classFather.char, element) && !this.classFather.char.isFall()) {
         this.classFather.char.setFixed();
-        this.classFather.char.posY = (element.posY + element.getTrueHeight() - 3);
+        this.classFather.char.posY = (element.getEndPosY() - 3);
         break;
       }
     }
 
     if (isCollision(this.classFather.char, this.classFather.floor)) {
-      this.stopGame();
       console.log("Collision - Collided with the lava");
+      this.stopGame();
     }
+
+    this.classFather.billHandler.billList.forEach(bill => {
+      if (isCollision(this.classFather.char, bill)) {
+        console.log("Collision - Collided with the bill");
+        this.stopGame();
+      }
+    });
+
+    this.classFather.throwerHandler.throwerList.forEach(thrower => {
+      if (isCollision(this.classFather.char, thrower)) {
+        console.log("Collision - Collided with the thrower");
+        this.stopGame();
+      }
+    });
+
+    this.classFather.throwerHandler.rockBlockList.forEach(rockBlock => {
+      if (isCollision(this.classFather.char, rockBlock)) {
+        console.log("Collision - Collided with the rockBlock");
+        this.stopGame();
+      }
+    });
+
+    this.classFather.throwerHandler.largeEggList.forEach(largeEgg => {
+      if (isCollision(this.classFather.char, largeEgg)) {
+        console.log("Collision - Collided with the largeEgg");
+        this.stopGame();
+      }
+    });
   }
 
 }
@@ -225,8 +274,10 @@ class Gameover {
   render() {
     this.classFather.background.render();
     this.classFather.char.render();
-    this.classFather.floor.render();
+    this.classFather.billHandler.render();
+    this.classFather.throwerHandler.render();
     this.classFather.redBlockHandler.render();
+    this.classFather.floor.render();
     this.classFather.messageGameOver.render();
     this.classFather.score.render();
     this.sleepTime -= 1;

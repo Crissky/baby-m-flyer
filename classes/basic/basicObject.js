@@ -34,7 +34,7 @@ export class BasicObject {
     }
 
     update(speedScreen = 0) {
-        this.posX -= speedScreen;
+        this.posX += this.speedX - speedScreen;
         this.posY += this.speedY;
     }
 

@@ -20,13 +20,13 @@ export class Thrower extends BasicAnimated {
         this.fireUp = false;
     }
 
-    update(screenSpeed) {
+    update(speedScreen) {
         if (!this.fireUp || this.currentFrame < 3) {
             this.setProjectilePos();
         }
-        super.update(screenSpeed);
+        super.update(speedScreen);
     }
-    updateFrame(screenSpeed = 1) {
+    updateFrame(speedScreen = 1) {
         if (!this.fireUp || this.currentFrame === 6) {
             return;
         }
@@ -44,7 +44,7 @@ export class Thrower extends BasicAnimated {
                     break;
                 case 3:
                     this.waitFrameTime = 50;
-                    this.projectile.shootInTargetPlayer(screenSpeed);
+                    this.projectile.shootInTargetPlayer(speedScreen);
                     break;
                 case 4:
                     this.waitFrameTime = 10;

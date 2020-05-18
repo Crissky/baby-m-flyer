@@ -25,15 +25,15 @@ class GreenM extends BasicChar {
         this.flySound = new Sound("./sounds/SFX_Jump.wav");
     }
 
-    update(ScreenSpeed) {
-        this.speedY = this.speedY + this.gravity + (ScreenSpeed * 0.05);
+    update(speedScreen) {
+        this.speedY = this.speedY + this.gravity + (speedScreen * 0.05);
         this.posY = this.posY + this.speedY;
         this.posX = this.posX + this.speedX;
 
-        this.updateFrame(ScreenSpeed);
+        this.updateFrame(speedScreen);
         if (this.speedY < 0) {
-            this.updateFrame(ScreenSpeed);
-            this.updateFrame(ScreenSpeed);
+            this.updateFrame(speedScreen);
+            this.updateFrame(speedScreen);
         }
     }
 
@@ -50,7 +50,7 @@ class GreenM extends BasicChar {
         }
     }
 
-    click(ScreenSpeed) {
+    click(speedScreen) {
         if ((this.speedY > this.limitForStartIncrementSpeedY) && (this.currentFrame === this.maxFrames - 1)) {
             this.speedY = this.maxIncrementSpeedY;
             this.superFlySound.play();
@@ -59,7 +59,7 @@ class GreenM extends BasicChar {
             this.flySound.play();
         }
 
-        this.speedY += this.clickSpeedY - (ScreenSpeed * 0.2)
+        this.speedY += this.clickSpeedY - (speedScreen * 0.2)
     }
 
     stop() {
@@ -68,7 +68,7 @@ class GreenM extends BasicChar {
         this.gravity = 0;
     }
 
-    updateFrame(ScreenSpeed) {
+    updateFrame(speedScreen) {
         this.currentFrameTime = ++this.currentFrameTime % this.waitFrameTime;
         if ((this.currentFrameTime === 0 && this.speedY > 0 && this.currentFrame < this.maxFrames - 1) || (this.speedY > this.limitForStartIncrementSpeedY && this.currentFrame < this.maxFrames - 1)) {
             this.currentFrame = ++this.currentFrame;
@@ -95,6 +95,11 @@ class GreenM extends BasicChar {
         this.context.fillText(("GreenM Gravity:     " + this.gravity.toFixed(2)), 5, 55);
 
         this.context.restore();
+    }
+
+    reset() {
+        this.currentFrame = 0;
+        super.reset();
     }
 
     getCollisionRect() {

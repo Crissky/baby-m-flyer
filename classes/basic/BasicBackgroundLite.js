@@ -13,8 +13,8 @@ export class BasicBackgroundLite extends BasicObject {
         this.delay = delay;
     }
 
-    update(ScreenSpeed) {
-        this.time = ++this.time % Math.ceil(this.delay / ScreenSpeed);
+    update(speedScreen) {
+        this.time = ++this.time % Math.ceil(this.delay / speedScreen);
         if (this.time === 0) {
             this.posX -= 1;
         }

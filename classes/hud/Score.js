@@ -17,19 +17,20 @@ export class Score {
     }
 
     render() {
-        this.context.font = '900 18px "Press Start 2P"';
+        this.context.font = '18px "Press Start 2P"';
         this.context.textAlign = 'end';
         this.context.fillStyle = '#ffffff';
-        this.context.fillText(("SCORE:" + this.score), this.canvas.width - this.posX, this.posY);
+        this.context.lineWidth = 4;
         this.context.strokeText(("SCORE:" + this.score), this.canvas.width - this.posX, this.posY);
+        this.context.fillText(("SCORE:" + this.score), this.canvas.width - this.posX, this.posY);
 
         this.context.fillStyle = '#fde217';
-        this.context.fillText(("BEST:" + this.bestScore), this.canvas.width - this.posX, (this.posY + 25));
         this.context.strokeText(("BEST:" + this.bestScore), this.canvas.width - this.posX, (this.posY + 25));
+        this.context.fillText(("BEST:" + this.bestScore), this.canvas.width - this.posX, (this.posY + 25));
 
         this.context.fillStyle = '#BB8FCE';
-        this.context.fillText(("LEVEL:" + this.level), this.canvas.width - this.posX, (this.posY + 50));
         this.context.strokeText(("LEVEL:" + this.level), this.canvas.width - this.posX, (this.posY + 50));
+        this.context.fillText(("LEVEL:" + this.level), this.canvas.width - this.posX, (this.posY + 50));
 
     }
 
@@ -44,6 +45,15 @@ export class Score {
 
     getBestScore() {
         return this.bestScore;
+    }
+
+    getLevel() {
+        let level = 0;
+        if (this.level > 0) {
+            level = this.level;
+        }
+
+        return level;
     }
 
     addScore(xScore) {
