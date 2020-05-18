@@ -3,7 +3,7 @@ import { Score } from "./Score.js";
 
 export class Score1 extends Score {
     constructor(canvas) {
-        super(canvas);
+        super(canvas, "BEST-SCORE-FASE-1");
         this.scoreSound = new Sound("./sounds/smw2_red_coin.wav");
         this.levelSound = new Sound("./sounds/smw2_red_coin_20.wav");
         this.greenMSound1 = new Sound("./sounds/m&lss_yahoh.wav");

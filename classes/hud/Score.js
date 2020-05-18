@@ -1,16 +1,18 @@
 import { Sound } from "../../utils/Sound.js";
 
 export class Score {
-    constructor(canvas) {
+    constructor(canvas, localStorageKeyBestScore="BEST-DEFAULT") {
+        this.localStorageKeyBestScore = localStorageKeyBestScore;
         this.posX = 10;
         this.posY = 30;
         this.score = 0;
-        this.bestScore = 0;
+        this.bestScore = this.getLocalStorageBestScore();
         this.level = 0;
         this.canvas = canvas;
         this.context = canvas.getContext('2d');
         this.levelSound = new Sound("./sounds/smw2_red_coin_20.wav");
     }
+
     reset() {
         this.score = 0;
         this.level = 0;
@@ -31,7 +33,6 @@ export class Score {
         this.context.fillStyle = '#BB8FCE';
         this.context.strokeText(("LEVEL:" + this.level), this.canvas.width - this.posX, (this.posY + 50));
         this.context.fillText(("LEVEL:" + this.level), this.canvas.width - this.posX, (this.posY + 50));
-
     }
 
     getScore() {
@@ -45,6 +46,19 @@ export class Score {
 
     getBestScore() {
         return this.bestScore;
+    }
+
+    getLocalStorageBestScore() {
+        let bestScore = localStorage.getItem(this.localStorageKeyBestScore);
+        if(bestScore === null) {
+            bestScore = 0;
+        }
+
+        return bestScore;
+    }
+
+    setLocalStorageBestScore(bestScore) {
+        localStorage.setItem(this.localStorageKeyBestScore, bestScore);
     }
 
     getLevel() {
@@ -66,6 +80,7 @@ export class Score {
 
         if (this.score > this.bestScore) {
             this.bestScore = this.score;
+            this.setLocalStorageBestScore(this.bestScore);
         }
     }
 
