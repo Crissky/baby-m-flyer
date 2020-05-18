@@ -1,4 +1,5 @@
 import { sound } from "../utils/Sound.js";
+
 class Baby {
     constructor(context, sprites, canvas, debug = false) {
         this.debugMode = debug;

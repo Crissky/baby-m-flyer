@@ -1,4 +1,4 @@
-import { RedBlock } from "../scenarios/scenarios-elements/RedBlock.js";
+import { RedBlock } from "../scenarios/RedBlock.js";
 
 export class RedBlockHandler {
     constructor(canvas, debug = false) {

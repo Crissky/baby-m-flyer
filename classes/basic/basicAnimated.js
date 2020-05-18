@@ -1,6 +1,5 @@
 import { BasicObject } from "./BasicObject.js"
 
-
 export class BasicAnimated extends BasicObject {
     constructor(sprites, canvas,
         sourceX, sourceY, width, height, posX, posY,

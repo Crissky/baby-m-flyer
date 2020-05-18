@@ -1,13 +1,11 @@
 import { BasicChar } from "../basic/BasicChar.js";
 import { Sound } from "../../utils/Sound.js";
-import { Spark } from "../scenarios/scenarios-elements/spark.js";
-import { randomIntFromInterval } from "../../utils/Random.js";
-
-const sprites = new Image();
-sprites.src = './sprites/baby_W.png';
+import { Spark } from "../scenarios/Spark.js";
 
 export class YellowM extends BasicChar {
     constructor(canvas, debug) {
+        const sprites = new Image();
+        sprites.src = './sprites/baby_W.png';
         super(sprites, canvas,
             35, 0,
             35, 42,

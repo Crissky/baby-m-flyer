@@ -1,5 +1,5 @@
-import { BasicAnimated } from "../../basic/BasicAnimated.js";
-import { randomNegativeOrPositiveIntFromInterval, randomIntFromInterval } from "../../../utils/Random.js";
+import { BasicAnimated } from "../basic/BasicAnimated.js";
+import { randomNegativeOrPositiveIntFromInterval, randomIntFromInterval } from "../../utils/Random.js";
 
 export class Spark extends BasicAnimated {
     constructor(canvas, player, debug = false) {

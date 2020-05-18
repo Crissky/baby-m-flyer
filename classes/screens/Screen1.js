@@ -1,6 +1,5 @@
 import { isCollision } from "../../utils/Collision.js";
 import { Sound } from "../../utils/Sound.js";
-
 import { GreenM } from "../chars/GreenM.js";
 import { DoublePipeHandler } from "../handler/DoublePipeHandler.js";
 import { MessageGetReady } from "../MessageGetReady.js";
