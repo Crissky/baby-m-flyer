@@ -36,6 +36,7 @@ const musicPath = ["https://vgmdownloads.com/soundtracks/super-mario-galaxy-2/vv
 
 export class Screen2 {
   constructor(canvas, context, debug = false) {
+    this.canvas = canvas;
     this.music = new Sound(musicPath[Math.floor(Math.random() * musicPath.length)], true);
     this.background = new Background2(canvas);
     this.floor = new Lava1(canvas, 1, debug);
@@ -121,13 +122,13 @@ class Game {
   constructor(father) {
     this.speed = 2;
     this.stoped = false;
-    this.reset();
     this.impactSound = new Sound("./sounds/SFX_Impact.wav");
     this.topImpactSound = new Sound("./sounds/SFX_Top_Impact.wav");
     this.classFather = father;
     this.clearFase = false;
     this.currentTimeScore = 0;
     this.waitTimeScore = 10;
+    this.reset();
   }
 
   update() {
@@ -174,6 +175,9 @@ class Game {
     this.speed = 2;
     this.stoped = false;
     this.clearFase = false;
+    if(this.classFather.canvas.width < this.classFather.canvas.height) {
+      this.speed = this.speed / 2;
+    }
   }
 
   stopGame() {

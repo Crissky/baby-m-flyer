@@ -35,7 +35,7 @@ export class ThrowerHandler {
 
         this.throwerList.forEach(thrower => {
             thrower.update(speedScreen);
-            if (!thrower.fireUp && thrower.posX < randomIntFromInterval((this.canvas.width * 0.6), (this.canvas.width * 0.8))) {
+            if (!thrower.fireUp && (thrower.posX < randomIntFromInterval((this.canvas.width * 0.6), (this.canvas.width * 0.8)) || (this.isVerticalScreen() && thrower.posX < this.canvas.width))) {
                 thrower.startFire();
             }
         });
@@ -140,5 +140,9 @@ export class ThrowerHandler {
         }
 
         return largeEgg;
+    }
+
+    isVerticalScreen(posX) {
+        return (this.canvas.width < this.canvas.height)
     }
 }

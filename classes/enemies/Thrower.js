@@ -43,7 +43,7 @@ export class Thrower extends BasicAnimated {
                     this.waitFrameTime = 5;
                     break;
                 case 3:
-                    this.waitFrameTime = 50;
+                    this.waitFrameTime = 100;
                     this.projectile.shootInTargetPlayer(speedScreen);
                     break;
                 case 4:

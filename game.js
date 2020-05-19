@@ -13,7 +13,7 @@ const height = (window.innerHeight + paddingY) > 600 ? 600 : (window.innerHeight
 const width = (window.innerWidth - paddingX) < 320 ? 320 : (window.innerWidth + paddingX) > (16 / 9 * height) ? (16 / 9 * height) : (window.innerWidth - paddingY)
 //const width = (window.innerWidth-paddingX) < 320 ? 320 : (window.innerWidth-paddingX);
 context.canvas.width = width;
-context.canvas.height = height
+context.canvas.height = height;
 
 console.log(`Screen size ${height}x${width}`)
 
@@ -31,7 +31,7 @@ function loop() {
   requestAnimationFrame(loop);
 }
 
-window.addEventListener('click', function () {
+window.addEventListener('mousedown', function () {
   if (screen1.click) {
     screen1.click();
   }
