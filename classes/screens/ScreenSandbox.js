@@ -1,12 +1,12 @@
 import { isCollision } from "../../utils/Collision.js";
 import { Sound } from "../../utils/Sound.js";
 import { GreenM } from "../chars/GreenM.js";
-import { DoublePipeHandler } from "../handler/DoublePipeHandler.js";
 import { MessageGetReady } from "../MessageGetReady.js";
 import { MessageGameOver } from "../MessageGameOver.js";
 import { Background1 } from "../scenarios/Backgrounds.js";
 import { Floor1 } from "../scenarios/Floors.js";
-import { Score1 } from "../hud/Score1.js";
+import { Bill } from "../enemies/Bill.js";
+import { ScoreSandBox } from "../hud/ScoreSandBox.js";
 
 // VARIABLES
 const sprites = new Image();
@@ -31,15 +31,14 @@ const musicPath = ["https://vgmdownloads.com/soundtracks/super-mario-galaxy-2/vv
   "https://vgmdownloads.com/soundtracks/super-mario-galaxy-2/tzhhamdk/2-32%20Theme%20of%20SMG2.mp3",
   "https://vgmdownloads.com/soundtracks/super-mario-odyssey-ost/cptrlfzv/1-02%20Opening%20%28In%20the%20Skies%20Above%20Peach%27s%20Castle%E2%80%A6%29.mp3"];
 
-export class Screen1 {
+export class ScreenSandbox {
   constructor(canvas, context, debug = false) {
     this.music = new Sound(musicPath[Math.floor(Math.random() * musicPath.length)], true);
     this.background = new Background1(canvas);
-    //this.floor = new Floor(context, sprites, canvas, debug);
     this.floor = new Floor1(canvas, 1, debug);
     this.char = new GreenM(canvas, debug);
-    this.pipesHandler = new DoublePipeHandler(context, sprites, canvas, this.floor, this.char, 50, debug);
-    this.score = new Score1(canvas);
+    this.enemy = new Bill(canvas, debug);
+    this.score = new ScoreSandBox(canvas);
     this.messageGetReady = new MessageGetReady(context, sprites, canvas);
     this.messageGameOver = new MessageGameOver(context, sprites, canvas);
     this.startScreen = new Start(this);
@@ -94,6 +93,7 @@ class Start {
     this.classFather.background.render();
     this.classFather.floor.render();
     this.classFather.char.render();
+    this.classFather.enemy.render();
     this.classFather.messageGetReady.render();
   }
 
@@ -118,35 +118,17 @@ class Game {
 
   update() {
     this.classFather.background.update(this.speed);
-    this.classFather.pipesHandler.update(this.speed);
+    this.classFather.enemy.update(this.speed);
     this.classFather.floor.update(this.speed);
     this.classFather.char.update(this.speed);
     this.iscollided();
-
-    if (this.classFather.pipesHandler.pipeUPList.length < 1) { // FINISH FASE
-      this.clearFase = true;
-      if (this.classFather.char.getEndPosY() + 100 > this.classFather.floor.posY && this.classFather.char.speedY > 0) {
-        this.classFather.char.speedY = 0;
-      }
-      this.classFather.char.speedX = this.speed*2;
-      this.classFather.char.gravity = -(this.speed * 0.1);
-      return;
-    }
-
-    if (this.classFather.pipesHandler.pipeUPList[0].getEndPosX() < 0) {
-      this.classFather.pipesHandler.removeFirstPipe();
-      this.classFather.score.addScore(1);
-      if (this.classFather.score.getScore() % 5 === 0) {
-        this.speed += 0.5;
-        this.classFather.score.addLevel(1, this.classFather.music);
-      }
-    }
+    
   }
 
   render() {
     this.classFather.background.render();
     this.classFather.char.render();
-    this.classFather.pipesHandler.render();
+    this.classFather.enemy.render();
     this.classFather.floor.render();
     this.classFather.score.render();
   }
@@ -173,9 +155,6 @@ class Game {
 
     this.classFather.score.print();
 
-    console.log("PipeUP posX", this.classFather.pipesHandler.pipeUPList[0].posX, "PipeDOWN posX", this.classFather.pipesHandler.pipeDOWNList[0].posX);
-    console.log("PipeUP posY", this.classFather.pipesHandler.pipeUPList[0].posY, "pipeDOWN posY", this.classFather.pipesHandler.pipeDOWNList[0].posY);
-    console.log("Pipe Total:", this.classFather.pipesHandler.pipeTotalSpawned);
     this.classFather.activateGameoverScreen();
   }
 
@@ -196,14 +175,6 @@ class Game {
       this.classFather.char.posY = (this.classFather.floor.posY - this.classFather.char.collisionHeight[this.classFather.char.currentFrame]);
       console.log("Collision - Collided with the ground");
       this.stopGame();
-    } else if (this.classFather.pipesHandler.pipeUPList.length < 1) {
-      return;
-    } else if (isCollision(this.classFather.char, this.classFather.pipesHandler.pipeUPList[0])) {
-      console.log("Collision - Collided with the upper pipe");
-      this.stopGame();
-    } else if (isCollision(this.classFather.char, this.classFather.pipesHandler.pipeDOWNList[0])) {
-      console.log("Collision - Collided with the bottom pipe");
-      this.stopGame();
     }
   }
 }
@@ -222,7 +193,7 @@ class Gameover {
   render() {
     this.classFather.background.render();
     this.classFather.char.render();
-    this.classFather.pipesHandler.render();
+    this.classFather.enemy.render();
     this.classFather.floor.render();
     this.classFather.messageGameOver.render();
     this.classFather.score.render();
@@ -234,7 +205,7 @@ class Gameover {
       return;
     }
     this.classFather.char.reset();
-    this.classFather.pipesHandler.reset();
+    this.classFather.enemy.reset();
     this.classFather.score.reset();
     this.classFather.gameScreen.reset();
 
@@ -255,15 +226,9 @@ class Win {
     this.sleepTime = 100;
   }
 
-  click() {
+  click() {}
 
-  }
+  render() {}
 
-  render() {
-
-  }
-
-  update() {
-
-  }
+  update() {}
 }

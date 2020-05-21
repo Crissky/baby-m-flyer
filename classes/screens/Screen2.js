@@ -3,7 +3,7 @@ import { Sound } from "../../utils/Sound.js";
 import { MessageGetReady } from "../MessageGetReady.js";
 import { MessageGameOver } from "../MessageGameOver.js";
 import { RedBlockHandler } from "../handler/RedBlockHandler.js";
-import { Background2 } from "../Backgrounds.js";
+import { Background2 } from "../scenarios/Backgrounds.js";
 import { Lava1 } from "../scenarios/Lavas.js";
 import { YellowM } from "../chars/YellowM.js";
 import { RockBlock } from "../scenarios/RockBlock.js";
@@ -273,7 +273,7 @@ class Gameover {
     this.classFather = father;
   }
 
-  update() { }
+  update() {}
 
   render() {
     this.classFather.background.render();
@@ -307,7 +307,7 @@ class Gameover {
 }
 
 class Win {
-  constructor() {
+  constructor(father) {
     this.winSonund;
     this.classFather = father;
     this.sleepTime = 100;

@@ -1,4 +1,4 @@
-import { BasicBackgroundLite } from "./basic/BasicBackgroundLite.js";
+import { BasicBackgroundLite } from "../basic/BasicBackgroundLite.js";
 
 export class Background1 extends BasicBackgroundLite {
     constructor(canvas, delay = 30) {
@@ -37,6 +37,26 @@ export class Background2 extends BasicBackgroundLite {
         let my_gradient = this.context.createLinearGradient(0, 0, 0, this.canvas.height);
         my_gradient.addColorStop(0, "#333333");
         my_gradient.addColorStop(1, "#dd1818");
+        this.context.fillStyle = my_gradient;
+        this.context.fillRect(0, 0, this.canvas.width, this.canvas.height);
+    }
+}
+
+export class Background3 extends BasicBackgroundLite {
+    constructor(canvas, delay = 30) {
+        const sprites = new Image();
+        sprites.src = "./sprites/castle-ruins-bg.png";
+        super(sprites, canvas,
+            0, 0,
+            512, 420,
+            0, 0,
+            delay, (canvas.height / 420));
+    }
+
+    renderGradient() {
+        let my_gradient = this.context.createLinearGradient(0, 0, 0, this.canvas.height);
+        my_gradient.addColorStop(0.6, "#000000");
+        my_gradient.addColorStop(1, "#c471ed");
         this.context.fillStyle = my_gradient;
         this.context.fillRect(0, 0, this.canvas.width, this.canvas.height);
     }

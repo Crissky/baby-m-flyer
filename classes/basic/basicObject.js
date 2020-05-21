@@ -129,4 +129,11 @@ export class BasicObject {
         this.posX = this.setCenterPosX(centerPos);
         this.posY = this.setCenterPosY(centerPos);
     }
+    setEndPosX(endPosX) {
+        this.posX = endPosX - this.getTrueWidth();
+    }
+    setEndPosY(endPosY) {
+        this.posY = endPosY - this.getTrueHeight();
+    }
+
 }

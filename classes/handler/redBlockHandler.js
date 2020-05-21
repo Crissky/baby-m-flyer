@@ -32,7 +32,7 @@ export class RedBlockHandler {
             redblock.update(speedScreen);
         });
 
-        if ((this.redblockList[0].posX + this.redblockList[0].getTrueWidth()) < 0) {
+        if ((this.redblockList[0].getEndPosX()) < 0) {
             this.removeFirstRedBlock();
         }
     }
@@ -51,7 +51,7 @@ export class RedBlockHandler {
         let redblock = new RedBlock(this.canvas, this.debugMode);
         if (this.redblockList.length > 0) {
             let lastRedBlock = this.getLastRedBlock();
-            redblock.posX = lastRedBlock.posX + lastRedBlock.getTrueWidth();
+            redblock.posX = lastRedBlock.getEndPosX();
         }
         redblock.posY = this.defaultPosY;
         redblock.speedY = this.speedY;
@@ -65,14 +65,5 @@ export class RedBlockHandler {
 
     getLastRedBlock() {
         return this.redblockList.slice(-1)[0];
-    }
-
-    getCollisionRect() {
-        return [{
-            x1: 0,
-            x2: this.canvas.width,
-            y1: 0,
-            y2: this.redblockList[0].getTrueHeight()
-        }]
     }
 }

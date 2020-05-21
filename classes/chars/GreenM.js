@@ -83,9 +83,10 @@ class GreenM extends BasicChar {
         this.context.save();
 
         this.context.fillStyle = '#000000';
+        this.context.globalAlpha = 0.5;
         this.context.fillRect(0, 0, 110, 65);
-        this.context.globalAlpha = 1.0;
 
+        this.context.globalAlpha = 1.0;
         this.context.font = '8px Arial';
         this.context.textAlign = 'start';
         this.context.fillStyle = '#ffffff';

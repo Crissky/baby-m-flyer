@@ -43,12 +43,12 @@ export class LargeEggBlue extends BasicProjectileStartAimPlayer {
     }
 }
 
-export class LargeEggRed extends BasicProjectileStartAimPlayer {
+export class LargeEggYellow extends BasicProjectileStartAimPlayer {
     constructor(canvas, targetPlayer, debug) {
         const sprites = new Image();
         sprites.src = "./sprites/large-eggs.png";
         super(sprites, canvas, targetPlayer,
-            28, 64,
+            28, 96,
             28, 32,
             800, 300,
             0, 0,
@@ -64,12 +64,12 @@ export class LargeEggRed extends BasicProjectileStartAimPlayer {
     }
 }
 
-export class LargeEggYellow extends BasicProjectileStartAimPlayer {
+export class LargeEggRed extends BasicProjectileStartAimPlayer {
     constructor(canvas, targetPlayer, debug) {
         const sprites = new Image();
         sprites.src = "./sprites/large-eggs.png";
         super(sprites, canvas, targetPlayer,
-            28, 96,
+            28, 64,
             28, 32,
             800, 300,
             0, 0,

@@ -111,8 +111,8 @@ export class ThrowerHandler {
         thrower.posY = rockBlock.posY - thrower.getTrueHeight() + (thrower.sizeMultiplier * 4);
     }
 
-    updateRateSpawn(level=1) {
-        let newDBX = (this.canvas.width * (1 - level/20))
+    updateRateSpawn(level = 1) {
+        let newDBX = (this.canvas.width * (1 - level / 20))
         this.distanceBetweenX = newDBX < 0 ? 1 : newDBX;
         this.rateSpecialSpawn = level;
     }
@@ -127,10 +127,10 @@ export class ThrowerHandler {
                 largeEgg = new LargeEggPurple(this.canvas, this.targetPlayer, this.debugMode);
                 break;
             case (choice < (eggChance / 8)):
-                largeEgg = new LargeEggYellow(this.canvas, this.targetPlayer, this.debugMode);
+                largeEgg = new LargeEggRed(this.canvas, this.targetPlayer, this.debugMode);
                 break;
             case (choice < (eggChance / 4)):
-                largeEgg = new LargeEggRed(this.canvas, this.targetPlayer, this.debugMode);
+                largeEgg = new LargeEggYellow(this.canvas, this.targetPlayer, this.debugMode);
                 break;
             case (choice < (eggChance / 2)):
                 largeEgg = new LargeEggBlue(this.canvas, this.targetPlayer, this.debugMode);
