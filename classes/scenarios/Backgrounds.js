@@ -61,3 +61,37 @@ export class Background3 extends BasicBackgroundLite {
         this.context.fillRect(0, 0, this.canvas.width, this.canvas.height);
     }
 }
+
+export class Background4 extends BasicBackgroundLite {
+    constructor(canvas, delay = 30) {
+        const sprites = new Image();
+        sprites.src = "./sprites/castle-background.png";
+        super(sprites, canvas,
+            0, 0,
+            512, 432,
+            0, 0,
+            delay, (canvas.height / 400));
+    }
+
+    render() {
+        super.render();
+        this.fillBlack();
+    }
+
+    fillBlack() {
+        this.context.save();
+        this.context.fillStyle = '#000000';
+        this.context.globalAlpha = 0.6;
+        this.context.fillRect(0, this.posY, this.canvas.width, this.canvas.height);
+        this.context.restore();
+    }
+
+    renderGradient() {
+        let my_gradient = this.context.createLinearGradient(0, 0, 0, this.canvas.height);
+        my_gradient.addColorStop(0.3, "#f64f59");
+        my_gradient.addColorStop(0.6, "#c471ed");
+        my_gradient.addColorStop(1, "#12c2e9");
+        this.context.fillStyle = my_gradient;
+        this.context.fillRect(0, 0, this.canvas.width, this.canvas.height);
+    }
+}

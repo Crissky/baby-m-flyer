@@ -178,16 +178,16 @@ export class YellowM extends BasicChar {
     getCollisionRect() {
         return [{
             x1: (this.posX + (this.collisionX1[this.currentFrame] * this.sizeMultiplier)),
-            x2: ((this.posX + this.getTrueWidth() - (this.collisionX2[this.currentFrame] * this.sizeMultiplier))),
+            x2: ((this.getEndPosX() - (this.collisionX2[this.currentFrame] * this.sizeMultiplier))),
             y1: (this.posY + (this.collisionY1[this.currentFrame] * this.sizeMultiplier)),
-            y2: ((this.posY + this.getTrueHeight() - (this.collisionY2[this.currentFrame] * this.sizeMultiplier)))
+            y2: ((this.getEndPosY() - (this.collisionY2[this.currentFrame] * this.sizeMultiplier)))
         }]
     }
 
     getMagnetCollisionRect() {
         return [{
             x1: this.posX + (15 * this.sizeMultiplier),
-            x2: (this.posX + this.getTrueWidth() - (2 * this.sizeMultiplier)),
+            x2: (this.getEndPosX() - (2 * this.sizeMultiplier)),
             y1: this.posY,
             y2: (this.posY + (15 * this.sizeMultiplier))
         }]

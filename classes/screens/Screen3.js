@@ -1,4 +1,4 @@
-import { isCollision } from "../../utils/Collision.js";
+import { isCollision, isFloorCollision } from "../../utils/Collision.js";
 import { Sound } from "../../utils/Sound.js";
 import { GreenM } from "../chars/GreenM.js";
 import { MessageGetReady } from "../MessageGetReady.js";
@@ -8,6 +8,8 @@ import { Bill } from "../enemies/Bill.js";
 import { InnerWall } from "../scenarios/InnerWall.js";
 import { Score3 } from "../hud/Score3.js";
 import { CastleFloorHandler } from "../handler/CastleFloorHandler.js";
+import { Background4 } from "../scenarios/Backgrounds.js";
+import { BabyP } from "../chars/babyP.js";
 
 // VARIABLES
 const sprites = new Image();
@@ -35,9 +37,9 @@ const musicPath = ["https://vgmdownloads.com/soundtracks/super-mario-galaxy-2/vv
 export class Screen3 {
   constructor(canvas, context, debug = false) {
     this.music = new Sound(musicPath[Math.floor(Math.random() * musicPath.length)], true);
-    this.background = new InnerWall(canvas);
+    this.background = new Background4(canvas, 5);
     this.floor = new CastleFloorHandler(canvas, debug);
-    this.char = new GreenM(canvas, debug);
+    this.char = new BabyP(canvas, debug);
     this.enemy = new Bill(canvas, debug);
     this.score = new Score3(canvas);
     this.messageGetReady = new MessageGetReady(context, sprites, canvas);
@@ -175,10 +177,10 @@ class Game {
       console.log("Collision - Collided with the top");
     }
 
-    if (isCollision(this.classFather.char, this.classFather.floor)) {
-      this.classFather.char.posY = (this.classFather.floor.posY - this.classFather.char.collisionHeight[this.classFather.char.currentFrame]);
+    if (this.classFather.char.isFall() && isFloorCollision(this.classFather.char, this.classFather.floor)) {
+      this.classFather.char.setRun(this.classFather.floor.posY);
       console.log("Collision - Collided with the ground");
-      this.stopGame();
+      // this.stopGame();
     }
   }
 }

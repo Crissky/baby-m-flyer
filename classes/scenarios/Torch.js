@@ -10,6 +10,11 @@ export class Torch extends BasicAnimated {
             0, 0,
             0, 0,
             0, 0, 0, 0,
-            1.5, 4, 10, false);
+            1.2, 4, 10, false);
+    }
+
+    update(speedScreen = 0) {
+        this.posX -= speedScreen;
+        this.updateFrame(1);
     }
 }

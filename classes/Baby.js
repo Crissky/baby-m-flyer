@@ -134,9 +134,9 @@ class Baby {
     getCollisionRect() {
         return [{
             x1: (this.posX + this.collisionToleranceX1),
-            x2: ((this.posX + this.width) - this.collisionToleranceX2),
+            x2: (this.getEndPosX() - this.collisionToleranceX2),
             y1: (this.posY + this.collisionToleranceY1),
-            y2: ((this.posY + this.height) - this.collisionToleranceY2)
+            y2: (this.getEndPosY() - this.collisionToleranceY2)
         }]
     }
 }

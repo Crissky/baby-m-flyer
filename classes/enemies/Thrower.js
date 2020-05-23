@@ -73,9 +73,9 @@ export class Thrower extends BasicAnimated {
     getCollisionRect() {
         return [{
             x1: (this.posX + (this.sizeMultiplier * this.collisionX1[this.currentFrame])),
-            x2: ((this.posX + this.getTrueWidth() - (this.sizeMultiplier * this.collisionX2[this.currentFrame]))),
+            x2: ((this.getEndPosX() - (this.sizeMultiplier * this.collisionX2[this.currentFrame]))),
             y1: (this.posY + (this.sizeMultiplier * this.collisionY1[this.currentFrame])),
-            y2: ((this.posY + this.getTrueHeight() - (this.sizeMultiplier * this.collisionY2[this.currentFrame])))
+            y2: ((this.getEndPosY() - (this.sizeMultiplier * this.collisionY2[this.currentFrame])))
         }]
     }
 

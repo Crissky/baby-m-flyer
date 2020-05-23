@@ -88,9 +88,9 @@ export class BasicObject {
     getCollisionRect() {
         return [{
             x1: (this.posX + (this.sizeMultiplier * this.collisionToleranceX1)),
-            x2: (this.posX + this.getTrueWidth() - (this.sizeMultiplier * this.collisionToleranceX2)),
+            x2: (this.getEndPosX() - (this.sizeMultiplier * this.collisionToleranceX2)),
             y1: (this.posY + (this.sizeMultiplier * this.collisionToleranceY1)),
-            y2: (this.posY + this.getTrueHeight() - (this.sizeMultiplier * this.collisionToleranceY2))
+            y2: (this.getEndPosY() - (this.sizeMultiplier * this.collisionToleranceY2))
         }]
     }
 
