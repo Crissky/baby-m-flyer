@@ -34,6 +34,7 @@ export class CastleFloorHandler {
             this.removeFirstTorch();
         }
     }
+
     render() {
         this.fillBlack();
         this.torchList.forEach(torch => {
@@ -43,8 +44,10 @@ export class CastleFloorHandler {
             castleFloor.render();
         });
     }
+    
     reset() {
         this.castleFloorList = [];
+        this.torchList = [];
     }
 
     fillBlack() {

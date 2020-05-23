@@ -8,7 +8,7 @@ export class BabyP extends BasicAnimated {
         super(sprites, canvas,
             33, 0,
             33, 55,
-            (canvas.width * 0.2), 0,
+            (canvas.width * 0.2), (canvas.height * 0.2),
             0, 0,
             7, 10, 30, 5,
             1, 8, 11, debug);

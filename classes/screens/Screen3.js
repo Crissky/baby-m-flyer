@@ -10,6 +10,7 @@ import { Score3 } from "../hud/Score3.js";
 import { CastleFloorHandler } from "../handler/CastleFloorHandler.js";
 import { Background4 } from "../scenarios/Backgrounds.js";
 import { BabyP } from "../chars/babyP.js";
+import { CastleRoofHandler } from "../handler/CastleRoofHandler.js";
 
 // VARIABLES
 const sprites = new Image();
@@ -39,6 +40,7 @@ export class Screen3 {
     this.music = new Sound(musicPath[Math.floor(Math.random() * musicPath.length)], true);
     this.background = new Background4(canvas, 5);
     this.floor = new CastleFloorHandler(canvas, debug);
+    this.roof = new CastleRoofHandler(canvas);
     this.char = new BabyP(canvas, debug);
     this.enemy = new Bill(canvas, debug);
     this.score = new Score3(canvas);
@@ -92,12 +94,13 @@ class Start {
 
   update() { 
     this.classFather.floor.update(this.speed);
-    
+    this.classFather.roof.update(this.speed);
   }
 
   render() {
     this.classFather.background.render();
     this.classFather.floor.render();
+    this.classFather.roof.render();
     this.classFather.char.render();
     this.classFather.enemy.render();
     this.classFather.messageGetReady.render();
@@ -126,6 +129,7 @@ class Game {
     this.classFather.background.update(this.speed);
     this.classFather.enemy.update(this.speed);
     this.classFather.floor.update(this.speed);
+    this.classFather.roof.update(this.speed);
     this.classFather.char.update(this.speed);
     this.iscollided();
     
@@ -136,6 +140,7 @@ class Game {
     this.classFather.char.render();
     this.classFather.enemy.render();
     this.classFather.floor.render();
+    this.classFather.roof.render();
     this.classFather.score.render();
   }
 
@@ -201,6 +206,7 @@ class Gameover {
     this.classFather.char.render();
     this.classFather.enemy.render();
     this.classFather.floor.render();
+    this.classFather.roof.render();
     this.classFather.messageGameOver.render();
     this.classFather.score.render();
     this.sleepTime -= 1;
