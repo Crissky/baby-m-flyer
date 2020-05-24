@@ -1,16 +1,14 @@
 import { isCollision, isFloorCollision } from "../../utils/Collision.js";
 import { Sound } from "../../utils/Sound.js";
-import { GreenM } from "../chars/GreenM.js";
 import { MessageGetReady } from "../MessageGetReady.js";
 import { MessageGameOver } from "../MessageGameOver.js";
-import { Floor1 } from "../scenarios/Floors.js";
 import { Bill } from "../enemies/Bill.js";
-import { InnerWall } from "../scenarios/InnerWall.js";
 import { Score3 } from "../hud/Score3.js";
 import { CastleFloorHandler } from "../handler/CastleFloorHandler.js";
 import { Background4 } from "../scenarios/Backgrounds.js";
 import { BabyP } from "../chars/babyP.js";
 import { CastleRoofHandler } from "../handler/CastleRoofHandler.js";
+import { WoodenLegShyguy } from "../enemies/WoodenLegShyguy.js";
 
 // VARIABLES
 const sprites = new Image();
@@ -42,7 +40,9 @@ export class Screen3 {
     this.floor = new CastleFloorHandler(canvas, debug);
     this.roof = new CastleRoofHandler(canvas);
     this.char = new BabyP(canvas, debug);
-    this.enemy = new Bill(canvas, debug);
+    this.enemy = new WoodenLegShyguy(canvas, debug);
+    this.enemy.posX = canvas.width;
+    this.enemy.setEndPosY(this.floor.posY);
     this.score = new Score3(canvas);
     this.messageGetReady = new MessageGetReady(context, sprites, canvas);
     this.messageGameOver = new MessageGameOver(context, sprites, canvas);
@@ -186,6 +186,11 @@ class Game {
       this.classFather.char.setRun(this.classFather.floor.posY);
       console.log("Collision - Collided with the ground");
       // this.stopGame();
+    }
+
+    if(isCollision(this.classFather.char, this.classFather.enemy)) {
+      console.log("Collision - Collided with the enemy");
+      this.stopGame();
     }
   }
 }

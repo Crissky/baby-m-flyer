@@ -14,6 +14,7 @@ export class BabyP extends BasicAnimated {
             1, 8, 11, debug);
 
         this.gravity = 0.2;
+        this.defaultGravity = this.gravity;
         this.status;
         this.jumpSound = new Sound("./sounds/babyPjump.wav");
         this.downSound = new Sound("./sounds/babyPdown.wav");
@@ -93,6 +94,18 @@ export class BabyP extends BasicAnimated {
             this.speedY = 9;
             this.downSound.play();
         }
+    }
+
+    reset() {
+        super.reset();
+        this.setFall();
+        this.gravity = this.defaultGravity;
+    }
+
+    stop() {
+        this.speedY = 0;
+        this.speedX = 0;
+        this.gravity = 0;
     }
 
     getFloorCollisionRect() {
