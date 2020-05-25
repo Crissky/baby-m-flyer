@@ -9,6 +9,7 @@ import { Background4 } from "../scenarios/Backgrounds.js";
 import { BabyP } from "../chars/babyP.js";
 import { CastleRoofHandler } from "../handler/CastleRoofHandler.js";
 import { WoodenLegShyguy } from "../enemies/WoodenLegShyguy.js";
+import { FlyShyguy } from "../enemies/FlyShyguy.js";
 
 // VARIABLES
 const sprites = new Image();
@@ -40,9 +41,9 @@ export class Screen3 {
     this.floor = new CastleFloorHandler(canvas, debug);
     this.roof = new CastleRoofHandler(canvas);
     this.char = new BabyP(canvas, debug);
-    this.enemy = new WoodenLegShyguy(canvas, debug);
+    this.enemy = new FlyShyguy(canvas, this.floor, debug);
     this.enemy.posX = canvas.width;
-    this.enemy.setEndPosY(this.floor.posY);
+    this.enemy.setEndPosY(this.floor.posY - 100);
     this.score = new Score3(canvas);
     this.messageGetReady = new MessageGetReady(context, sprites, canvas);
     this.messageGameOver = new MessageGameOver(context, sprites, canvas);

@@ -1,4 +1,5 @@
 import { BasicBackgroundLite } from "../basic/BasicBackgroundLite.js";
+import { sumHexColor } from "../../utils/Color.js";
 
 export class Background1 extends BasicBackgroundLite {
     constructor(canvas, delay = 30) {
@@ -9,16 +10,55 @@ export class Background1 extends BasicBackgroundLite {
             512, 518,
             0, (canvas.height - 518 + 190),
             delay, 0.5);
+
+        this.defaultGradient1 = "#03001e";
+        this.defaultGradient2 = "#c471ed";
+        this.defaultGradient3 = "#12c2e9";
+        this.defaultGradient4 = "#fdeff9";
+        this.gradient1 = this.defaultGradient1;
+        this.gradient2 = this.defaultGradient2;
+        this.gradient3 = this.defaultGradient3;
+        this.gradient4 = this.defaultGradient4;
+        this.alpha = 0;
+    }
+
+    render() {
+        super.render();
+        this.fillBlack();
+    }
+
+    fillBlack() {
+        this.context.save();
+        this.context.fillStyle = '#000000';
+        this.context.globalAlpha = this.alpha;
+        this.context.fillRect(0, 0, this.canvas.width, this.canvas.height);
+        this.context.restore();
+    }
+
+    reset() {
+        this.gradient1 = this.defaultGradient1;
+        this.gradient2 = this.defaultGradient2;
+        this.gradient3 = this.defaultGradient3;
+        this.gradient4 = this.defaultGradient4;
+        this.alpha = 0;
     }
 
     renderGradient() {
         let my_gradient = this.context.createLinearGradient(0, 0, 0, this.canvas.height);
-        my_gradient.addColorStop(0, "#03001e");
-        my_gradient.addColorStop(0.4, "#c471ed");
-        my_gradient.addColorStop(0.7, "#12c2e9");
-        my_gradient.addColorStop(1, "#fdeff9");
+        my_gradient.addColorStop(0, this.gradient1);
+        my_gradient.addColorStop(0.4, this.gradient2);
+        my_gradient.addColorStop(0.7, this.gradient3);
+        my_gradient.addColorStop(1, this.gradient4);
         this.context.fillStyle = my_gradient;
         this.context.fillRect(0, 0, this.canvas.width, this.canvas.height);
+    }
+
+    darkenGradient(value) {
+        this.gradient1 = sumHexColor(this.gradient1, value);
+        this.gradient2 = sumHexColor(this.gradient2, value);
+        this.gradient3 = sumHexColor(this.gradient3, value);
+        this.gradient4 = sumHexColor(this.gradient4, value);
+        this.alpha += 0.016;
     }
 }
 

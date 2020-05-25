@@ -136,6 +136,7 @@ class Game {
     if (this.classFather.pipesHandler.pipeUPList[0].getEndPosX() < 0) {
       this.classFather.pipesHandler.removeFirstPipe();
       this.classFather.score.addScore(1);
+      this.classFather.background.darkenGradient(-3);
       if (this.classFather.score.getScore() % 5 === 0) {
         this.speed += 0.5;
         this.classFather.score.addLevel(1, this.classFather.music);
@@ -234,6 +235,7 @@ class Gameover {
       return;
     }
     this.classFather.char.reset();
+    this.classFather.background.reset();
     this.classFather.pipesHandler.reset();
     this.classFather.score.reset();
     this.classFather.gameScreen.reset();
