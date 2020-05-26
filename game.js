@@ -23,9 +23,9 @@ import { Screen2 } from "./classes/screens/Screen2.js";
 import { Screen3 } from "./classes/screens/Screen3.js";
 import { ScreenSandbox } from "./classes/screens/ScreenSandbox.js";
 
-const screen1 = new Screen1(canvas, context, debug);
+// const screen1 = new Screen1(canvas, context, debug);
 // const screen1 = new Screen2(canvas, context, debug);
-// const screen1 = new Screen3(canvas, context, debug);
+const screen1 = new Screen3(canvas, context, debug);
 // const screen1 = new ScreenSandbox(canvas, context, debug);
 
 function loop() {

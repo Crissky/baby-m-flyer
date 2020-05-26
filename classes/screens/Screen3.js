@@ -10,6 +10,7 @@ import { BabyP } from "../chars/babyP.js";
 import { CastleRoofHandler } from "../handler/CastleRoofHandler.js";
 import { WoodenLegShyguy } from "../enemies/WoodenLegShyguy.js";
 import { FlyShyguy } from "../enemies/FlyShyguy.js";
+import { MuftiShyguy } from "../enemies/MuftiShyguy.js";
 
 // VARIABLES
 const sprites = new Image();
@@ -41,9 +42,9 @@ export class Screen3 {
     this.floor = new CastleFloorHandler(canvas, debug);
     this.roof = new CastleRoofHandler(canvas);
     this.char = new BabyP(canvas, debug);
-    this.enemy = new FlyShyguy(canvas, this.floor, debug);
+    this.enemy = new MuftiShyguy(canvas, debug);
     this.enemy.posX = canvas.width;
-    this.enemy.setEndPosY(this.floor.posY - 100);
+    this.enemy.setEndPosY(this.floor.posY);
     this.score = new Score3(canvas);
     this.messageGetReady = new MessageGetReady(context, sprites, canvas);
     this.messageGameOver = new MessageGameOver(context, sprites, canvas);
@@ -93,7 +94,7 @@ class Start {
     this.classFather = father;
   }
 
-  update() { 
+  update() {
     this.classFather.floor.update(this.speed);
     this.classFather.roof.update(this.speed);
   }
@@ -132,8 +133,12 @@ class Game {
     this.classFather.floor.update(this.speed);
     this.classFather.roof.update(this.speed);
     this.classFather.char.update(this.speed);
+
+    if (this.classFather.enemy.posX - this.classFather.char.posX < 100) {
+      this.classFather.enemy.show();
+    }
     this.iscollided();
-    
+
   }
 
   render() {
@@ -189,7 +194,7 @@ class Game {
       // this.stopGame();
     }
 
-    if(isCollision(this.classFather.char, this.classFather.enemy)) {
+    if (isCollision(this.classFather.char, this.classFather.enemy)) {
       console.log("Collision - Collided with the enemy");
       this.stopGame();
     }
@@ -205,7 +210,7 @@ class Gameover {
     this.classFather = father;
   }
 
-  update() {}
+  update() { }
 
   render() {
     this.classFather.background.render();
@@ -244,9 +249,9 @@ class Win {
     this.sleepTime = 100;
   }
 
-  click() {}
+  click() { }
 
-  render() {}
+  render() { }
 
-  update() {}
+  update() { }
 }
