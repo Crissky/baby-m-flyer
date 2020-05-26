@@ -2,7 +2,7 @@ import { BasicRotatedObject } from "../basic/BasicRotateObject.js";
 import { Sound } from "../../utils/Sound.js";
 
 export class RocketShyguy extends BasicRotatedObject {
-    constructor(canvas, player, debug) {
+    constructor(canvas, player, debug = false) {
         const sprites = new Image();
         sprites.src = "./sprites/shyguy-rocket.png";
         super(sprites, canvas,

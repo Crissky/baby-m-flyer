@@ -3,7 +3,7 @@ import { randomIntFromInterval } from "../../utils/Random.js";
 import { RocketShyguy } from "../enemies/RocketShyguy.js";
 
 export class BillHandler {
-    constructor(canvas, player, debug) {
+    constructor(canvas, player, debug = false) {
         this.canvas = canvas;
         this.player = player;
         this.debugMode = debug;

@@ -3,7 +3,7 @@ import { Sound } from "../../utils/Sound.js";
 import { Spark } from "../scenarios/Spark.js";
 
 export class YellowM extends BasicChar {
-    constructor(canvas, debug) {
+    constructor(canvas, debug = false) {
         const sprites = new Image();
         sprites.src = './sprites/baby_W.png';
         super(sprites, canvas,

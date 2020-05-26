@@ -11,6 +11,8 @@ import { CastleRoofHandler } from "../handler/CastleRoofHandler.js";
 import { WoodenLegShyguy } from "../enemies/WoodenLegShyguy.js";
 import { FlyShyguy } from "../enemies/FlyShyguy.js";
 import { MuftiShyguy } from "../enemies/MuftiShyguy.js";
+import { JumpGuy } from "../enemies/JumpGuy.js";
+import { FireBall } from "../enemies/FireBall.js";
 
 // VARIABLES
 const sprites = new Image();
@@ -42,7 +44,7 @@ export class Screen3 {
     this.floor = new CastleFloorHandler(canvas, debug);
     this.roof = new CastleRoofHandler(canvas);
     this.char = new BabyP(canvas, debug);
-    this.enemy = new MuftiShyguy(canvas, debug);
+    this.enemy = new FireBall(canvas, debug);
     this.enemy.posX = canvas.width;
     this.enemy.setEndPosY(this.floor.posY);
     this.score = new Score3(canvas);
@@ -134,9 +136,15 @@ class Game {
     this.classFather.roof.update(this.speed);
     this.classFather.char.update(this.speed);
 
-    if (this.classFather.enemy.posX - this.classFather.char.posX < 100) {
-      this.classFather.enemy.show();
-    }
+    // if (this.classFather.enemy.isRun() && this.classFather.enemy.posX - this.classFather.char.posX < 100) {
+    //   this.classFather.enemy.setJump();
+    // }
+
+    // if(this.classFather.enemy.isFall() && this.classFather.enemy.getEndPosY() > this.classFather.floor.posY){
+    //   this.classFather.enemy.setSit();
+    //   this.classFather.enemy.setEndPosY(this.classFather.floor.posY);
+    // }
+
     this.iscollided();
 
   }

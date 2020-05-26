@@ -1,7 +1,7 @@
 import { BasicAnimated } from "../basic/BasicAnimated.js";
 
 export class Thrower extends BasicAnimated {
-    constructor(canvas, projectile, debug) {
+    constructor(canvas, projectile, debug = false) {
         const sprites = new Image();
         sprites.src = "./sprites/thrower.png";
         super(sprites, canvas,

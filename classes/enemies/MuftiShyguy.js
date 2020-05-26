@@ -1,7 +1,7 @@
 import { BasicAnimated } from "../basic/BasicAnimated.js";
 
 export class MuftiShyguy extends BasicAnimated {
-    constructor(canvas, debug) {
+    constructor(canvas, debug = false) {
         const sprites = new Image();
         sprites.src = "./sprites/mufti-shyguy.png";
         super(sprites, canvas,

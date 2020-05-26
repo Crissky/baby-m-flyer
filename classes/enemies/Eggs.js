@@ -2,7 +2,7 @@ import { BasicProjectileStartAimPlayer } from "../basic/BasicProjectileStartAimP
 import { Sound } from "../../utils/Sound.js";
 
 export class LargeEggGreen extends BasicProjectileStartAimPlayer {
-    constructor(canvas, targetPlayer, debug) {
+    constructor(canvas, targetPlayer, debug = false) {
         const sprites = new Image();
         sprites.src = "./sprites/large-eggs.png";
         super(sprites, canvas, targetPlayer,

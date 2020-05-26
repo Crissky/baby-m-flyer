@@ -3,7 +3,7 @@ import { CastleFloor1, CastleFloor2, CastleFloor3 } from "../scenarios/CastleFlo
 import { Torch } from "../scenarios/Torch.js";
 
 export class CastleFloorHandler {
-    constructor(canvas, debug) {
+    constructor(canvas, debug = false) {
         this.canvas = canvas;
         this.context = canvas.getContext('2d');
         this.debugMode = debug;

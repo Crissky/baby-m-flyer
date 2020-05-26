@@ -2,7 +2,7 @@ import { BasicAnimated } from "../basic/BasicAnimated.js";
 import { Sound } from "../../utils/Sound.js";
 
 export class BabyP extends BasicAnimated {
-    constructor(canvas, debug) {
+    constructor(canvas, debug = false) {
         const sprites = new Image();
         sprites.src = './sprites/baby-P.png';
         super(sprites, canvas,

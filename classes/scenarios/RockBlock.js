@@ -1,7 +1,7 @@
 import { BasicObject } from "../basic/BasicObject.js";
 
 export class RockBlock extends BasicObject {
-    constructor(canvas, debug) {
+    constructor(canvas, debug = false) {
         const sprites = new Image();
         sprites.src = "./sprites/rock-block.png";
         super(sprites, canvas,

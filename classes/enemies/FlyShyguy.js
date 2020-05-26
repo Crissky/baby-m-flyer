@@ -1,7 +1,8 @@
 import { BasicAnimated } from "../basic/BasicAnimated.js";
+import { Sound } from "../../utils/Sound.js";
 
 export class FlyShyguy extends BasicAnimated {
-    constructor(canvas, floor, debug) {
+    constructor(canvas, floor, debug = false) {
         const sprites = new Image();
         sprites.src = './sprites/fly-shyguy.png';
         super(sprites, canvas,
@@ -9,16 +10,23 @@ export class FlyShyguy extends BasicAnimated {
             20, 32,
             0, 0,
             0, 1,
-            0, 0, 0, 0,
-            1, 4, 5, debug);
+            3, 3, 8, 5,
+            1.2, 4, 5, debug);
         this.floor = floor;
         this.defaultGravity = 0.1;
         this.gravity = this.defaultGravity;
         this.maxSpeedY = 3;
         this.incrementFrame = 1;
+        this.spawnSound = new Sound("./sounds/smw2_fly_guy_escapes.wav");
+        this.spawnSound.play();
     }
 
     update(speedScreen) {
+        if (this.speedY < 0) {
+            this.waitFrameTime = 2;
+        } else {
+            this.waitFrameTime = 6;
+        }
         this.updateSpeedY();
         this.setSpeedY(this.speedY + this.gravity);
         super.update(speedScreen);
@@ -51,5 +59,9 @@ export class FlyShyguy extends BasicAnimated {
             this.incrementFrame = 1;
         }
         Math.min()
+    }
+
+    debugRect() {
+        super.debugRect('#ff0000');
     }
 }
