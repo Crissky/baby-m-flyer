@@ -13,6 +13,9 @@ import { FlyShyguy } from "../enemies/FlyShyguy.js";
 import { MuftiShyguy } from "../enemies/MuftiShyguy.js";
 import { JumpGuy } from "../enemies/JumpGuy.js";
 import { FireBall } from "../enemies/FireBall.js";
+import { Spike } from "../enemies/Spike.js";
+import { StartPlatform, MidPlatform, EndPlatform } from "../scenarios/Platform.js";
+import { PlatformHandler } from "../handler/PlatformHandler.js";
 
 // VARIABLES
 const sprites = new Image();
@@ -44,9 +47,10 @@ export class Screen3 {
     this.floor = new CastleFloorHandler(canvas, debug);
     this.roof = new CastleRoofHandler(canvas);
     this.char = new BabyP(canvas, debug);
-    this.enemy = new FireBall(canvas, debug);
-    this.enemy.posX = canvas.width;
-    this.enemy.setEndPosY(this.floor.posY);
+    this.enemy = new PlatformHandler(canvas, debug);
+    // this.enemy.posX = canvas.width;
+    // this.enemy.setEndPosY(this.floor.posY);
+    this.enemy.appendPlatform(2, this.floor.posY, 5)
     this.score = new Score3(canvas);
     this.messageGetReady = new MessageGetReady(context, sprites, canvas);
     this.messageGameOver = new MessageGameOver(context, sprites, canvas);

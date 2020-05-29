@@ -17,7 +17,7 @@ export class BillHandler {
         if(this.billList.length < 1) {
             this.appendBill();
         }
-        if (this.billList.length > 0 && this.billList.slice(-1)[0].posX < (this.canvas.width - this.distanceBetweenX)) {
+        if (this.billList.length > 0 && this.getLastBill().posX < (this.canvas.width - this.distanceBetweenX)) {
             this.appendBill();
         }
 
@@ -25,7 +25,7 @@ export class BillHandler {
             bill.update(speedScreen * 2);
         });
 
-        this.billList = this.billList.filter(function(bill, index, arr) {
+        this.billList = this.billList.filter(function(bill, index, arr) { // Remove Bills off the left side of the screen.
             return (bill.getEndPosX() > 0);
         });
     }
@@ -73,7 +73,11 @@ export class BillHandler {
         this.billList.push(bill);
     }
 
-    removeBill() {
+    removeFirstBill() {
+        this.billList.shift();
+    }
 
+    getLastBill() {
+        return this.billList.slice(-1)[0];
     }
 }
