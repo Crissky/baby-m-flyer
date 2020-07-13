@@ -35,7 +35,10 @@ function loop() {
   requestAnimationFrame(loop);
 }
 
-window.addEventListener('mousedown', function () {
+let hasTouchStartEvent = typeof(window.ontouchstart) != 'undefined';
+let myEventListiner = hasTouchStartEvent ? 'touchstart' : 'mousedown';
+
+window.addEventListener(myEventListiner, function () {
   if (screen1.click) {
     screen1.click();
   }
