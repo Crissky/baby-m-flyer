@@ -2,20 +2,13 @@ import { isCollision, isFloorCollision } from "../../utils/Collision.js";
 import { Sound } from "../../utils/Sound.js";
 import { MessageGetReady } from "../MessageGetReady.js";
 import { MessageGameOver } from "../MessageGameOver.js";
-import { Bill } from "../enemies/Bill.js";
 import { Score3 } from "../hud/Score3.js";
 import { CastleFloorHandler } from "../handler/CastleFloorHandler.js";
 import { Background4 } from "../scenarios/Backgrounds.js";
 import { BabyP } from "../chars/babyP.js";
 import { CastleRoofHandler } from "../handler/CastleRoofHandler.js";
-import { WoodenLegShyguy } from "../enemies/WoodenLegShyguy.js";
-import { FlyShyguy } from "../enemies/FlyShyguy.js";
 import { MuftiShyguy } from "../enemies/MuftiShyguy.js";
 import { JumpGuy } from "../enemies/JumpGuy.js";
-import { FireBall } from "../enemies/FireBall.js";
-import { Spike } from "../enemies/Spike.js";
-import { StartPlatform, MidPlatform, EndPlatform } from "../scenarios/Platform.js";
-import { PlatformHandler } from "../handler/PlatformHandler.js";
 import { Screen3Handler } from "../handler/Screen3Handler.js";
 
 // VARIABLES
