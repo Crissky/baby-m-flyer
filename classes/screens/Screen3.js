@@ -5,7 +5,7 @@ import { MessageGameOver } from "../MessageGameOver.js";
 import { Score3 } from "../hud/Score3.js";
 import { CastleFloorHandler } from "../handler/CastleFloorHandler.js";
 import { Background4 } from "../scenarios/Backgrounds.js";
-import { BabyP } from "../chars/babyP.js";
+import { BabyP } from "../chars/BabyP.js";
 import { CastleRoofHandler } from "../handler/CastleRoofHandler.js";
 import { MuftiShyguy } from "../enemies/MuftiShyguy.js";
 import { JumpGuy } from "../enemies/JumpGuy.js";
