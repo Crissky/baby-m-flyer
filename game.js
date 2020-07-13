@@ -6,7 +6,7 @@ const context = canvas.getContext('2d');
 const paddingX = window.innerWidth > 800 ? 100 : 4;
 const paddingY = 4;
 
-const debug = true;
+const debug = false;
 
 // Screen Size
 const height = (window.innerHeight + paddingY) > 600 ? 600 : (window.innerHeight - paddingY) < (480 + paddingY) ? 480 : (window.innerHeight - paddingY);

@@ -16,6 +16,7 @@ import { FireBall } from "../enemies/FireBall.js";
 import { Spike } from "../enemies/Spike.js";
 import { StartPlatform, MidPlatform, EndPlatform } from "../scenarios/Platform.js";
 import { PlatformHandler } from "../handler/PlatformHandler.js";
+import { Screen3Handler } from "../handler/Screen3Handler.js";
 
 // VARIABLES
 const sprites = new Image();
@@ -42,15 +43,13 @@ const musicPath = ["https://vgmdownloads.com/soundtracks/super-mario-galaxy-2/vv
 
 export class Screen3 {
   constructor(canvas, context, debug = false) {
+    this.canvas = canvas;
     this.music = new Sound(musicPath[Math.floor(Math.random() * musicPath.length)], true);
     this.background = new Background4(canvas, 5);
     this.floor = new CastleFloorHandler(canvas, debug);
     this.roof = new CastleRoofHandler(canvas);
     this.char = new BabyP(canvas, debug);
-    this.enemy = new PlatformHandler(canvas, debug);
-    // this.enemy.posX = canvas.width;
-    // this.enemy.setEndPosY(this.floor.posY);
-    this.enemy.appendPlatform(2, this.floor.posY, 5)
+    this.enemy = new Screen3Handler(canvas, this.floor, debug);
     this.score = new Score3(canvas);
     this.messageGetReady = new MessageGetReady(context, sprites, canvas);
     this.messageGameOver = new MessageGameOver(context, sprites, canvas);
@@ -126,11 +125,13 @@ class Game {
   constructor(father) {
     this.speed = 2;
     this.stoped = false;
-    this.reset();
     this.impactSound = new Sound("./sounds/SFX_Impact.wav");
-    this.topImpactSound = new Sound("./sounds/SFX_Top_Impact.wav");
     this.classFather = father;
     this.clearFase = false;
+    this.currentTimeScore = 0;
+    this.waitTimeScore = 5;
+    this.reset();
+    
   }
 
   update() {
@@ -140,17 +141,18 @@ class Game {
     this.classFather.roof.update(this.speed);
     this.classFather.char.update(this.speed);
 
-    // if (this.classFather.enemy.isRun() && this.classFather.enemy.posX - this.classFather.char.posX < 100) {
-    //   this.classFather.enemy.setJump();
-    // }
-
-    // if(this.classFather.enemy.isFall() && this.classFather.enemy.getEndPosY() > this.classFather.floor.posY){
-    //   this.classFather.enemy.setSit();
-    //   this.classFather.enemy.setEndPosY(this.classFather.floor.posY);
-    // }
-
     this.iscollided();
+    this.landingFloorOrPlatform();
 
+    this.currentTimeScore = ++this.currentTimeScore % this.waitTimeScore;
+    if (this.currentTimeScore === 0) {
+      this.classFather.score.addScore(1);
+      if (this.classFather.score.getScore() % 100 === 0) {
+        this.speed += 0.25;
+        this.classFather.enemy.updateRateSpawn(this.classFather.score.getLevel());
+        this.classFather.score.addLevel(1);
+      }
+    }
   }
 
   render() {
@@ -169,9 +171,12 @@ class Game {
   }
 
   reset() {
-    this.speed = 2;
+    this.speed = 3;
     this.stoped = false;
     this.clearFase = false;
+    if(this.classFather.canvas.width < this.classFather.canvas.height) {
+      this.speed = this.speed / 2;
+    }
   }
 
   stopGame() {
@@ -191,24 +196,76 @@ class Game {
     if (this.clearFase) {
       return;
     }
-    if (this.classFather.char.posY < 0) {
-      this.classFather.char.posY = 0;
-      if (this.classFather.char.speedY < 0) {
-        this.classFather.char.speedY = 0;
+
+    this.classFather.enemy.platformHandler.spikeList.forEach(spike => {
+      if (isCollision(this.classFather.char, spike)) {
+        console.log("Collision - Collided with the spike");
+        this.stopGame();
       }
-      this.topImpactSound.play();
-      console.log("Collision - Collided with the top");
+    });
+
+    this.classFather.enemy.enemyList.forEach(enemy => {
+      if (enemy instanceof JumpGuy) {
+        this.actionJumpGuy(enemy);
+      } else if (enemy instanceof MuftiShyguy) {
+        this.actionMuftiShyguy(enemy);
+      }
+
+      if (isCollision(this.classFather.char, enemy)) {
+        console.log("Collision - Collided with the enemy");
+        this.stopGame();
+      }
+    });
+  }
+
+  landingFloorOrPlatform() {
+    if (this.clearFase) {
+      return;
     }
 
     if (this.classFather.char.isFall() && isFloorCollision(this.classFather.char, this.classFather.floor)) {
       this.classFather.char.setRun(this.classFather.floor.posY);
       console.log("Collision - Collided with the ground");
-      // this.stopGame();
+      return;
     }
 
-    if (isCollision(this.classFather.char, this.classFather.enemy)) {
-      console.log("Collision - Collided with the enemy");
-      this.stopGame();
+    let isPlatform = false;
+    let platformPosY;
+    for (let index = 0; index < this.classFather.enemy.platformHandler.platformList.length; index++) {
+      const platform = this.classFather.enemy.platformHandler.platformList[index];
+      if (this.classFather.char.isJump()) {
+        break;
+      }
+      if (isFloorCollision(this.classFather.char, platform)) {
+        isPlatform = true;
+        platformPosY = platform.posY;
+        break;
+      }
+    }
+
+    if (this.classFather.char.isFall() && isPlatform) {
+      this.classFather.char.setRun(platformPosY);
+    }
+
+    if (this.classFather.char.isRun() && !isFloorCollision(this.classFather.char, this.classFather.floor) && !isPlatform) {
+      this.classFather.char.setFall();
+    }
+  }
+
+  actionJumpGuy(jumpGuy) {
+    if (jumpGuy.isRun() && jumpGuy.posX - this.classFather.char.posX < (40 * this.speed)) {
+      jumpGuy.setJump();
+    }
+
+    if (jumpGuy.isFall() && jumpGuy.getEndPosY() > this.classFather.floor.posY) {
+      jumpGuy.setSit();
+      jumpGuy.setEndPosY(this.classFather.floor.posY);
+    }
+  }
+
+  actionMuftiShyguy(muftiShyguy) {
+    if (muftiShyguy.hide && muftiShyguy.posX - this.classFather.char.posX < (40 * this.speed)) {
+      muftiShyguy.show();
     }
   }
 }

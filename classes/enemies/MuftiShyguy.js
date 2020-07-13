@@ -15,6 +15,10 @@ export class MuftiShyguy extends BasicAnimated {
         this.hide = true;
     }
 
+    debugRect() {
+        super.debugRect("#ff0000");
+    }
+
     updateFrame(speedScreen) {
         if (this.hide) {
             return;

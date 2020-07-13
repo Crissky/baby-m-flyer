@@ -23,9 +23,9 @@ export class FlyShyguy extends BasicAnimated {
 
     update(speedScreen) {
         if (this.speedY < 0) {
-            this.waitFrameTime = 2;
+            this.waitFrameTime = 1;
         } else {
-            this.waitFrameTime = 6;
+            this.waitFrameTime = 15;
         }
         this.updateSpeedY();
         this.setSpeedY(this.speedY + this.gravity);

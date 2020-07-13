@@ -5,10 +5,10 @@ export class PlatformHandler {
     constructor(canvas, debug = false) {
         this.canvas = canvas;
         this.debugMode = debug;
-        this.platformAddPosY = -10;
+        this.platformAddPosY = -20;
         this.spikeList = [];
         this.platformList = [];
-        this.scale = 2;
+        this.scale = 1.5;
     }
 
     update(speedScreen) {
@@ -48,7 +48,8 @@ export class PlatformHandler {
         startSpike.posX = startPlatform.getEndPosX();
         startSpike.setEndPosY(floorPosY);
 
-        startPlatform.posY = floorPosY + this.platformAddPosY - startPlatform.getTrueHeight() - startSpike.getTrueHeight();
+        //startPlatform.posY = floorPosY + this.platformAddPosY - startPlatform.getTrueHeight() - startSpike.getTrueHeight();
+        startPlatform.setEndPosY( startSpike.posY + this.platformAddPosY);
 
         this.platformList.push(startPlatform);
         this.spikeList.push(startSpike);

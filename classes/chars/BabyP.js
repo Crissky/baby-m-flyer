@@ -113,7 +113,7 @@ export class BabyP extends BasicAnimated {
             x1: (this.posX + (this.getTrueWidth() * 0.1)),
             x2: (this.getEndPosX() - (this.getTrueWidth() * 0.4)),
             y1: (this.posY + (this.getTrueHeight() * 0.9)),
-            y2: (this.getEndPosY())
+            y2: (this.getEndPosY() + 2)
         }]
     }
 }

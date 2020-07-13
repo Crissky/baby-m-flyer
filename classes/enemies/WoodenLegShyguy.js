@@ -10,7 +10,7 @@ export class WoodenLegShyguy extends BasicAnimated {
             0, 0,
             -0.4, 0,
             12, 5, 12, 50,
-            1.5, 22, 5, debug);
+            1.5, 22, 1, debug);
     }
 
     debugRect() {
