@@ -33,7 +33,10 @@ const musicPath = ["https://vgmdownloads.com/soundtracks/super-mario-galaxy-2/ad
   "https://vgmdownloads.com/soundtracks/super-mario-galaxy-2/ktxwlrzr/1-35%20Honeybloom%20Galaxy.mp3",
   "https://vgmdownloads.com/soundtracks/super-mario-galaxy-2/wvkyoqds/2-12%20Bowser%20Jr.%27s%20Fiery%20Flotilla.mp3",
   "https://vgmdownloads.com/soundtracks/super-mario-galaxy-2/staxsgyh/2-18%20Fleet%20Glide%20Galaxy.mp3",
-  "https://vgmdownloads.com/soundtracks/super-mario-galaxy-2/ufybnwet/2-25%20Bowser%27s%20Galaxy%20Generator.mp3"];
+  "https://vgmdownloads.com/soundtracks/super-mario-galaxy-2/ufybnwet/2-25%20Bowser%27s%20Galaxy%20Generator.mp3",
+  "https://vgmdownloads.com/soundtracks/super-mario-odyssey-original-soundtrack/oabtcnbzjw/1-15%20Tostarena%20Ruins.mp3",
+  "https://vgmdownloads.com/soundtracks/super-mario-odyssey-original-soundtrack/ddzjsakomm/1-18%20Riding%20the%20Jaxi.mp3",
+  "https://vgmdownloads.com/soundtracks/super-mario-odyssey-original-soundtrack/zhdbslwrzc/2-17%20Bound%20Bowl%20GP.mp3"];
 
 export class Screen2 {
   constructor(canvas, context, isMobile, debug = false) {

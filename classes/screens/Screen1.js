@@ -26,7 +26,12 @@ const musicPath = ["https://vgmdownloads.com/soundtracks/super-mario-galaxy-2/vv
   "https://vgmdownloads.com/soundtracks/super-mario-galaxy/stiylbbr/1-17%20Gusty%20Garden%20Galaxy.mp3",
   "https://vgmdownloads.com/soundtracks/super-mario-galaxy/okuatfee/1-28%20Super%20Mario%202007.mp3",
   "https://vgmdownloads.com/soundtracks/super-mario-galaxy/kejyckzj/2-50%20Flying%20Mario.mp3",
-  "https://vgmdownloads.com/soundtracks/super-mario-galaxy-2/jxopmqcl/2-31%20Green%20Star.mp3"];
+  "https://vgmdownloads.com/soundtracks/super-mario-galaxy-2/jxopmqcl/2-31%20Green%20Star.mp3",
+  "https://vgmdownloads.com/soundtracks/super-mario-odyssey-original-soundtrack/iboskfllnq/1-09%20Fossil%20Falls.mp3",
+  "https://vgmdownloads.com/soundtracks/super-mario-odyssey-original-soundtrack/acurefmavj/2-09%20Band%20Performance%20%28Super%20Mario%20Brothers%20Above%20Ground%29.mp3",
+  "https://vgmdownloads.com/soundtracks/super-mario-odyssey-original-soundtrack/zjkpkxqxcn/3-12%20Staff%20Roll.mp3",
+  "https://vgmdownloads.com/soundtracks/super-mario-odyssey-original-soundtrack/mshypelxga/3-30%20Jump%20Up%2C%20Super%20Star%21%20~Odyssey%2C%20ya%20see~%20Karaoke.mp3",
+  "https://vgmdownloads.com/soundtracks/super-mario-odyssey-original-soundtrack/wvqiwrtpao/4-01%20Fossil%20Falls%208bit%20Version.mp3"];
 
 export class Screen1 {
   constructor(canvas, context, isMobile, debug = false) {

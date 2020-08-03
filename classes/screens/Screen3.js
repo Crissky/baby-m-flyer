@@ -33,7 +33,9 @@ const musicPath = ["https://vgmdownloads.com/soundtracks/super-mario-galaxy-2/vq
   "https://vgmdownloads.com/soundtracks/super-mario-galaxy-2/awbwwvtb/2-04%20Bowser%27s%20Lava%20Lair.mp3",
   "https://vgmdownloads.com/soundtracks/super-mario-galaxy-2/sxejkgfh/2-15%20Melty%20Monster%20Galaxy.mp3",
   "https://vgmdownloads.com/soundtracks/super-mario-galaxy-2/nefhukec/2-22%20Speed%20Run.mp3",
-  "https://vgmdownloads.com/soundtracks/super-mario-galaxy-2/igrlsfqt/2-27%20Fated%20Battle.mp3"];
+  "https://vgmdownloads.com/soundtracks/super-mario-galaxy-2/igrlsfqt/2-27%20Fated%20Battle.mp3",
+  "https://vgmdownloads.com/soundtracks/super-mario-odyssey-original-soundtrack/fkzifsuemq/1-11%20Capturing%20Tyrannosaurus%21.mp3",
+  "https://vgmdownloads.com/soundtracks/super-mario-odyssey-original-soundtrack/rmsytxvcfn/3-04%20Underground%20Moon%20Caverns.mp3"];
 
 export class Screen3 {
   constructor(canvas, context, isMobile, debug = false) {
