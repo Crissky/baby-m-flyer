@@ -23,11 +23,6 @@ import { Screen2 } from "./classes/screens/Screen2.js";
 import { Screen3 } from "./classes/screens/Screen3.js";
 import { ScreenSandbox } from "./classes/screens/ScreenSandbox.js";
 
-// const screen = new Screen1(canvas, context, debug);
-// const screen = new Screen2(canvas, context, debug);
-// const screen; = new Screen3(canvas, context, debug);
-// const screen = new ScreenSandbox(canvas, context, debug);
-
 let hasTouchStartEvent = typeof (window.ontouchstart) != 'undefined';
 let myEventListiner = hasTouchStartEvent ? 'touchstart' : 'mousedown';
 
