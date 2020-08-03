@@ -23,33 +23,46 @@ import { Screen2 } from "./classes/screens/Screen2.js";
 import { Screen3 } from "./classes/screens/Screen3.js";
 import { ScreenSandbox } from "./classes/screens/ScreenSandbox.js";
 
-// const screen1 = new Screen1(canvas, context, debug);
-// const screen1 = new Screen2(canvas, context, debug);
-const screen1 = new Screen3(canvas, context, debug);
-// const screen1 = new ScreenSandbox(canvas, context, debug);
+// const screen = new Screen1(canvas, context, debug);
+// const screen = new Screen2(canvas, context, debug);
+// const screen; = new Screen3(canvas, context, debug);
+// const screen = new ScreenSandbox(canvas, context, debug);
+
+const query = window.location.search;
+const urlParams = new URLSearchParams(query);
+const gameParam = urlParams.get("game");
+// var screen;
+
+if (gameParam == 2) {
+  screen = new Screen2(canvas, context, debug);
+} else if (gameParam == 3) {
+  screen = new Screen3(canvas, context, debug);
+} else {
+  screen = new Screen1(canvas, context, debug);
+}
 
 function loop() {
-  screen1.update();
-  screen1.render();
+  screen.update();
+  screen.render();
 
   requestAnimationFrame(loop);
 }
 
-let hasTouchStartEvent = typeof(window.ontouchstart) != 'undefined';
+let hasTouchStartEvent = typeof (window.ontouchstart) != 'undefined';
 let myEventListiner = hasTouchStartEvent ? 'touchstart' : 'mousedown';
 
 window.addEventListener(myEventListiner, function () {
-  if (screen1.click) {
-    screen1.click();
+  if (screen.click) {
+    screen.click();
   }
 });
 
 var spaceKeyFireUp = false;
 document.body.onkeydown = function (e) {
   if (e.keyCode == 32 && !spaceKeyFireUp) {
-    if (screen1.click) {
+    if (screen.click) {
       spaceKeyFireUp = true;
-      screen1.click();
+      screen.click();
     }
   }
 }
