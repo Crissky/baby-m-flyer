@@ -21,7 +21,7 @@ console.log(`Screen size ${height}x${width}`)
 import { Screen1 } from "./classes/screens/Screen1.js";
 import { Screen2 } from "./classes/screens/Screen2.js";
 import { Screen3 } from "./classes/screens/Screen3.js";
-import { ScreenSandbox } from "./classes/screens/ScreenSandbox.js";
+// import { ScreenSandbox } from "./classes/screens/ScreenSandbox.js";
 
 let hasTouchStartEvent = typeof (window.ontouchstart) != 'undefined';
 let myEventListiner = hasTouchStartEvent ? 'touchstart' : 'mousedown';
