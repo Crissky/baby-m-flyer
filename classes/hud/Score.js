@@ -50,7 +50,7 @@ export class Score {
 
     getLocalStorageBestScore() {
         let bestScore = localStorage.getItem(this.localStorageKeyBestScore);
-        if(bestScore === null) {
+        if (bestScore === null) {
             bestScore = 0;
         }
 

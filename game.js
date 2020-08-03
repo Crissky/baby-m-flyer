@@ -28,17 +28,25 @@ import { ScreenSandbox } from "./classes/screens/ScreenSandbox.js";
 // const screen; = new Screen3(canvas, context, debug);
 // const screen = new ScreenSandbox(canvas, context, debug);
 
+let hasTouchStartEvent = typeof (window.ontouchstart) != 'undefined';
+let myEventListiner = hasTouchStartEvent ? 'touchstart' : 'mousedown';
+
+var isMobile = false;
+if (myEventListiner === 'touchstart') {
+  isMobile = true;
+}
+
 const query = window.location.search;
 const urlParams = new URLSearchParams(query);
 const gameParam = urlParams.get("game");
-// var screen;
+var screen;
 
 if (gameParam == 2) {
-  screen = new Screen2(canvas, context, debug);
+  screen = new Screen2(canvas, context, isMobile, debug);
 } else if (gameParam == 3) {
-  screen = new Screen3(canvas, context, debug);
+  screen = new Screen3(canvas, context, isMobile, debug);
 } else {
-  screen = new Screen1(canvas, context, debug);
+  screen = new Screen1(canvas, context, isMobile, debug);
 }
 
 function loop() {
@@ -47,9 +55,6 @@ function loop() {
 
   requestAnimationFrame(loop);
 }
-
-let hasTouchStartEvent = typeof (window.ontouchstart) != 'undefined';
-let myEventListiner = hasTouchStartEvent ? 'touchstart' : 'mousedown';
 
 window.addEventListener(myEventListiner, function () {
   if (screen.click) {

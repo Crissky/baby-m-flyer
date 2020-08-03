@@ -32,7 +32,7 @@ const musicPath = ["https://vgmdownloads.com/soundtracks/super-mario-galaxy-2/vv
   "https://vgmdownloads.com/soundtracks/super-mario-odyssey-ost/cptrlfzv/1-02%20Opening%20%28In%20the%20Skies%20Above%20Peach%27s%20Castle%E2%80%A6%29.mp3"];
 
 export class ScreenSandbox {
-  constructor(canvas, context, debug = false) {
+  constructor(canvas, context, isMobile, debug = false) {
     this.music = new Sound(musicPath[Math.floor(Math.random() * musicPath.length)], true);
     this.background = new Background1(canvas);
     this.floor = new Floor1(canvas, 1, debug);

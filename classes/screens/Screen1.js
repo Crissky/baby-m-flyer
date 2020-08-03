@@ -14,31 +14,28 @@ sprites.src = './sprites/sprites.png';
 
 //[Music]
 const musicPath = ["https://vgmdownloads.com/soundtracks/super-mario-galaxy-2/vvkhxkzc/1-05%20Sky%20Station%20Galaxy.mp3",
-  "https://vgmdownloads.com/soundtracks/super-mario-galaxy-2/adswpizf/1-09%20Starship%20Mario%2C%20Launch%21.mp3",
   "https://vgmdownloads.com/soundtracks/super-mario-galaxy-2/kbizspaq/1-11%20Yoshi%20Star%20Galaxy.mp3",
   "https://vgmdownloads.com/soundtracks/super-mario-galaxy-2/vjoxpmda/1-14%20The%20Starship%20Sails.mp3",
-  "https://vgmdownloads.com/soundtracks/super-mario-galaxy-2/tipltkjj/1-15%20Spin-Dig%20Galaxy.mp3",
-  "https://vgmdownloads.com/soundtracks/super-mario-galaxy-2/vwkluwrh/1-18%20Puzzle%20Plank%20Galaxy.mp3",
   "https://vgmdownloads.com/soundtracks/super-mario-galaxy-2/pzywfsmk/1-21%20Wild%20Glide%20Galaxy.mp3",
   "https://vgmdownloads.com/soundtracks/super-mario-galaxy-2/aihnzipo/1-24%20Hightail%20Falls%20Galaxy.mp3",
-  "https://vgmdownloads.com/soundtracks/super-mario-galaxy-2/nqyknqbh/1-27%20Slide.mp3",
   "https://vgmdownloads.com/soundtracks/super-mario-galaxy-2/zqsthneg/1-28%20Freezy%20Flake%20Galaxy.mp3",
   "https://vgmdownloads.com/soundtracks/super-mario-galaxy-2/ptvtbshe/1-31%20Cloudy%20Court%20Galaxy.mp3",
-  "https://vgmdownloads.com/soundtracks/super-mario-galaxy-2/waukgbpv/2-01%20Starshine%20Beach%20Galaxy.mp3",
-  "https://vgmdownloads.com/soundtracks/super-mario-galaxy-2/vqggprpl/2-08%20Rightside%20Down%20Galaxy.mp3",
   "https://vgmdownloads.com/soundtracks/super-mario-galaxy-2/zqgefyam/2-16%20Throwback%20Galaxy.mp3",
   "https://vgmdownloads.com/soundtracks/super-mario-galaxy-2/ojvqofrs/2-29%20Super%20Mario%20Galaxy%202.mp3",
   "https://vgmdownloads.com/soundtracks/super-mario-galaxy-2/tzhhamdk/2-32%20Theme%20of%20SMG2.mp3",
-  "https://vgmdownloads.com/soundtracks/super-mario-odyssey-ost/cptrlfzv/1-02%20Opening%20%28In%20the%20Skies%20Above%20Peach%27s%20Castle%E2%80%A6%29.mp3"];
+  "https://vgmdownloads.com/soundtracks/super-mario-galaxy/stiylbbr/1-17%20Gusty%20Garden%20Galaxy.mp3",
+  "https://vgmdownloads.com/soundtracks/super-mario-galaxy/okuatfee/1-28%20Super%20Mario%202007.mp3",
+  "https://vgmdownloads.com/soundtracks/super-mario-galaxy/kejyckzj/2-50%20Flying%20Mario.mp3",
+  "https://vgmdownloads.com/soundtracks/super-mario-galaxy-2/jxopmqcl/2-31%20Green%20Star.mp3"];
 
 export class Screen1 {
-  constructor(canvas, context, debug = false) {
-    this.music = new Sound(musicPath[Math.floor(Math.random() * musicPath.length)], true);
+  constructor(canvas, context, isMobile, debug = false) {
+    this.music = new Sound(musicPath[Math.floor(Math.random() * musicPath.length)], true, isMobile);
     this.background = new Background1(canvas);
     //this.floor = new Floor(context, sprites, canvas, debug);
     this.floor = new Floor1(canvas, 1, debug);
     this.char = new GreenM(canvas, debug);
-    this.pipesHandler = new DoublePipeHandler(context, sprites, canvas, this.floor, this.char, 50, debug);
+    this.pipesHandler = new DoublePipeHandler(context, sprites, canvas, this.floor, this.char, 500, debug);
     this.score = new Score1(canvas);
     this.messageGetReady = new MessageGetReady(context, sprites, canvas);
     this.messageGameOver = new MessageGameOver(context, sprites, canvas);
@@ -123,12 +120,12 @@ class Game {
     this.classFather.char.update(this.speed);
     this.iscollided();
 
-    if (this.classFather.pipesHandler.pipeUPList.length < 1) { // FINISH FASE
+    if (this.classFather.pipesHandler.pipeUPList.length < 1) { // FINISH STAGE
       this.clearFase = true;
       if (this.classFather.char.getEndPosY() + 100 > this.classFather.floor.posY && this.classFather.char.speedY > 0) {
         this.classFather.char.speedY = 0;
       }
-      this.classFather.char.speedX = this.speed*2;
+      this.classFather.char.speedX = this.speed * 2;
       this.classFather.char.gravity = -(this.speed * 0.1);
       return;
     }
@@ -218,7 +215,7 @@ class Gameover {
     this.classFather = father;
   }
 
-  update() {}
+  update() { }
 
   render() {
     this.classFather.background.render();

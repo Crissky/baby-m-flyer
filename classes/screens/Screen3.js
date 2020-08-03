@@ -16,28 +16,29 @@ const sprites = new Image();
 sprites.src = './sprites/sprites.png';
 
 //[Music]
-const musicPath = ["https://vgmdownloads.com/soundtracks/super-mario-galaxy-2/vvkhxkzc/1-05%20Sky%20Station%20Galaxy.mp3",
-  "https://vgmdownloads.com/soundtracks/super-mario-galaxy-2/adswpizf/1-09%20Starship%20Mario%2C%20Launch%21.mp3",
-  "https://vgmdownloads.com/soundtracks/super-mario-galaxy-2/kbizspaq/1-11%20Yoshi%20Star%20Galaxy.mp3",
-  "https://vgmdownloads.com/soundtracks/super-mario-galaxy-2/vjoxpmda/1-14%20The%20Starship%20Sails.mp3",
-  "https://vgmdownloads.com/soundtracks/super-mario-galaxy-2/tipltkjj/1-15%20Spin-Dig%20Galaxy.mp3",
-  "https://vgmdownloads.com/soundtracks/super-mario-galaxy-2/vwkluwrh/1-18%20Puzzle%20Plank%20Galaxy.mp3",
-  "https://vgmdownloads.com/soundtracks/super-mario-galaxy-2/pzywfsmk/1-21%20Wild%20Glide%20Galaxy.mp3",
-  "https://vgmdownloads.com/soundtracks/super-mario-galaxy-2/aihnzipo/1-24%20Hightail%20Falls%20Galaxy.mp3",
-  "https://vgmdownloads.com/soundtracks/super-mario-galaxy-2/nqyknqbh/1-27%20Slide.mp3",
-  "https://vgmdownloads.com/soundtracks/super-mario-galaxy-2/zqsthneg/1-28%20Freezy%20Flake%20Galaxy.mp3",
-  "https://vgmdownloads.com/soundtracks/super-mario-galaxy-2/ptvtbshe/1-31%20Cloudy%20Court%20Galaxy.mp3",
-  "https://vgmdownloads.com/soundtracks/super-mario-galaxy-2/waukgbpv/2-01%20Starshine%20Beach%20Galaxy.mp3",
-  "https://vgmdownloads.com/soundtracks/super-mario-galaxy-2/vqggprpl/2-08%20Rightside%20Down%20Galaxy.mp3",
-  "https://vgmdownloads.com/soundtracks/super-mario-galaxy-2/zqgefyam/2-16%20Throwback%20Galaxy.mp3",
-  "https://vgmdownloads.com/soundtracks/super-mario-galaxy-2/ojvqofrs/2-29%20Super%20Mario%20Galaxy%202.mp3",
-  "https://vgmdownloads.com/soundtracks/super-mario-galaxy-2/tzhhamdk/2-32%20Theme%20of%20SMG2.mp3",
-  "https://vgmdownloads.com/soundtracks/super-mario-odyssey-ost/cptrlfzv/1-02%20Opening%20%28In%20the%20Skies%20Above%20Peach%27s%20Castle%E2%80%A6%29.mp3"];
+const musicPath = ["https://vgmdownloads.com/soundtracks/super-mario-galaxy-2/vqggprpl/2-08%20Rightside%20Down%20Galaxy.mp3",
+  "https://vgmdownloads.com/soundtracks/super-mario-odyssey-ost/cptrlfzv/1-02%20Opening%20%28In%20the%20Skies%20Above%20Peach%27s%20Castle%E2%80%A6%29.mp3",
+  "https://vgmdownloads.com/soundtracks/super-mario-galaxy/xxfgjdka/2-14%20Airship%20Armada.mp3",
+  "https://vgmdownloads.com/soundtracks/super-mario-galaxy/bndyddfz/1-06%20Enter%20the%20Galaxy.mp3",
+  "https://vgmdownloads.com/soundtracks/super-mario-galaxy/xezzxkpg/1-07%20Egg%20Planet.mp3",
+  "https://vgmdownloads.com/soundtracks/super-mario-galaxy/ufxvbjnp/1-11%20Battlerock%20Galaxy.mp3",
+  "https://vgmdownloads.com/soundtracks/super-mario-galaxy/psvbcixu/1-14%20Enter%20Bowser%20Jr.%21.mp3",
+  "https://vgmdownloads.com/soundtracks/super-mario-galaxy/hrgkmufk/1-16%20Buoy%20Base%20Galaxy.mp3",
+  "https://vgmdownloads.com/soundtracks/super-mario-galaxy/ijcfakri/1-19%20King%20Bowser.mp3",
+  "https://vgmdownloads.com/soundtracks/super-mario-galaxy/wjhaxpdd/1-21%20The%20Galaxy%20Reactor.mp3",
+  "https://vgmdownloads.com/soundtracks/super-mario-galaxy/vuhzysbm/1-22%20Final%20Battle%20with%20Bowser.mp3",
+  "https://vgmdownloads.com/soundtracks/super-mario-galaxy/pzwxquar/2-20%20Speedy%20Comet.mp3",
+  "https://vgmdownloads.com/soundtracks/super-mario-galaxy/bpdqvluk/2-37%20Kingfin.mp3",
+  "https://vgmdownloads.com/soundtracks/super-mario-galaxy-2/nfqhvfym/1-37%20Glamdozer.mp3",
+  "https://vgmdownloads.com/soundtracks/super-mario-galaxy-2/awbwwvtb/2-04%20Bowser%27s%20Lava%20Lair.mp3",
+  "https://vgmdownloads.com/soundtracks/super-mario-galaxy-2/sxejkgfh/2-15%20Melty%20Monster%20Galaxy.mp3",
+  "https://vgmdownloads.com/soundtracks/super-mario-galaxy-2/nefhukec/2-22%20Speed%20Run.mp3",
+  "https://vgmdownloads.com/soundtracks/super-mario-galaxy-2/igrlsfqt/2-27%20Fated%20Battle.mp3"];
 
 export class Screen3 {
-  constructor(canvas, context, debug = false) {
+  constructor(canvas, context, isMobile, debug = false) {
     this.canvas = canvas;
-    this.music = new Sound(musicPath[Math.floor(Math.random() * musicPath.length)], true);
+    this.music = new Sound(musicPath[Math.floor(Math.random() * musicPath.length)], true, isMobile);
     this.background = new Background4(canvas, 5);
     this.floor = new CastleFloorHandler(canvas, debug);
     this.roof = new CastleRoofHandler(canvas);
@@ -124,7 +125,7 @@ class Game {
     this.currentTimeScore = 0;
     this.waitTimeScore = 5;
     this.reset();
-    
+
   }
 
   update() {
@@ -143,7 +144,7 @@ class Game {
       if (this.classFather.score.getScore() % 100 === 0) {
         this.speed += 0.25;
         this.classFather.enemy.updateRateSpawn(this.classFather.score.getLevel());
-        this.classFather.score.addLevel(1);
+        this.classFather.score.addLevel(1, this.classFather.music);
       }
     }
   }
@@ -167,7 +168,7 @@ class Game {
     this.speed = 3;
     this.stoped = false;
     this.clearFase = false;
-    if(this.classFather.canvas.width < this.classFather.canvas.height) {
+    if (this.classFather.canvas.width < this.classFather.canvas.height) {
       this.speed = this.speed / 2;
     }
   }
