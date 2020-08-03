@@ -19,6 +19,6 @@ One-Button javascript game.
 
 ### [Castle Run](https://crissky.github.io/baby-m-flyer/?game=3)
 
-**Space key**, **left click**, **touch**: Jump. (during the jump: rapid fall).
+**Space key**, **left click**, **touch**: Jump. (during the jump: quick fall).
 
 ![Castle Run](imgs/img3.png)
