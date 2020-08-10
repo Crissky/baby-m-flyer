@@ -17,6 +17,21 @@ context.canvas.height = height;
 
 console.log(`Screen size ${height}x${width}`)
 
+//VISITOR COUNTER
+const countThisGame = document.getElementById('countPlayThisGame');
+const countAllGames = document.getElementById('countPlayAllGames');
+const basePath = 'https://api.countapi.xyz/hit/crissky-baby-m-flyer/live-';
+let thisGamePath;
+let allGamesPath = basePath + 'all-games';
+
+function updateVisitCount(path, target) {
+  fetch(path)
+    .then(res => res.json())
+    .then(res => {
+      target.innerHTML = res.value ? res.value : 0;
+    });
+}
+
 // OBJECTS 
 import { Screen1 } from "./classes/screens/Screen1.js";
 import { Screen2 } from "./classes/screens/Screen2.js";
@@ -37,12 +52,18 @@ const gameParam = urlParams.get("game");
 var screen;
 
 if (gameParam == 2) {
+  thisGamePath = basePath + 'magnet-lava';
   screen = new Screen2(canvas, context, isMobile, debug);
 } else if (gameParam == 3) {
+  thisGamePath = basePath + 'castle-run';
   screen = new Screen3(canvas, context, isMobile, debug);
 } else {
+  thisGamePath = basePath + 'between-pipes';
   screen = new Screen1(canvas, context, isMobile, debug);
 }
+
+updateVisitCount(allGamesPath, countAllGames);
+updateVisitCount(thisGamePath, countThisGame);
 
 function loop() {
   screen.update();
