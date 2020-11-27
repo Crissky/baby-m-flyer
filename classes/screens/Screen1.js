@@ -13,25 +13,25 @@ const sprites = new Image();
 sprites.src = './sprites/sprites.png';
 
 //[Music]
-const musicPath = ["https://vgmdownloads.com/soundtracks/super-mario-galaxy-2/vvkhxkzc/1-05%20Sky%20Station%20Galaxy.mp3",
-  "https://vgmdownloads.com/soundtracks/super-mario-galaxy-2/kbizspaq/1-11%20Yoshi%20Star%20Galaxy.mp3",
-  "https://vgmdownloads.com/soundtracks/super-mario-galaxy-2/vjoxpmda/1-14%20The%20Starship%20Sails.mp3",
-  "https://vgmdownloads.com/soundtracks/super-mario-galaxy-2/pzywfsmk/1-21%20Wild%20Glide%20Galaxy.mp3",
-  "https://vgmdownloads.com/soundtracks/super-mario-galaxy-2/aihnzipo/1-24%20Hightail%20Falls%20Galaxy.mp3",
-  "https://vgmdownloads.com/soundtracks/super-mario-galaxy-2/zqsthneg/1-28%20Freezy%20Flake%20Galaxy.mp3",
-  "https://vgmdownloads.com/soundtracks/super-mario-galaxy-2/ptvtbshe/1-31%20Cloudy%20Court%20Galaxy.mp3",
-  "https://vgmdownloads.com/soundtracks/super-mario-galaxy-2/zqgefyam/2-16%20Throwback%20Galaxy.mp3",
-  "https://vgmdownloads.com/soundtracks/super-mario-galaxy-2/ojvqofrs/2-29%20Super%20Mario%20Galaxy%202.mp3",
-  "https://vgmdownloads.com/soundtracks/super-mario-galaxy-2/tzhhamdk/2-32%20Theme%20of%20SMG2.mp3",
-  "https://vgmdownloads.com/soundtracks/super-mario-galaxy/stiylbbr/1-17%20Gusty%20Garden%20Galaxy.mp3",
-  "https://vgmdownloads.com/soundtracks/super-mario-galaxy/okuatfee/1-28%20Super%20Mario%202007.mp3",
-  "https://vgmdownloads.com/soundtracks/super-mario-galaxy/kejyckzj/2-50%20Flying%20Mario.mp3",
-  "https://vgmdownloads.com/soundtracks/super-mario-galaxy-2/jxopmqcl/2-31%20Green%20Star.mp3",
-  "https://vgmdownloads.com/soundtracks/super-mario-odyssey-original-soundtrack/iboskfllnq/1-09%20Fossil%20Falls.mp3",
-  "https://vgmdownloads.com/soundtracks/super-mario-odyssey-original-soundtrack/acurefmavj/2-09%20Band%20Performance%20%28Super%20Mario%20Brothers%20Above%20Ground%29.mp3",
-  "https://vgmdownloads.com/soundtracks/super-mario-odyssey-original-soundtrack/zjkpkxqxcn/3-12%20Staff%20Roll.mp3",
-  "https://vgmdownloads.com/soundtracks/super-mario-odyssey-original-soundtrack/mshypelxga/3-30%20Jump%20Up%2C%20Super%20Star%21%20~Odyssey%2C%20ya%20see~%20Karaoke.mp3",
-  "https://vgmdownloads.com/soundtracks/super-mario-odyssey-original-soundtrack/wvqiwrtpao/4-01%20Fossil%20Falls%208bit%20Version.mp3"];
+const musicPath = ["https://dl.vgmdownloads.com/soundtracks/super-mario-galaxy-2/vvkhxkzc/1-05%20Sky%20Station%20Galaxy.mp3",
+  "https://dl.vgmdownloads.com/soundtracks/super-mario-galaxy-2/kbizspaq/1-11%20Yoshi%20Star%20Galaxy.mp3",
+  "https://dl.vgmdownloads.com/soundtracks/super-mario-galaxy-2/vjoxpmda/1-14%20The%20Starship%20Sails.mp3",
+  "https://dl.vgmdownloads.com/soundtracks/super-mario-galaxy-2/pzywfsmk/1-21%20Wild%20Glide%20Galaxy.mp3",
+  "https://dl.vgmdownloads.com/soundtracks/super-mario-galaxy-2/aihnzipo/1-24%20Hightail%20Falls%20Galaxy.mp3",
+  "https://dl.vgmdownloads.com/soundtracks/super-mario-galaxy-2/zqsthneg/1-28%20Freezy%20Flake%20Galaxy.mp3",
+  "https://dl.vgmdownloads.com/soundtracks/super-mario-galaxy-2/ptvtbshe/1-31%20Cloudy%20Court%20Galaxy.mp3",
+  "https://dl.vgmdownloads.com/soundtracks/super-mario-galaxy-2/zqgefyam/2-16%20Throwback%20Galaxy.mp3",
+  "https://dl.vgmdownloads.com/soundtracks/super-mario-galaxy-2/ojvqofrs/2-29%20Super%20Mario%20Galaxy%202.mp3",
+  "https://dl.vgmdownloads.com/soundtracks/super-mario-galaxy-2/tzhhamdk/2-32%20Theme%20of%20SMG2.mp3",
+  "https://dl.vgmdownloads.com/soundtracks/super-mario-galaxy/stiylbbr/1-17%20Gusty%20Garden%20Galaxy.mp3",
+  "https://dl.vgmdownloads.com/soundtracks/super-mario-galaxy/okuatfee/1-28%20Super%20Mario%202007.mp3",
+  "https://dl.vgmdownloads.com/soundtracks/super-mario-galaxy/kejyckzj/2-50%20Flying%20Mario.mp3",
+  "https://dl.vgmdownloads.com/soundtracks/super-mario-galaxy-2/jxopmqcl/2-31%20Green%20Star.mp3",
+  "https://dl.vgmdownloads.com/soundtracks/super-mario-odyssey-original-soundtrack/iboskfllnq/1-09%20Fossil%20Falls.mp3",
+  "https://dl.vgmdownloads.com/soundtracks/super-mario-odyssey-original-soundtrack/acurefmavj/2-09%20Band%20Performance%20%28Super%20Mario%20Brothers%20Above%20Ground%29.mp3",
+  "https://dl.vgmdownloads.com/soundtracks/super-mario-odyssey-original-soundtrack/zjkpkxqxcn/3-12%20Staff%20Roll.mp3",
+  "https://dl.vgmdownloads.com/soundtracks/super-mario-odyssey-original-soundtrack/mshypelxga/3-30%20Jump%20Up%2C%20Super%20Star%21%20~Odyssey%2C%20ya%20see~%20Karaoke.mp3",
+  "https://dl.vgmdownloads.com/soundtracks/super-mario-odyssey-original-soundtrack/wvqiwrtpao/4-01%20Fossil%20Falls%208bit%20Version.mp3"];
 
 export class Screen1 {
   constructor(canvas, context, isMobile, debug = false) {

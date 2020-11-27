@@ -16,26 +16,26 @@ const sprites = new Image();
 sprites.src = './sprites/sprites.png';
 
 //[Music]
-const musicPath = ["https://vgmdownloads.com/soundtracks/super-mario-galaxy-2/vqggprpl/2-08%20Rightside%20Down%20Galaxy.mp3",
-  "https://vgmdownloads.com/soundtracks/super-mario-odyssey-ost/cptrlfzv/1-02%20Opening%20%28In%20the%20Skies%20Above%20Peach%27s%20Castle%E2%80%A6%29.mp3",
-  "https://vgmdownloads.com/soundtracks/super-mario-galaxy/xxfgjdka/2-14%20Airship%20Armada.mp3",
-  "https://vgmdownloads.com/soundtracks/super-mario-galaxy/bndyddfz/1-06%20Enter%20the%20Galaxy.mp3",
-  "https://vgmdownloads.com/soundtracks/super-mario-galaxy/xezzxkpg/1-07%20Egg%20Planet.mp3",
-  "https://vgmdownloads.com/soundtracks/super-mario-galaxy/ufxvbjnp/1-11%20Battlerock%20Galaxy.mp3",
-  "https://vgmdownloads.com/soundtracks/super-mario-galaxy/psvbcixu/1-14%20Enter%20Bowser%20Jr.%21.mp3",
-  "https://vgmdownloads.com/soundtracks/super-mario-galaxy/hrgkmufk/1-16%20Buoy%20Base%20Galaxy.mp3",
-  "https://vgmdownloads.com/soundtracks/super-mario-galaxy/ijcfakri/1-19%20King%20Bowser.mp3",
-  "https://vgmdownloads.com/soundtracks/super-mario-galaxy/wjhaxpdd/1-21%20The%20Galaxy%20Reactor.mp3",
-  "https://vgmdownloads.com/soundtracks/super-mario-galaxy/vuhzysbm/1-22%20Final%20Battle%20with%20Bowser.mp3",
-  "https://vgmdownloads.com/soundtracks/super-mario-galaxy/pzwxquar/2-20%20Speedy%20Comet.mp3",
-  "https://vgmdownloads.com/soundtracks/super-mario-galaxy/bpdqvluk/2-37%20Kingfin.mp3",
-  "https://vgmdownloads.com/soundtracks/super-mario-galaxy-2/nfqhvfym/1-37%20Glamdozer.mp3",
-  "https://vgmdownloads.com/soundtracks/super-mario-galaxy-2/awbwwvtb/2-04%20Bowser%27s%20Lava%20Lair.mp3",
-  "https://vgmdownloads.com/soundtracks/super-mario-galaxy-2/sxejkgfh/2-15%20Melty%20Monster%20Galaxy.mp3",
-  "https://vgmdownloads.com/soundtracks/super-mario-galaxy-2/nefhukec/2-22%20Speed%20Run.mp3",
-  "https://vgmdownloads.com/soundtracks/super-mario-galaxy-2/igrlsfqt/2-27%20Fated%20Battle.mp3",
-  "https://vgmdownloads.com/soundtracks/super-mario-odyssey-original-soundtrack/fkzifsuemq/1-11%20Capturing%20Tyrannosaurus%21.mp3",
-  "https://vgmdownloads.com/soundtracks/super-mario-odyssey-original-soundtrack/rmsytxvcfn/3-04%20Underground%20Moon%20Caverns.mp3"];
+const musicPath = ["https://dl.vgmdownloads.com/soundtracks/super-mario-galaxy-2/vqggprpl/2-08%20Rightside%20Down%20Galaxy.mp3",
+  "https://dl.vgmdownloads.com/soundtracks/super-mario-odyssey-ost/cptrlfzv/1-02%20Opening%20%28In%20the%20Skies%20Above%20Peach%27s%20Castle%E2%80%A6%29.mp3",
+  "https://dl.vgmdownloads.com/soundtracks/super-mario-galaxy/xxfgjdka/2-14%20Airship%20Armada.mp3",
+  "https://dl.vgmdownloads.com/soundtracks/super-mario-galaxy/bndyddfz/1-06%20Enter%20the%20Galaxy.mp3",
+  "https://dl.vgmdownloads.com/soundtracks/super-mario-galaxy/xezzxkpg/1-07%20Egg%20Planet.mp3",
+  "https://dl.vgmdownloads.com/soundtracks/super-mario-galaxy/ufxvbjnp/1-11%20Battlerock%20Galaxy.mp3",
+  "https://dl.vgmdownloads.com/soundtracks/super-mario-galaxy/psvbcixu/1-14%20Enter%20Bowser%20Jr.%21.mp3",
+  "https://dl.vgmdownloads.com/soundtracks/super-mario-galaxy/hrgkmufk/1-16%20Buoy%20Base%20Galaxy.mp3",
+  "https://dl.vgmdownloads.com/soundtracks/super-mario-galaxy/ijcfakri/1-19%20King%20Bowser.mp3",
+  "https://dl.vgmdownloads.com/soundtracks/super-mario-galaxy/wjhaxpdd/1-21%20The%20Galaxy%20Reactor.mp3",
+  "https://dl.vgmdownloads.com/soundtracks/super-mario-galaxy/vuhzysbm/1-22%20Final%20Battle%20with%20Bowser.mp3",
+  "https://dl.vgmdownloads.com/soundtracks/super-mario-galaxy/pzwxquar/2-20%20Speedy%20Comet.mp3",
+  "https://dl.vgmdownloads.com/soundtracks/super-mario-galaxy/bpdqvluk/2-37%20Kingfin.mp3",
+  "https://dl.vgmdownloads.com/soundtracks/super-mario-galaxy-2/nfqhvfym/1-37%20Glamdozer.mp3",
+  "https://dl.vgmdownloads.com/soundtracks/super-mario-galaxy-2/awbwwvtb/2-04%20Bowser%27s%20Lava%20Lair.mp3",
+  "https://dl.vgmdownloads.com/soundtracks/super-mario-galaxy-2/sxejkgfh/2-15%20Melty%20Monster%20Galaxy.mp3",
+  "https://dl.vgmdownloads.com/soundtracks/super-mario-galaxy-2/nefhukec/2-22%20Speed%20Run.mp3",
+  "https://dl.vgmdownloads.com/soundtracks/super-mario-galaxy-2/igrlsfqt/2-27%20Fated%20Battle.mp3",
+  "https://dl.vgmdownloads.com/soundtracks/super-mario-odyssey-original-soundtrack/fkzifsuemq/1-11%20Capturing%20Tyrannosaurus%21.mp3",
+  "https://dl.vgmdownloads.com/soundtracks/super-mario-odyssey-original-soundtrack/rmsytxvcfn/3-04%20Underground%20Moon%20Caverns.mp3"];
 
 export class Screen3 {
   constructor(canvas, context, isMobile, debug = false) {

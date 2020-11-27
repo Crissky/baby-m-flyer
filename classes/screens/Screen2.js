@@ -16,27 +16,27 @@ const sprites = new Image();
 sprites.src = './sprites/sprites.png';
 
 //[Music]
-const musicPath = ["https://vgmdownloads.com/soundtracks/super-mario-galaxy-2/adswpizf/1-09%20Starship%20Mario%2C%20Launch%21.mp3",
-  "https://vgmdownloads.com/soundtracks/super-mario-galaxy-2/tipltkjj/1-15%20Spin-Dig%20Galaxy.mp3",
-  "https://vgmdownloads.com/soundtracks/super-mario-galaxy-2/vwkluwrh/1-18%20Puzzle%20Plank%20Galaxy.mp3",
-  "https://vgmdownloads.com/soundtracks/super-mario-galaxy-2/nqyknqbh/1-27%20Slide.mp3",
-  "https://vgmdownloads.com/soundtracks/super-mario-galaxy/zwpqednd/1-09%20The%20Honeyhive.mp3",
-  "https://vgmdownloads.com/soundtracks/super-mario-galaxy/ktousmhz/1-26%20Purple%20Comet.mp3",
-  "https://vgmdownloads.com/soundtracks/super-mario-galaxy/vzcbkbov/2-08%20Dino%20Piranha.mp3",
-  "https://vgmdownloads.com/soundtracks/super-mario-galaxy/tocbkowl/2-11%20Big%20Bad%20Bugaboom.mp3",
-  "https://vgmdownloads.com/soundtracks/super-mario-galaxy/vgazkpgn/2-31%20Chase%20the%20Bunnies%21.mp3",
-  "https://vgmdownloads.com/soundtracks/super-mario-galaxy/plickucc/2-47%20Kamella.mp3",
-  "https://vgmdownloads.com/soundtracks/super-mario-galaxy-2/ehicalyw/1-06%20Peewee%20Piranha.mp3",
-  "https://vgmdownloads.com/soundtracks/super-mario-galaxy-2/flwjbrmi/1-16%20Digga-Leg.mp3",
-  "https://vgmdownloads.com/soundtracks/super-mario-galaxy-2/eufgvyjl/1-29%20Pipe%20Room.mp3",
-  "https://vgmdownloads.com/soundtracks/super-mario-galaxy-2/jzhseayk/1-32%20Megahammer.mp3",
-  "https://vgmdownloads.com/soundtracks/super-mario-galaxy-2/ktxwlrzr/1-35%20Honeybloom%20Galaxy.mp3",
-  "https://vgmdownloads.com/soundtracks/super-mario-galaxy-2/wvkyoqds/2-12%20Bowser%20Jr.%27s%20Fiery%20Flotilla.mp3",
-  "https://vgmdownloads.com/soundtracks/super-mario-galaxy-2/staxsgyh/2-18%20Fleet%20Glide%20Galaxy.mp3",
-  "https://vgmdownloads.com/soundtracks/super-mario-galaxy-2/ufybnwet/2-25%20Bowser%27s%20Galaxy%20Generator.mp3",
-  "https://vgmdownloads.com/soundtracks/super-mario-odyssey-original-soundtrack/oabtcnbzjw/1-15%20Tostarena%20Ruins.mp3",
-  "https://vgmdownloads.com/soundtracks/super-mario-odyssey-original-soundtrack/ddzjsakomm/1-18%20Riding%20the%20Jaxi.mp3",
-  "https://vgmdownloads.com/soundtracks/super-mario-odyssey-original-soundtrack/zhdbslwrzc/2-17%20Bound%20Bowl%20GP.mp3"];
+const musicPath = ["https://dl.vgmdownloads.com/soundtracks/super-mario-galaxy-2/adswpizf/1-09%20Starship%20Mario%2C%20Launch%21.mp3",
+  "https://dl.vgmdownloads.com/soundtracks/super-mario-galaxy-2/tipltkjj/1-15%20Spin-Dig%20Galaxy.mp3",
+  "https://dl.vgmdownloads.com/soundtracks/super-mario-galaxy-2/vwkluwrh/1-18%20Puzzle%20Plank%20Galaxy.mp3",
+  "https://dl.vgmdownloads.com/soundtracks/super-mario-galaxy-2/nqyknqbh/1-27%20Slide.mp3",
+  "https://dl.vgmdownloads.com/soundtracks/super-mario-galaxy/zwpqednd/1-09%20The%20Honeyhive.mp3",
+  "https://dl.vgmdownloads.com/soundtracks/super-mario-galaxy/ktousmhz/1-26%20Purple%20Comet.mp3",
+  "https://dl.vgmdownloads.com/soundtracks/super-mario-galaxy/vzcbkbov/2-08%20Dino%20Piranha.mp3",
+  "https://dl.vgmdownloads.com/soundtracks/super-mario-galaxy/tocbkowl/2-11%20Big%20Bad%20Bugaboom.mp3",
+  "https://dl.vgmdownloads.com/soundtracks/super-mario-galaxy/vgazkpgn/2-31%20Chase%20the%20Bunnies%21.mp3",
+  "https://dl.vgmdownloads.com/soundtracks/super-mario-galaxy/plickucc/2-47%20Kamella.mp3",
+  "https://dl.vgmdownloads.com/soundtracks/super-mario-galaxy-2/ehicalyw/1-06%20Peewee%20Piranha.mp3",
+  "https://dl.vgmdownloads.com/soundtracks/super-mario-galaxy-2/flwjbrmi/1-16%20Digga-Leg.mp3",
+  "https://dl.vgmdownloads.com/soundtracks/super-mario-galaxy-2/eufgvyjl/1-29%20Pipe%20Room.mp3",
+  "https://dl.vgmdownloads.com/soundtracks/super-mario-galaxy-2/jzhseayk/1-32%20Megahammer.mp3",
+  "https://dl.vgmdownloads.com/soundtracks/super-mario-galaxy-2/ktxwlrzr/1-35%20Honeybloom%20Galaxy.mp3",
+  "https://dl.vgmdownloads.com/soundtracks/super-mario-galaxy-2/wvkyoqds/2-12%20Bowser%20Jr.%27s%20Fiery%20Flotilla.mp3",
+  "https://dl.vgmdownloads.com/soundtracks/super-mario-galaxy-2/staxsgyh/2-18%20Fleet%20Glide%20Galaxy.mp3",
+  "https://dl.vgmdownloads.com/soundtracks/super-mario-galaxy-2/ufybnwet/2-25%20Bowser%27s%20Galaxy%20Generator.mp3",
+  "https://dl.vgmdownloads.com/soundtracks/super-mario-odyssey-original-soundtrack/oabtcnbzjw/1-15%20Tostarena%20Ruins.mp3",
+  "https://dl.vgmdownloads.com/soundtracks/super-mario-odyssey-original-soundtrack/ddzjsakomm/1-18%20Riding%20the%20Jaxi.mp3",
+  "https://dl.vgmdownloads.com/soundtracks/super-mario-odyssey-original-soundtrack/zhdbslwrzc/2-17%20Bound%20Bowl%20GP.mp3"];
 
 export class Screen2 {
   constructor(canvas, context, isMobile, debug = false) {
