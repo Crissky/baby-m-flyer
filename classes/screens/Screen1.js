@@ -13,26 +13,31 @@ const sprites = new Image();
 sprites.src = './sprites/sprites.png';
 
 //[Music]
+// https://downloads.khinsider.com/game-soundtracks/album/super-mario-galaxy-ost-super-mario-35th-anniversary-release
+// https://downloads.khinsider.com/game-soundtracks/album/super-mario-galaxy-2
+// https://downloads.khinsider.com/game-soundtracks/album/super-mario-odyssey-original-soundtrack
 const musicPath = [
-  "https://downloads.khinsider.com/game-soundtracks/album/super-mario-galaxy-2/1-05.%2520Sky%2520Station%2520Galaxy.mp3",
-  // "https://dl.vgmdownloads.com/soundtracks/super-mario-galaxy-2/kbizspaq/1-11%20Yoshi%20Star%20Galaxy.mp3",
-  // "https://dl.vgmdownloads.com/soundtracks/super-mario-galaxy-2/vjoxpmda/1-14%20The%20Starship%20Sails.mp3",
-  // "https://dl.vgmdownloads.com/soundtracks/super-mario-galaxy-2/pzywfsmk/1-21%20Wild%20Glide%20Galaxy.mp3",
-  // "https://dl.vgmdownloads.com/soundtracks/super-mario-galaxy-2/aihnzipo/1-24%20Hightail%20Falls%20Galaxy.mp3",
-  // "https://dl.vgmdownloads.com/soundtracks/super-mario-galaxy-2/zqsthneg/1-28%20Freezy%20Flake%20Galaxy.mp3",
-  // "https://dl.vgmdownloads.com/soundtracks/super-mario-galaxy-2/ptvtbshe/1-31%20Cloudy%20Court%20Galaxy.mp3",
-  // "https://dl.vgmdownloads.com/soundtracks/super-mario-galaxy-2/zqgefyam/2-16%20Throwback%20Galaxy.mp3",
-  // "https://dl.vgmdownloads.com/soundtracks/super-mario-galaxy-2/ojvqofrs/2-29%20Super%20Mario%20Galaxy%202.mp3",
-  // "https://dl.vgmdownloads.com/soundtracks/super-mario-galaxy-2/tzhhamdk/2-32%20Theme%20of%20SMG2.mp3",
-  // "https://dl.vgmdownloads.com/soundtracks/super-mario-galaxy/stiylbbr/1-17%20Gusty%20Garden%20Galaxy.mp3",
-  // "https://dl.vgmdownloads.com/soundtracks/super-mario-galaxy/okuatfee/1-28%20Super%20Mario%202007.mp3",
-  // "https://dl.vgmdownloads.com/soundtracks/super-mario-galaxy/kejyckzj/2-50%20Flying%20Mario.mp3",
-  // "https://dl.vgmdownloads.com/soundtracks/super-mario-galaxy-2/jxopmqcl/2-31%20Green%20Star.mp3",
-  // "https://dl.vgmdownloads.com/soundtracks/super-mario-odyssey-original-soundtrack/iboskfllnq/1-09%20Fossil%20Falls.mp3",
-  // "https://dl.vgmdownloads.com/soundtracks/super-mario-odyssey-original-soundtrack/acurefmavj/2-09%20Band%20Performance%20%28Super%20Mario%20Brothers%20Above%20Ground%29.mp3",
-  // "https://dl.vgmdownloads.com/soundtracks/super-mario-odyssey-original-soundtrack/zjkpkxqxcn/3-12%20Staff%20Roll.mp3",
-  // "https://dl.vgmdownloads.com/soundtracks/super-mario-odyssey-original-soundtrack/mshypelxga/3-30%20Jump%20Up%2C%20Super%20Star%21%20~Odyssey%2C%20ya%20see~%20Karaoke.mp3",
-  // "https://dl.vgmdownloads.com/soundtracks/super-mario-odyssey-original-soundtrack/wvqiwrtpao/4-01%20Fossil%20Falls%208bit%20Version.mp3"
+  "https://lambda.vgmtreasurechest.com/soundtracks/super-mario-galaxy-ost-super-mario-35th-anniversary-release/qhpeanqo/1-17.%20Gusty%20Garden%20Galaxy.mp3",
+  "https://lambda.vgmtreasurechest.com/soundtracks/super-mario-galaxy-ost-super-mario-35th-anniversary-release/skwehywl/1-28.%20Super%20Mario%202007.mp3",
+  "https://lambda.vgmtreasurechest.com/soundtracks/super-mario-galaxy-ost-super-mario-35th-anniversary-release/gfgrpxuh/2-50.%20Flying%20Mario.mp3",
+
+  "https://lambda.vgmtreasurechest.com/soundtracks/super-mario-galaxy-2/tjoqpcti/1-05.%20Sky%20Station%20Galaxy.mp3",
+  "https://lambda.vgmtreasurechest.com/soundtracks/super-mario-galaxy-2/jgamievp/1-11.%20Yoshi%20Star%20Galaxy.mp3",
+  "https://lambda.vgmtreasurechest.com/soundtracks/super-mario-galaxy-2/phtyjcii/1-14.%20The%20Starship%20Travels.mp3",
+  "https://lambda.vgmtreasurechest.com/soundtracks/super-mario-galaxy-2/jwhvicpp/1-21.%20Wild%20Glide%20Galaxy.mp3",
+  "https://lambda.vgmtreasurechest.com/soundtracks/super-mario-galaxy-2/kzttmfod/1-24.%20Hightail%20Falls%20Galaxy.mp3",
+  "https://lambda.vgmtreasurechest.com/soundtracks/super-mario-galaxy-2/gefnwxvk/1-28.%20Freezy%20Flake%20Galaxy.mp3",
+  "https://lambda.vgmtreasurechest.com/soundtracks/super-mario-galaxy-2/zggocsin/1-31.%20Cloudy%20Court%20Galaxy.mp3",
+  "https://lambda.vgmtreasurechest.com/soundtracks/super-mario-galaxy-2/ggnxwsxl/2-16.%20Throwback%20Galaxy.mp3",
+  "https://lambda.vgmtreasurechest.com/soundtracks/super-mario-galaxy-2/tihlksgg/2-29.%20Super%20Mario%20Galaxy%202.mp3",
+  "https://lambda.vgmtreasurechest.com/soundtracks/super-mario-galaxy-2/vdfruxee/2-31.%20Green%20Star.mp3",
+  "https://lambda.vgmtreasurechest.com/soundtracks/super-mario-galaxy-2/kjqblauw/2-32.%20Theme%20of%20SMG2.mp3",
+
+  "https://lambda.vgmtreasurechest.com/soundtracks/super-mario-odyssey-original-soundtrack/dksinpjd/1-09.%20Fossil%20Falls.mp3",
+  "https://lambda.vgmtreasurechest.com/soundtracks/super-mario-odyssey-original-soundtrack/lxctnkjq/2-09.%20The%20Band%27s%20All%20Here%20-%20Super%20Mario%20Bros.%20Ground%20BGM.mp3",
+  "https://lambda.vgmtreasurechest.com/soundtracks/super-mario-odyssey-original-soundtrack/omtgaldi/3-12.%20The%20Super%20Mario%20Odyssey%20Crew.mp3",
+  "https://lambda.vgmtreasurechest.com/soundtracks/super-mario-odyssey-original-soundtrack/anpkfult/3-30.%20Jump%20Up%2C%20Super%20Star%21%20-%20Japanese%20Ver.%20-%20Instrumental.mp3",
+  "https://lambda.vgmtreasurechest.com/soundtracks/super-mario-odyssey-original-soundtrack/xcuolnfo/4-01.%20Fossil%20Falls%20-%208-Bit.mp3"
 ];
 
 export class Screen1 {
