@@ -14,14 +14,27 @@
 <body>
   <canvas id="game-canvas" width="320" height="480"></canvas>
   <div id="myButtons" class="btn-group btn-group-sm" role="group" aria-label="Basic example">
-    <a href="/baby-m-flyer/?game=1" type="button" class="btn btn-success">Between Pipes</a>
-    <a href="/baby-m-flyer/?game=2" type="button" class="btn btn-warning">Magnet Lava</a>
-    <a href="/baby-m-flyer/?game=3" type="button" class="btn btn-danger">Castle Run</a>
+    <a data-game="1" type="button" class="btn btn-success">Between Pipes</a>
+    <a data-game="2" type="button" class="btn btn-warning">Magnet Lava</a>
+    <a data-game="3" type="button" class="btn btn-danger">Castle Run</a>
   </div>
   <div id="myTextThisGame">
     <p><small>This game was played</small> <strong id="countPlayThisGame">0</strong> <small>times.&nbsp;</small></p>
     <p><small>All games were played</small> <strong id="countPlayAllGames">0</strong> <small>times.</small></p>
   </div>
+
+  <script>
+    const isLocal =
+      window.location.hostname === "localhost" ||
+      window.location.hostname === "127.0.0.1";
+
+    const basePath = isLocal ? "/" : "/baby-m-flyer/";
+
+    document.querySelectorAll("#myButtons a").forEach(link => {
+      const game = link.dataset.game;
+      link.href = `${basePath}?game=${game}`;
+    });
+  </script>
 
   <style>
     body {
