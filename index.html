@@ -12,8 +12,11 @@
 </head>
 
 <body>
-  <canvas id="game-canvas" width="320" height="480"></canvas>
-  <div id="myButtons" class="btn-group btn-group-sm" role="group" aria-label="Basic example">
+  <div id="gameContainer">
+    <h1 id="gameTitle">Flying Messrs.</h1>
+    <canvas id="game-canvas" width="320" height="480"></canvas>
+  </div>
+  <div id="myButtons" class="btn-group btn-group-sm" role="group" aria-label="Basic example" margin-top="">
     <a data-game="1" type="button" class="btn btn-success">Between Pipes</a>
     <a data-game="2" type="button" class="btn btn-warning">Magnet Lava</a>
     <a data-game="3" type="button" class="btn btn-danger">Castle Run</a>
@@ -41,17 +44,37 @@
       /* min-height: 100vh;
       display: flex;
       overflow: hidden;
-      justify-content: center;
       align-items: center;
+      justify-content: center;
       background-color: #303030; */
 
-      min-height: 195vh;
+      min-height: 100vh;
+      margin: 0;
       display: flex;
       flex-direction: column;
-      overflow: hidden;
-      align-items: center;
       justify-content: center;
+      align-items: center;
       background-color: #303030;
+    }
+
+    canvas {
+      border: 3px solid #000;
+      display: block;
+      margin-bottom: 5vh;
+    }
+
+    #gameContainer {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+
+    #gameTitle {
+      font-family: 'Press Start 2P', cursive;
+      color: white;
+      font-size: 18px;
+      margin-bottom: 20px;
+      text-align: center;
     }
 
     #myTextThisGame {
@@ -60,28 +83,12 @@
       display: flex;
       align-items: center;
       justify-content: center;
-      margin: 0;
+      margin: 100;
     }
 
     #countPlayThisGame,
     #countPlayAllGames {
       color: white;
-    }
-
-    canvas {
-      /* border: 2px solid #000;
-      display: block;
-      margin: 0 auto; */
-
-      border: 2px solid #000;
-      padding: 0;
-      top: 0;
-      bottom: 0;
-      left: 0;
-      right: 0;
-      margin: auto;
-      display: block;
-      position: absolute;
     }
 
     /* cyrillic-ext */
