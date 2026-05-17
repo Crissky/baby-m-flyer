@@ -27,10 +27,10 @@ let allGamesPath = basePath + 'all-games';
 
 function updateVisitCount(path, target) {
   fetch(path)
-    .then(res => res.json())
-    .then(res => {
-      target.innerHTML = res.value ? res.value : 0;
-    });
+  .then(res => res.json())
+  .then(res => {
+    target.innerHTML = res.value ? res.value : 0;
+  });
 }
 
 // OBJECTS 
@@ -47,6 +47,7 @@ if (myEventListiner === 'touchstart') {
   isMobile = true;
 }
 
+const title = document.getElementById("gameTitle");
 const query = window.location.search;
 const urlParams = new URLSearchParams(query);
 const gameParam = urlParams.get("game");
@@ -55,12 +56,36 @@ var screen;
 if (gameParam == 2) {
   thisGamePath = basePath + 'magnet-lava';
   screen = new Screen2(canvas, context, isMobile, debug);
+  title.textContent = 'Magnet Lava';
+  title.style.color = '#F5B027';
+  title.style.textShadow = `
+    2px 2px 0 #27D3F5,
+   -2px 2px 0 #4927F5,
+    2px -2px 0 #4927F5,
+   -2px -2px 0 #27D3F5
+  `;
 } else if (gameParam == 3) {
   thisGamePath = basePath + 'castle-run';
   screen = new Screen3(canvas, context, isMobile, debug);
+  title.textContent = 'Castle Run';
+  title.style.color = '#F54927';
+  title.style.textShadow = `
+    2px 2px 0 #276CF5,
+   -2px 2px 0 #27F5B0,
+    2px -2px 0 #27F5B0,
+   -2px -2px 0 #276CF5
+  `;
 } else {
   thisGamePath = basePath + 'between-pipes';
   screen = new Screen1(canvas, context, isMobile, debug);
+  title.textContent = 'Between Pipes';
+  title.style.color = '#D3F527';
+  title.style.textShadow = `
+    2px 2px 0 #276CF5,
+   -2px 2px 0 #B027F5,
+    2px -2px 0 #B027F5,
+   -2px -2px 0 #276CF5
+  `;
 }
 
 updateVisitCount(allGamesPath, countAllGames);
