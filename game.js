@@ -18,9 +18,10 @@ context.canvas.height = height;
 console.log(`Screen size ${height}x${width}`)
 
 //VISITOR COUNTER
+// https://countapi.mileshilliard.com/#intro
 const countThisGame = document.getElementById('countPlayThisGame');
 const countAllGames = document.getElementById('countPlayAllGames');
-const basePath = 'https://api.countapi.xyz/hit/crissky-baby-m-flyer/live-';
+const basePath = 'https://countapi.mileshilliard.com/api/v1/hit/crissky-baby-m-flyer-live-';
 let thisGamePath;
 let allGamesPath = basePath + 'all-games';
 
